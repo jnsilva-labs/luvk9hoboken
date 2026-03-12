@@ -110,6 +110,21 @@ export default function RoyalPortraitFrame({
         }}
       />
 
+      {/* Traveling light shimmer on border */}
+      <div
+        className={`absolute inset-[-8px] md:inset-[-10px] ${outerRadius} pointer-events-none z-[2] overflow-hidden`}
+        style={{
+          background: 'linear-gradient(90deg, transparent 0%, rgba(255, 222, 112, 0.3) 50%, transparent 100%)',
+          backgroundSize: '200% 100%',
+          animation: 'frameShimmer 4s ease-in-out infinite',
+          mask: `linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)`,
+          WebkitMask: `linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)`,
+          maskComposite: 'exclude',
+          WebkitMaskComposite: 'xor',
+          padding: '2px',
+        }}
+      />
+
       {/* Inner inset line */}
       <div
         className={`absolute inset-[2px] md:inset-[3px] border border-gold/30 ${innerRadius} pointer-events-none z-[3]`}
