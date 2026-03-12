@@ -7,6 +7,8 @@ import FloatingBones from "@/components/animations/FloatingBones";
 import Button from "@/components/ui/Button";
 import { services } from "@/lib/constants";
 
+const flipCardEase = [0.23, 1, 0.32, 1] as const;
+
 const serviceCardStyles = [
   {
     gradient: "from-imperial/60 via-plum/20 to-gold/10",
@@ -46,7 +48,10 @@ export default function ServicesOverview() {
         </ScrollReveal>
 
         {/* Service Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10">
+        <div
+          className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10"
+          style={{ perspective: "1000px" }}
+        >
           {services.map((service, index) => {
             const style = serviceCardStyles[index];
             const isExternal = service.bookingUrl.startsWith("http");
@@ -54,11 +59,17 @@ export default function ServicesOverview() {
               service.slug === "walking" ? "Learn More" : `Book ${service.name}`;
 
             return (
-              <ScrollReveal
+              <motion.div
                 key={service.slug}
-                delay={index * 0.15}
-                direction="up"
-                distance={60}
+                initial={{ rotateY: 90, opacity: 0 }}
+                whileInView={{ rotateY: 0, opacity: 1 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{
+                  duration: 0.6,
+                  delay: index * 0.15,
+                  ease: flipCardEase,
+                }}
+                style={{ transformStyle: "preserve-3d" }}
               >
                 <motion.div
                   className="bracket-card group relative bg-imperial/40 border border-gold/10 rounded-3xl overflow-hidden shadow-sm cursor-pointer h-full flex flex-col"
@@ -141,7 +152,7 @@ export default function ServicesOverview() {
                     className={`h-1 bg-gradient-to-r ${style.accentBar} transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left`}
                   />
                 </motion.div>
-              </ScrollReveal>
+              </motion.div>
             );
           })}
         </div>
