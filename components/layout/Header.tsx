@@ -49,7 +49,7 @@ export default function Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 shrink-0">
             <Image
-              src="/images/logo.png"
+              src="/images/brand/logo-mobile.png"
               alt="Luv K9"
               width={scrolled ? 40 : 52}
               height={scrolled ? 40 : 52}

@@ -2,6 +2,7 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useCallback, useEffect, useState } from "react";
+import Image from "next/image";
 import Button from "@/components/ui/Button";
 import InteractiveParticles from "@/components/animations/InteractiveParticles";
 import { easing, timing } from "@/lib/constants";
@@ -248,6 +249,7 @@ export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
   const [phase, setPhase] = useState<HeroPhase>("loading");
   const [textVisible, setTextVisible] = useState(false);
+  const [showRealLogo, setShowRealLogo] = useState(false);
 
   // ─── Parallax ───
   const { scrollYProgress } = useScroll({
@@ -269,6 +271,7 @@ export default function Hero() {
       // Skip choreography: go straight to interactive with text visible
       setPhase("interactive");
       setTextVisible(true);
+      setShowRealLogo(true);
       return;
     }
 
@@ -291,6 +294,11 @@ export default function Hero() {
         setPhase("revealing");
         setTextVisible(true);
       }, 2500)
+    );
+
+    // Show real logo crossfade at 3000ms
+    timers.push(
+      setTimeout(() => setShowRealLogo(true), 3000)
     );
 
     // revealing -> interactive at 3500ms
@@ -361,22 +369,49 @@ export default function Hero() {
         className="relative z-10 text-center px-6 max-w-4xl mx-auto flex flex-col items-center"
         style={{ y: contentY, opacity: opacityFade }}
       >
-        {/* ─── Geometric Dog Illustration ─── */}
-        <motion.div
-          className="w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 mb-6"
-          initial={{ opacity: 0, scale: 0.7, y: 30 }}
-          animate={
-            textVisible
-              ? { opacity: 1, scale: 1, y: 0 }
-              : { opacity: 0, scale: 0.7, y: 30 }
-          }
-          transition={{
-            duration: 1,
-            ease: royalEase,
-          }}
-        >
-          <GeometricDog className="w-full h-full drop-shadow-[0_0_30px_rgba(212,175,55,0.3)]" />
-        </motion.div>
+        {/* ─── Logo Area: GeometricDog → Real Logo crossfade ─── */}
+        <div className="relative w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 mb-6">
+          {/* Geometric Dog - fades out when real logo appears */}
+          <motion.div
+            className="absolute inset-0"
+            initial={{ opacity: 0, scale: 0.7 }}
+            animate={
+              showRealLogo
+                ? { opacity: 0, scale: 0.8 }
+                : textVisible
+                  ? { opacity: 1, scale: 1 }
+                  : { opacity: 0, scale: 0.7 }
+            }
+            transition={{ duration: 0.8, ease: royalEase }}
+          >
+            <GeometricDog className="w-full h-full drop-shadow-[0_0_30px_rgba(212,175,55,0.3)]" />
+          </motion.div>
+
+          {/* Real Logo - fades in after geometric dog */}
+          <motion.div
+            className="absolute inset-0 flex items-center justify-center"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={
+              showRealLogo
+                ? { opacity: 1, scale: 1 }
+                : { opacity: 0, scale: 0.9 }
+            }
+            transition={{ duration: 1, ease: royalEase }}
+          >
+            <Image
+              src="/images/brand/logo-combined-hires.png"
+              alt="Luv K9 - Where Every Dog Is Royalty"
+              width={200}
+              height={200}
+              className="w-full h-full object-contain"
+              style={{
+                mixBlendMode: "lighten",
+                filter: "drop-shadow(0 0 30px rgba(212, 175, 55, 0.5))",
+              }}
+              priority
+            />
+          </motion.div>
+        </div>
 
         {/* ─── Small Label ─── */}
         <motion.p
