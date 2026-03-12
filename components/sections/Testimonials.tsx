@@ -6,6 +6,7 @@ import Link from "next/link";
 import ScrollReveal from "@/components/animations/ScrollReveal";
 import FloatingBones from "@/components/animations/FloatingBones";
 import SectionLabel from "@/components/ui/SectionLabel";
+import { useTypewriter } from "@/hooks/useTypewriter";
 import { testimonials, easing } from "@/lib/constants";
 
 function StarRating({ rating }: { rating: number }) {
@@ -24,6 +25,24 @@ function StarRating({ rating }: { rating: number }) {
         </svg>
       ))}
     </div>
+  );
+}
+
+function TypewriterQuote({ text }: { text: string }) {
+  const { ref, displayText, isComplete } = useTypewriter(text, {
+    speed: 30,
+    startDelay: 400,
+  });
+
+  return (
+    <p
+      ref={ref as React.RefObject<HTMLParagraphElement>}
+      className="font-display text-xl md:text-2xl lg:text-3xl text-text-title italic leading-relaxed max-w-3xl"
+    >
+      &ldquo;{displayText}
+      <span className={isComplete ? "" : "typewriter-cursor"} />
+      {isComplete && <>&rdquo;</>}
+    </p>
   );
 }
 
@@ -111,9 +130,7 @@ export default function Testimonials() {
                   >
                     <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151C7.546 6.068 5.983 8.789 5.983 11H10v10H0z" />
                   </svg>
-                  <p className="font-display text-xl md:text-2xl lg:text-3xl text-text-title italic leading-relaxed max-w-3xl">
-                    &ldquo;{testimonial.quote}&rdquo;
-                  </p>
+                  <TypewriterQuote text={testimonial.quote} />
                 </blockquote>
 
                 {/* Attribution */}
