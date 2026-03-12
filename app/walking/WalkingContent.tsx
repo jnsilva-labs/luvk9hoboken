@@ -432,14 +432,16 @@ export default function WalkingContent() {
                 &ldquo;{walkingTestimonials[0].quote}&rdquo;
               </p>
               <p className="font-display font-semibold text-text-title">
-                {walkingTestimonials[0].ownerName}
+                {walkingTestimonials[0].name}
               </p>
-              <p className="font-body text-text-body text-sm">
-                Dog parent of{" "}
-                <span className="text-gold font-medium">
-                  {walkingTestimonials[0].dogName}
-                </span>
-              </p>
+              {walkingTestimonials[0].dog && (
+                <p className="font-body text-text-body text-sm">
+                  Dog parent of{" "}
+                  <span className="text-gold font-medium">
+                    {walkingTestimonials[0].dog}
+                  </span>
+                </p>
+              )}
             </ScrollReveal>
           </div>
         </section>

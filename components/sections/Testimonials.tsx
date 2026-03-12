@@ -138,14 +138,16 @@ export default function Testimonials() {
                   <StarRating rating={testimonial.rating} />
                   <div>
                     <p className="font-display font-semibold text-text-title text-lg">
-                      {testimonial.ownerName}
+                      {testimonial.name}
                     </p>
-                    <p className="font-body text-text-muted text-sm">
-                      Dog parent of{" "}
-                      <span className="text-gold font-medium">
-                        {testimonial.dogName}
-                      </span>
-                    </p>
+                    {testimonial.dog && (
+                      <p className="font-body text-text-muted text-sm">
+                        Dog parent of{" "}
+                        <span className="text-gold font-medium">
+                          {testimonial.dog}
+                        </span>
+                      </p>
+                    )}
                   </div>
                   <span className="inline-block px-3 py-1 rounded-full bg-imperial text-gold-light font-mono text-xs uppercase tracking-wider">
                     {testimonial.service}

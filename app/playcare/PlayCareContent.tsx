@@ -406,14 +406,16 @@ export default function PlayCareContent() {
                   {/* Attribution */}
                   <div>
                     <p className="font-display font-semibold text-text-title">
-                      {testimonial.ownerName}
+                      {testimonial.name}
                     </p>
-                    <p className="font-body text-text-muted text-sm">
-                      Dog parent of{" "}
-                      <span className="text-gold font-medium">
-                        {testimonial.dogName}
-                      </span>
-                    </p>
+                    {testimonial.dog && (
+                      <p className="font-body text-text-muted text-sm">
+                        Dog parent of{" "}
+                        <span className="text-gold font-medium">
+                          {testimonial.dog}
+                        </span>
+                      </p>
+                    )}
                   </div>
                 </div>
               </ScrollReveal>

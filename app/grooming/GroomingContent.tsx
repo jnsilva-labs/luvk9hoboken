@@ -77,7 +77,7 @@ const faqItems = [
 
 // ─── Filter Grooming testimonials ───
 const groomingTestimonials = testimonials.filter(
-  (t) => t.service === "Grooming"
+  (t) => (t.service as string) === "Grooming"
 );
 
 function GroomerPhoto({
@@ -380,14 +380,16 @@ export default function GroomingContent() {
                 &ldquo;{groomingTestimonials[0].quote}&rdquo;
               </p>
               <p className="font-display font-semibold text-text-title">
-                {groomingTestimonials[0].ownerName}
+                {groomingTestimonials[0].name}
               </p>
-              <p className="font-body text-text-body text-sm">
-                Dog parent of{" "}
-                <span className="text-plum font-medium">
-                  {groomingTestimonials[0].dogName}
-                </span>
-              </p>
+              {groomingTestimonials[0].dog && (
+                <p className="font-body text-text-body text-sm">
+                  Dog parent of{" "}
+                  <span className="text-plum font-medium">
+                    {groomingTestimonials[0].dog}
+                  </span>
+                </p>
+              )}
             </ScrollReveal>
           </div>
         </section>

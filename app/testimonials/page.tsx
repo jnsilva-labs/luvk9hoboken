@@ -87,14 +87,16 @@ export default function TestimonialsPage() {
                   <div className="flex items-center gap-4">
                     <div>
                       <p className="font-display font-semibold text-text-title text-lg">
-                        {testimonial.ownerName}
+                        {testimonial.name}
                       </p>
-                      <p className="font-body text-text-body text-sm">
-                        Dog parent of{" "}
-                        <span className="text-gold font-medium">
-                          {testimonial.dogName}
-                        </span>
-                      </p>
+                      {testimonial.dog && (
+                        <p className="font-body text-text-body text-sm">
+                          Dog parent of{" "}
+                          <span className="text-gold font-medium">
+                            {testimonial.dog}
+                          </span>
+                        </p>
+                      )}
                     </div>
                   </div>
 
