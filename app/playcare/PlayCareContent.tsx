@@ -305,13 +305,193 @@ export default function PlayCareContent() {
               Philosophy
             </h2>
             <p className="font-body text-text-body text-lg leading-relaxed max-w-2xl mx-auto mb-8">
-              Every PlayCare day is designed around our three pillars: Structure,
-              Exercise, and Affection. This proven approach keeps dogs balanced,
-              happy, and thriving.
+              Every PlayCare day follows our S.E.A. philosophy: Structure,
+              Exercise, and Affection &mdash; because that&apos;s what every dog
+              deserves.
             </p>
             <Button href="/#sea-philosophy" variant="outline" size="md">
               Learn About S.E.A.
             </Button>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* ─── Pricing ─── */}
+      <section className="py-20 md:py-28 px-6 bg-obsidian">
+        <div className="max-w-5xl mx-auto">
+          <ScrollReveal className="text-center mb-12 md:mb-16">
+            <SectionLabel>Pricing</SectionLabel>
+            <h2 className="font-display text-4xl md:text-5xl font-bold text-text-title mt-3">
+              PlayCare Rates
+            </h2>
+          </ScrollReveal>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+            {/* PlayCare Day Rate */}
+            <ScrollReveal>
+              <motion.div
+                className="relative bg-imperial/40 rounded-2xl p-8 md:p-10 border border-gold ring-2 ring-gold/20 h-full flex flex-col text-center"
+                whileHover={{
+                  y: -4,
+                  boxShadow:
+                    "0 16px 32px -8px rgba(155, 89, 255, 0.15), 0 8px 16px -4px rgba(0, 0, 0, 0.3)",
+                }}
+                transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] as const }}
+              >
+                <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-gold text-obsidian font-mono text-xs uppercase tracking-wider">
+                  Signature Service
+                </span>
+                <h3 className="font-display text-xl font-bold text-text-title mb-2 mt-4">
+                  PlayCare
+                </h3>
+                <p className="font-display text-5xl font-bold text-gold mb-2">
+                  $63
+                </p>
+                <p className="font-body text-text-muted text-sm mb-6">
+                  per day, Monday&ndash;Friday
+                </p>
+                <div className="space-y-3 text-left flex-1">
+                  <div className="flex items-start gap-3 p-2 rounded-xl">
+                    <div className="w-6 h-6 rounded-full bg-gold/15 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <span className="text-gold text-sm font-bold">
+                        &#10003;
+                      </span>
+                    </div>
+                    <span className="font-body text-text-body text-sm">
+                      Pickup 8:30&ndash;10:30AM
+                    </span>
+                  </div>
+                  <div className="flex items-start gap-3 p-2 rounded-xl">
+                    <div className="w-6 h-6 rounded-full bg-gold/15 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <span className="text-gold text-sm font-bold">
+                        &#10003;
+                      </span>
+                    </div>
+                    <span className="font-body text-text-body text-sm">
+                      Drop-off 4&ndash;6PM
+                    </span>
+                  </div>
+                  <div className="flex items-start gap-3 p-2 rounded-xl">
+                    <div className="w-6 h-6 rounded-full bg-gold/15 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <span className="text-gold text-sm font-bold">
+                        &#10003;
+                      </span>
+                    </div>
+                    <span className="font-body text-text-body text-sm">
+                      Late drop-off (6&ndash;8PM): $20
+                    </span>
+                  </div>
+                </div>
+                <div className="mt-6">
+                  <Button
+                    href={business.bookingUrl}
+                    external
+                    variant="primary"
+                    size="sm"
+                    className="w-full"
+                  >
+                    Book PlayCare
+                  </Button>
+                </div>
+              </motion.div>
+            </ScrollReveal>
+
+            {/* Boarding Rate */}
+            <ScrollReveal delay={0.15}>
+              <motion.div
+                className="bg-imperial/40 rounded-2xl p-8 md:p-10 border border-gold/10 h-full flex flex-col text-center"
+                whileHover={{
+                  y: -4,
+                  boxShadow:
+                    "0 16px 32px -8px rgba(155, 89, 255, 0.15), 0 8px 16px -4px rgba(0, 0, 0, 0.3)",
+                }}
+                transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] as const }}
+              >
+                <h3 className="font-display text-xl font-bold text-text-title mb-2 mt-4">
+                  Boarding
+                </h3>
+                <p className="font-display text-5xl font-bold text-gold mb-2">
+                  $120
+                </p>
+                <p className="font-body text-text-muted text-sm mb-6">
+                  per night (holidays $140)
+                </p>
+                <div className="space-y-3 text-left flex-1">
+                  <div className="flex items-start gap-3 p-2 rounded-xl">
+                    <div className="w-6 h-6 rounded-full bg-plum/15 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <span className="text-plum text-sm font-bold">
+                        &#10003;
+                      </span>
+                    </div>
+                    <span className="font-body text-text-body text-sm">
+                      Exclusive to PlayCare clients
+                    </span>
+                  </div>
+                  <div className="flex items-start gap-3 p-2 rounded-xl">
+                    <div className="w-6 h-6 rounded-full bg-plum/15 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <span className="text-plum text-sm font-bold">
+                        &#10003;
+                      </span>
+                    </div>
+                    <span className="font-body text-text-body text-sm">
+                      Same care, same handlers
+                    </span>
+                  </div>
+                  <div className="flex items-start gap-3 p-2 rounded-xl">
+                    <div className="w-6 h-6 rounded-full bg-plum/15 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <span className="text-plum text-sm font-bold">
+                        &#10003;
+                      </span>
+                    </div>
+                    <span className="font-body text-text-body text-sm">
+                      Photo updates during their stay
+                    </span>
+                  </div>
+                </div>
+                <div className="mt-6">
+                  <Button
+                    href={business.bookingUrl}
+                    external
+                    variant="outline"
+                    size="sm"
+                    className="w-full"
+                  >
+                    Book Boarding
+                  </Button>
+                </div>
+              </motion.div>
+            </ScrollReveal>
+          </div>
+
+          {/* Cancellation Policy */}
+          <ScrollReveal delay={0.25}>
+            <div className="mt-8 bg-imperial/40 rounded-2xl p-6 md:p-8 border border-gold/10">
+              <h4 className="font-display text-lg font-bold text-text-title mb-4">
+                Cancellation Policy
+              </h4>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="flex items-start gap-3 p-3 rounded-xl">
+                  <div className="w-6 h-6 rounded-full bg-gold/15 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <span className="text-gold text-sm font-bold">
+                      &#10003;
+                    </span>
+                  </div>
+                  <span className="font-body text-text-body text-sm">
+                    Mon&ndash;Fri cancellation: $10
+                  </span>
+                </div>
+                <div className="flex items-start gap-3 p-3 rounded-xl">
+                  <div className="w-6 h-6 rounded-full bg-gold/15 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <span className="text-gold text-sm font-bold">
+                      &#10003;
+                    </span>
+                  </div>
+                  <span className="font-body text-text-body text-sm">
+                    Weekend cancellation: $20
+                  </span>
+                </div>
+              </div>
+            </div>
           </ScrollReveal>
         </div>
       </section>

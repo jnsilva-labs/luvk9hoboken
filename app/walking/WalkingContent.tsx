@@ -107,22 +107,33 @@ const safetyItems = [
 // ─── Pricing Tiers ───
 const pricingTiers = [
   {
-    name: "Single Walk",
-    price: "$20",
-    description: "One 30-minute guided pack walk",
+    name: "Weekday 30min",
+    price: "$30",
+    description: "30-minute guided pack walk, Mon–Fri",
   },
   {
-    name: "5-Walk Pack",
-    price: "$90",
-    description: "Five walks at a discounted rate",
-    popular: false,
-  },
-  {
-    name: "Monthly Unlimited",
-    price: "$299",
-    description: "Daily walks, Monday through Friday",
+    name: "Weekday 60min",
+    price: "$44",
+    description: "60-minute guided pack walk, Mon–Fri",
     popular: true,
   },
+  {
+    name: "Weekend 30min",
+    price: "$40",
+    description: "30-minute guided pack walk, Sat–Sun",
+  },
+  {
+    name: "Weekend 60min",
+    price: "$54",
+    description: "60-minute guided pack walk, Sat–Sun",
+  },
+];
+
+// ─── Walk Policy Notes ───
+const walkNotes = [
+  "2-hour timeframes on app for all scheduled walks",
+  "Minimum 3 days/week recurring enrollment",
+  "Hoboken residents only",
 ];
 
 // ─── Walking testimonials ───
@@ -353,7 +364,7 @@ export default function WalkingContent() {
         </div>
       </section>
 
-      {/* ─── Pricing Teaser ─── */}
+      {/* ─── Pricing ─── */}
       <section className="py-20 md:py-28 px-6 bg-void">
         <div className="max-w-5xl mx-auto">
           <ScrollReveal className="text-center mb-12 md:mb-16">
@@ -363,7 +374,7 @@ export default function WalkingContent() {
             </h2>
           </ScrollReveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {pricingTiers.map((tier, index) => (
               <ScrollReveal key={tier.name} delay={index * 0.12}>
                 <motion.div
@@ -377,7 +388,7 @@ export default function WalkingContent() {
                     boxShadow:
                       "0 16px 32px -8px rgba(155, 89, 255, 0.15), 0 8px 16px -4px rgba(0, 0, 0, 0.3)",
                   }}
-                  transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
+                  transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] as const }}
                 >
                   {tier.popular && (
                     <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-gold text-obsidian font-mono text-xs uppercase tracking-wider">
@@ -408,9 +419,50 @@ export default function WalkingContent() {
             ))}
           </div>
 
-          <ScrollReveal delay={0.3} className="text-center mt-6">
+          {/* Walk Policy Notes */}
+          <ScrollReveal delay={0.3}>
+            <div className="mt-10 bg-imperial/40 rounded-2xl p-6 md:p-8 border border-gold/10">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                {walkNotes.map((note, index) => (
+                  <div
+                    key={index}
+                    className="flex items-start gap-3 p-3 rounded-xl"
+                  >
+                    <div className="w-6 h-6 rounded-full bg-gold/15 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <span className="text-gold text-sm font-bold">
+                        &#10003;
+                      </span>
+                    </div>
+                    <span className="font-body text-text-body text-sm">
+                      {note}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </ScrollReveal>
+
+          <ScrollReveal delay={0.4} className="text-center mt-6">
             <p className="font-body text-text-muted text-sm">
               Contact us for custom scheduling or multi-dog discounts.
+            </p>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* ─── S.E.A. Philosophy ─── */}
+      <section className="py-16 md:py-20 px-6 bg-obsidian">
+        <div className="max-w-3xl mx-auto text-center">
+          <ScrollReveal>
+            <p className="font-body text-text-body text-lg leading-relaxed">
+              Every walk follows our{" "}
+              <span className="text-gold font-semibold">S.E.A.</span>{" "}
+              philosophy:{" "}
+              <span className="text-text-title font-medium">Structure</span>,{" "}
+              <span className="text-text-title font-medium">Exercise</span>,
+              and{" "}
+              <span className="text-text-title font-medium">Affection</span>{" "}
+              &mdash; because that&apos;s what every dog deserves.
             </p>
           </ScrollReveal>
         </div>

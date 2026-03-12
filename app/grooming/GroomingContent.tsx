@@ -11,44 +11,30 @@ import Footer from "@/components/layout/Footer";
 import { testimonials, business } from "@/lib/constants";
 import { dogImages, teamImages } from "@/lib/image-manifest";
 
-// ─── Service Menu ───
-const groomingServices = [
-  {
-    name: "Bath & Brush",
-    description:
-      "Shampoo, conditioner, blow-dry, brushing, ear cleaning, and nail trim.",
-    price: "From $60",
-  },
-  {
-    name: "Full Groom",
-    description:
-      "Everything in Bath & Brush plus a full haircut styled to breed standard or your preference.",
-    price: "From $85",
-  },
-  {
-    name: "Puppy Cut",
-    description:
-      "A gentle first grooming experience for puppies. Includes bath, light trim, nail clip, and lots of patience.",
-    price: "From $55",
-  },
-  {
-    name: "Nail Trim",
-    description:
-      "Quick and careful nail trimming with filing. Walk-ins welcome.",
-    price: "$15",
-  },
-  {
-    name: "Teeth Cleaning",
-    description:
-      "Non-anesthetic teeth cleaning to keep your pup's smile fresh and healthy.",
-    price: "$25",
-  },
-  {
-    name: "De-Shedding Treatment",
-    description:
-      "Deep conditioning and de-shedding treatment to reduce loose fur and keep coats healthy.",
-    price: "From $40",
-  },
+// ─── Full Service Grooming Pricing ───
+const fullGroomPricing = [
+  { size: "XS", weight: "15 lbs & under", price: "$110" },
+  { size: "S", weight: "16–30 lbs", price: "$120" },
+  { size: "M", weight: "31–55 lbs", price: "$140" },
+  { size: "L", weight: "56–90 lbs", price: "$170" },
+  { size: "XL", weight: "91 lbs & up", price: "$190" },
+];
+
+// ─── Bath & Brush Pricing ───
+const bathBrushPricing = [
+  { size: "XS", weight: "15 lbs & under", price: "$85" },
+  { size: "S", weight: "16–30 lbs", price: "$95" },
+  { size: "M", weight: "31–55 lbs", price: "$105" },
+  { size: "L", weight: "56–90 lbs", price: "$115" },
+  { size: "XL", weight: "91 lbs & up", price: "$125" },
+];
+
+// ─── Additional Info ───
+const groomingNotes = [
+  "De-matting: $2/min (severe matting $4/min)",
+  "Pickup & drop-off for Hoboken residents Tues–Fri",
+  "Required: valid rabies certificate + up-to-date vaccinations",
+  "Two locations: 421 Washington St (Luv Kuts) & 614 Jefferson St",
 ];
 
 // ─── FAQ Data ───
@@ -266,36 +252,117 @@ export default function GroomingContent() {
       <section className="py-20 md:py-28 px-6 bg-void">
         <div className="max-w-5xl mx-auto">
           <ScrollReveal className="text-center mb-12 md:mb-16">
-            <SectionLabel>Services</SectionLabel>
+            <SectionLabel>Services &amp; Pricing</SectionLabel>
             <h2 className="font-display text-4xl md:text-5xl font-bold text-text-title mt-3">
               Grooming Menu
             </h2>
           </ScrollReveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
-            {groomingServices.map((service, index) => (
-              <ScrollReveal key={service.name} delay={index * 0.08}>
-                <div className="bg-imperial/50 rounded-2xl p-6 md:p-8 border border-gold/10 h-full flex flex-col">
-                  <div className="flex items-start justify-between gap-4 mb-3">
-                    <h3 className="font-display text-xl font-bold text-text-title">
-                      {service.name}
-                    </h3>
-                    <span className="font-display font-bold text-gold whitespace-nowrap text-lg">
-                      {service.price}
-                    </span>
-                  </div>
-                  <p className="font-body text-text-body text-sm leading-relaxed flex-1">
-                    {service.description}
-                  </p>
+          {/* Full Service Grooming */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
+            <ScrollReveal>
+              <div className="bg-imperial/40 rounded-2xl p-6 md:p-8 border border-gold/10 h-full">
+                <h3 className="font-display text-2xl font-bold text-text-title mb-2">
+                  Full Service Grooming
+                </h3>
+                <p className="font-body text-text-body text-sm mb-6">
+                  Bath, blow-dry, brushing, haircut to breed standard or
+                  preference, ear cleaning, nail trim &amp; more.
+                </p>
+                <div className="space-y-3">
+                  {fullGroomPricing.map((tier) => (
+                    <div
+                      key={tier.size}
+                      className="flex items-center justify-between p-3 rounded-xl hover:bg-gold/5 transition-colors duration-200"
+                    >
+                      <div className="flex items-center gap-3">
+                        <span className="w-9 h-9 rounded-lg bg-gold/15 flex items-center justify-center font-display font-bold text-gold text-sm">
+                          {tier.size}
+                        </span>
+                        <span className="font-body text-text-body text-sm">
+                          {tier.weight}
+                        </span>
+                      </div>
+                      <span className="font-display font-bold text-gold text-lg">
+                        {tier.price}
+                      </span>
+                    </div>
+                  ))}
                 </div>
-              </ScrollReveal>
-            ))}
+              </div>
+            </ScrollReveal>
+
+            {/* Bath & Brush */}
+            <ScrollReveal delay={0.15}>
+              <div className="bg-imperial/40 rounded-2xl p-6 md:p-8 border border-gold/10 h-full">
+                <h3 className="font-display text-2xl font-bold text-text-title mb-2">
+                  Bath &amp; Brush
+                </h3>
+                <p className="font-body text-text-body text-sm mb-6">
+                  Shampoo, conditioner, blow-dry, brushing, ear cleaning, and
+                  nail trim.
+                </p>
+                <div className="space-y-3">
+                  {bathBrushPricing.map((tier) => (
+                    <div
+                      key={tier.size}
+                      className="flex items-center justify-between p-3 rounded-xl hover:bg-gold/5 transition-colors duration-200"
+                    >
+                      <div className="flex items-center gap-3">
+                        <span className="w-9 h-9 rounded-lg bg-plum/15 flex items-center justify-center font-display font-bold text-plum text-sm">
+                          {tier.size}
+                        </span>
+                        <span className="font-body text-text-body text-sm">
+                          {tier.weight}
+                        </span>
+                      </div>
+                      <span className="font-display font-bold text-gold text-lg">
+                        {tier.price}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </ScrollReveal>
           </div>
 
-          <ScrollReveal delay={0.3} className="text-center mt-8">
-            <p className="font-body text-text-muted text-sm">
-              Prices vary based on breed, size, and coat condition. Contact us
-              for a personalized quote.
+          {/* Additional Notes */}
+          <ScrollReveal delay={0.25}>
+            <div className="mt-8 bg-imperial/40 rounded-2xl p-6 md:p-8 border border-gold/10">
+              <h4 className="font-display text-lg font-bold text-text-title mb-4">
+                Good to Know
+              </h4>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {groomingNotes.map((note, index) => (
+                  <div
+                    key={index}
+                    className="flex items-start gap-3 p-3 rounded-xl"
+                  >
+                    <div className="w-6 h-6 rounded-full bg-gold/15 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <span className="text-gold text-sm font-bold">
+                        &#10003;
+                      </span>
+                    </div>
+                    <span className="font-body text-text-body text-sm">
+                      {note}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </ScrollReveal>
+
+          {/* S.E.A. Philosophy */}
+          <ScrollReveal delay={0.35} className="text-center mt-10">
+            <p className="font-body text-text-body text-lg leading-relaxed max-w-2xl mx-auto">
+              Every grooming session follows our{" "}
+              <span className="text-gold font-semibold">S.E.A.</span>{" "}
+              philosophy:{" "}
+              <span className="text-text-title font-medium">Structure</span>,{" "}
+              <span className="text-text-title font-medium">Exercise</span>,
+              and{" "}
+              <span className="text-text-title font-medium">Affection</span>{" "}
+              &mdash; because that&apos;s what every dog deserves.
             </p>
           </ScrollReveal>
         </div>
