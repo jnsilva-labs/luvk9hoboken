@@ -1,12 +1,15 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Button from "@/components/ui/Button";
 import SectionLabel from "@/components/ui/SectionLabel";
 import ScrollReveal from "@/components/animations/ScrollReveal";
 import AnimatedCounter from "@/components/animations/AnimatedCounter";
 import Footer from "@/components/layout/Footer";
 import { business, communityStats } from "@/lib/constants";
+import { founderImages, dogImages, eventImages } from "@/lib/image-manifest";
 
 // ─── Values ───
 const values = [
@@ -110,6 +113,75 @@ const rescueDogs = [
   { name: "Nina", breed: "Chihuahua Mix" },
 ];
 
+function AboutFoundersPhoto() {
+  const [imgError, setImgError] = useState(false);
+  // Use the second founder image (with dogs) for the About page
+  const founder = founderImages[1];
+
+  if (imgError) {
+    return (
+      <div
+        className="w-full h-full flex items-center justify-center text-text-muted/40"
+        style={{
+          background:
+            "linear-gradient(135deg, rgba(42, 22, 77, 0.6) 0%, rgba(155, 89, 255, 0.3) 40%, rgba(212, 175, 55, 0.15) 70%, rgba(42, 22, 77, 0.4) 100%)",
+          backgroundColor: "#130A24",
+        }}
+      >
+        <span className="font-mono text-xs uppercase tracking-wider">
+          Luis &amp; Nyomie Perez
+        </span>
+      </div>
+    );
+  }
+
+  return (
+    <div className="relative w-full h-full">
+      <Image
+        src={founder.src}
+        alt={founder.alt}
+        fill
+        className="object-cover"
+        sizes="(max-width: 1024px) 100vw, 50vw"
+        onError={() => setImgError(true)}
+      />
+    </div>
+  );
+}
+
+function RescueDogPhoto({ index, name }: { index: number; name: string }) {
+  const [imgError, setImgError] = useState(false);
+  // Use the first 3 dogs from the manifest for the rescue dog section
+  const dogPhoto = dogImages[index];
+
+  if (imgError || !dogPhoto) {
+    return (
+      <div
+        className="w-full h-full flex flex-col items-center justify-center text-text-muted/40"
+        style={{
+          background: `linear-gradient(${120 + index * 40}deg, rgba(42, 22, 77, 0.5) 0%, rgba(155, 89, 255, 0.25) 50%, rgba(212, 175, 55, 0.15) 100%)`,
+          backgroundColor: "#130A24",
+        }}
+      >
+        <span className="font-mono text-xs uppercase tracking-wider">
+          {name}
+        </span>
+      </div>
+    );
+  }
+
+  return (
+    <Image
+      src={dogPhoto.src}
+      alt={`${name} - Luv K9 rescue dog`}
+      fill
+      className="object-cover"
+      sizes="(max-width: 640px) 100vw, 33vw"
+      onError={() => setImgError(true)}
+    />
+  );
+}
+
 export default function AboutContent() {
   return (
     <>
@@ -167,42 +239,11 @@ export default function AboutContent() {
       <section className="py-24 md:py-32 px-6 bg-obsidian">
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            {/* Image Placeholder */}
+            {/* Founders Photo */}
             <ScrollReveal direction="left" distance={60}>
               <div className="relative">
                 <div className="aspect-[4/5] rounded-2xl overflow-hidden shadow-xl">
-                  <div
-                    className="w-full h-full flex flex-col items-center justify-center text-text-muted/40"
-                    style={{
-                      background: `
-                        linear-gradient(135deg,
-                          rgba(42, 22, 77, 0.6) 0%,
-                          rgba(155, 89, 255, 0.3) 40%,
-                          rgba(212, 175, 55, 0.15) 70%,
-                          rgba(42, 22, 77, 0.4) 100%
-                        )
-                      `,
-                      backgroundColor: "#130A24",
-                    }}
-                  >
-                    <svg
-                      viewBox="0 0 64 64"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="w-16 h-16 mb-4"
-                    >
-                      <rect x="6" y="16" width="52" height="36" rx="4" />
-                      <circle cx="32" cy="34" r="10" />
-                      <circle cx="32" cy="34" r="5" />
-                      <path d="M22 16l3-6h14l3 6" />
-                    </svg>
-                    <span className="font-mono text-xs uppercase tracking-wider">
-                      Luis &amp; Nyomie Perez
-                    </span>
-                  </div>
+                  <AboutFoundersPhoto />
                 </div>
                 <div className="absolute -bottom-4 -right-4 w-full h-full rounded-2xl bg-plum/10 -z-10" />
                 <motion.div
@@ -408,45 +449,8 @@ export default function AboutContent() {
             {rescueDogs.map((dog, index) => (
               <ScrollReveal key={dog.name} delay={index * 0.12}>
                 <div className="text-center">
-                  <div className="aspect-square rounded-2xl overflow-hidden shadow-sm mb-4">
-                    <div
-                      className="w-full h-full flex flex-col items-center justify-center text-text-muted/40"
-                      style={{
-                        background: `
-                          linear-gradient(${120 + index * 40}deg,
-                            rgba(42, 22, 77, ${0.4 + index * 0.08}) 0%,
-                            rgba(155, 89, 255, ${0.2 + index * 0.05}) 50%,
-                            rgba(212, 175, 55, ${0.1 + index * 0.05}) 100%
-                          )
-                        `,
-                        backgroundColor: "#130A24",
-                      }}
-                    >
-                      <svg
-                        viewBox="0 0 64 64"
-                        fill="currentColor"
-                        className="w-12 h-12 mb-2"
-                      >
-                        <ellipse cx="32" cy="44" rx="12" ry="10" />
-                        <ellipse cx="20" cy="28" rx="6" ry="7" />
-                        <ellipse cx="32" cy="22" rx="6" ry="7" />
-                        <ellipse cx="44" cy="28" rx="6" ry="7" />
-                        <ellipse
-                          cx="16"
-                          cy="38"
-                          rx="5"
-                          ry="6"
-                          transform="rotate(-15 16 38)"
-                        />
-                        <ellipse
-                          cx="48"
-                          cy="38"
-                          rx="5"
-                          ry="6"
-                          transform="rotate(15 48 38)"
-                        />
-                      </svg>
-                    </div>
+                  <div className="aspect-square rounded-2xl overflow-hidden shadow-sm mb-4 relative">
+                    <RescueDogPhoto index={index} name={dog.name} />
                   </div>
                   <h3 className="font-display text-xl font-bold text-text-title">
                     {dog.name}

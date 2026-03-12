@@ -1,12 +1,15 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Button from "@/components/ui/Button";
 import SectionLabel from "@/components/ui/SectionLabel";
 import ScrollReveal from "@/components/animations/ScrollReveal";
 import FAQAccordion from "@/components/ui/FAQAccordion";
 import Footer from "@/components/layout/Footer";
 import { testimonials, business } from "@/lib/constants";
+import { dogImages, graphicImages } from "@/lib/image-manifest";
 
 // ─── What to Expect Steps ───
 const steps = [
@@ -125,6 +128,44 @@ const faqItems = [
 const playCareTestimonials = testimonials.filter(
   (t) => t.service === "PlayCare"
 );
+
+function PlayCarePhoto() {
+  const [imgError, setImgError] = useState(false);
+  // Use a dog photo to show the PlayCare experience
+  const photo = dogImages[0]; // Tony
+
+  if (imgError) {
+    return (
+      <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-lg border border-gold/10">
+        <div
+          className="w-full h-full flex items-center justify-center text-text-muted/60"
+          style={{
+            background:
+              "linear-gradient(135deg, rgba(42, 22, 77, 0.6) 0%, rgba(155, 89, 255, 0.3) 40%, rgba(212, 175, 55, 0.2) 70%, rgba(155, 89, 255, 0.15) 100%)",
+            backgroundColor: "#130A24",
+          }}
+        >
+          <span className="font-mono text-xs uppercase tracking-wider">
+            Photo Updates
+          </span>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-lg border border-gold/10 relative">
+      <Image
+        src={photo.src}
+        alt={photo.alt}
+        fill
+        className="object-cover"
+        sizes="(max-width: 1024px) 100vw, 50vw"
+        onError={() => setImgError(true)}
+      />
+    </div>
+  );
+}
 
 export default function PlayCareContent() {
   return (
@@ -280,40 +321,7 @@ export default function PlayCareContent() {
         <div className="max-w-5xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <ScrollReveal direction="left" distance={50}>
-              <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-lg border border-gold/10">
-                <div
-                  className="w-full h-full flex flex-col items-center justify-center text-text-muted/60"
-                  style={{
-                    background: `
-                      linear-gradient(135deg,
-                        rgba(42, 22, 77, 0.6) 0%,
-                        rgba(155, 89, 255, 0.3) 40%,
-                        rgba(212, 175, 55, 0.2) 70%,
-                        rgba(155, 89, 255, 0.15) 100%
-                      )
-                    `,
-                    backgroundColor: "#130A24",
-                  }}
-                >
-                  <svg
-                    viewBox="0 0 64 64"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="w-16 h-16 mb-4"
-                  >
-                    <rect x="6" y="16" width="52" height="36" rx="4" />
-                    <circle cx="32" cy="34" r="10" />
-                    <circle cx="32" cy="34" r="5" />
-                    <path d="M22 16l3-6h14l3 6" />
-                  </svg>
-                  <span className="font-mono text-xs uppercase tracking-wider">
-                    Photo Updates
-                  </span>
-                </div>
-              </div>
+              <PlayCarePhoto />
             </ScrollReveal>
 
             <ScrollReveal direction="right" distance={50} delay={0.15}>

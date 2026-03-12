@@ -1,11 +1,14 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Button from "@/components/ui/Button";
 import SectionLabel from "@/components/ui/SectionLabel";
 import ScrollReveal from "@/components/animations/ScrollReveal";
 import Footer from "@/components/layout/Footer";
 import { testimonials, business } from "@/lib/constants";
+import { eventImages } from "@/lib/image-manifest";
 
 // ─── Walk Features ───
 const walkFeatures = [
@@ -127,6 +130,44 @@ const walkingTestimonials = testimonials.filter(
   (t) => t.service === "Walking"
 );
 
+function WalkingPhoto() {
+  const [imgError, setImgError] = useState(false);
+  // Use an Asbury Park event photo showing dogs outdoors
+  const photo = eventImages[0];
+
+  if (imgError) {
+    return (
+      <div className="aspect-square rounded-2xl overflow-hidden shadow-lg">
+        <div
+          className="w-full h-full flex items-center justify-center text-text-muted/50"
+          style={{
+            background:
+              "linear-gradient(135deg, rgba(155, 89, 255, 0.2) 0%, rgba(212, 175, 55, 0.15) 50%, rgba(42, 22, 77, 0.3) 100%)",
+            backgroundColor: "#130A24",
+          }}
+        >
+          <span className="font-mono text-xs uppercase tracking-wider">
+            Hoboken Routes
+          </span>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="aspect-square rounded-2xl overflow-hidden shadow-lg relative">
+      <Image
+        src={photo.src}
+        alt={photo.alt}
+        fill
+        className="object-cover"
+        sizes="(max-width: 1024px) 100vw, 50vw"
+        onError={() => setImgError(true)}
+      />
+    </div>
+  );
+}
+
 export default function WalkingContent() {
   return (
     <>
@@ -247,40 +288,7 @@ export default function WalkingContent() {
         <div className="max-w-5xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <ScrollReveal direction="left" distance={50}>
-              <div className="aspect-square rounded-2xl overflow-hidden shadow-lg">
-                <div
-                  className="w-full h-full flex flex-col items-center justify-center text-text-muted/50"
-                  style={{
-                    background: `
-                      linear-gradient(135deg,
-                        rgba(155, 89, 255, 0.2) 0%,
-                        rgba(212, 175, 55, 0.15) 50%,
-                        rgba(42, 22, 77, 0.3) 100%
-                      )
-                    `,
-                    backgroundColor: "#130A24",
-                  }}
-                >
-                  <svg
-                    viewBox="0 0 64 64"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="w-16 h-16 mb-4"
-                  >
-                    <rect x="4" y="4" width="56" height="56" rx="4" />
-                    <path d="M4 20h56" />
-                    <path d="M20 4v56" />
-                    <circle cx="40" cy="38" r="8" />
-                    <path d="M40 30v-4" />
-                  </svg>
-                  <span className="font-mono text-xs uppercase tracking-wider">
-                    Hoboken Routes
-                  </span>
-                </div>
-              </div>
+              <WalkingPhoto />
             </ScrollReveal>
 
             <ScrollReveal direction="right" distance={50} delay={0.15}>

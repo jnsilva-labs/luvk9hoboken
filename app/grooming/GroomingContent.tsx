@@ -1,12 +1,15 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Button from "@/components/ui/Button";
 import SectionLabel from "@/components/ui/SectionLabel";
 import ScrollReveal from "@/components/animations/ScrollReveal";
 import FAQAccordion from "@/components/ui/FAQAccordion";
 import Footer from "@/components/layout/Footer";
 import { testimonials, business } from "@/lib/constants";
+import { dogImages, teamImages } from "@/lib/image-manifest";
 
 // ─── Service Menu ───
 const groomingServices = [
@@ -76,6 +79,49 @@ const faqItems = [
 const groomingTestimonials = testimonials.filter(
   (t) => t.service === "Grooming"
 );
+
+function GroomerPhoto({
+  groomer,
+}: {
+  groomer: (typeof teamImages.luvkuts)[number];
+}) {
+  const [imgError, setImgError] = useState(false);
+
+  return (
+    <div className="aspect-[3/4] rounded-2xl overflow-hidden border border-gold/10 relative group">
+      {imgError ? (
+        <div
+          className="w-full h-full flex flex-col items-center justify-center text-text-muted/50"
+          style={{
+            background:
+              "linear-gradient(135deg, rgba(155, 89, 255, 0.15) 0%, rgba(212, 175, 55, 0.1) 50%, rgba(42, 22, 77, 0.6) 100%)",
+            backgroundColor: "#130A24",
+          }}
+        >
+          <span className="font-mono text-xs uppercase tracking-wider">
+            {groomer.name}
+          </span>
+        </div>
+      ) : (
+        <Image
+          src={groomer.src}
+          alt={groomer.alt}
+          fill
+          className="object-cover group-hover:scale-105 transition-transform duration-500"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          onError={() => setImgError(true)}
+        />
+      )}
+      {/* Name overlay */}
+      <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-obsidian/80 to-transparent p-4">
+        <p className="font-display text-lg font-semibold text-white">
+          {groomer.name}
+        </p>
+        <p className="font-body text-sm text-white/70">{groomer.role}</p>
+      </div>
+    </div>
+  );
+}
 
 export default function GroomingContent() {
   return (
@@ -286,48 +332,16 @@ export default function GroomingContent() {
       <section className="py-20 md:py-28 px-6 bg-obsidian">
         <div className="max-w-6xl mx-auto">
           <ScrollReveal className="text-center mb-12 md:mb-16">
-            <SectionLabel>Transformations</SectionLabel>
+            <SectionLabel>Our Groomers</SectionLabel>
             <h2 className="font-display text-4xl md:text-5xl font-bold text-text-title mt-3">
-              Before &amp; After
+              Meet the Luv Kuts Team
             </h2>
           </ScrollReveal>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[1, 2, 3].map((item, index) => (
-              <ScrollReveal key={item} delay={index * 0.12}>
-                <div className="aspect-[3/4] rounded-2xl overflow-hidden border border-gold/10">
-                  <div
-                    className="w-full h-full flex flex-col items-center justify-center text-text-muted/50"
-                    style={{
-                      background: `
-                        linear-gradient(${135 + index * 30}deg,
-                          rgba(155, 89, 255, ${0.15 + index * 0.05}) 0%,
-                          rgba(212, 175, 55, ${0.1 + index * 0.03}) 50%,
-                          rgba(42, 22, 77, ${0.6 + index * 0.1}) 100%
-                        )
-                      `,
-                      backgroundColor: "#130A24",
-                    }}
-                  >
-                    <svg
-                      viewBox="0 0 64 64"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="w-14 h-14 mb-3"
-                    >
-                      <rect x="6" y="16" width="52" height="36" rx="4" />
-                      <circle cx="32" cy="34" r="10" />
-                      <circle cx="32" cy="34" r="5" />
-                      <path d="M22 16l3-6h14l3 6" />
-                    </svg>
-                    <span className="font-mono text-xs uppercase tracking-wider">
-                      Before &amp; After
-                    </span>
-                  </div>
-                </div>
+            {teamImages.luvkuts.map((groomer, index) => (
+              <ScrollReveal key={groomer.name} delay={index * 0.12}>
+                <GroomerPhoto groomer={groomer} />
               </ScrollReveal>
             ))}
           </div>
