@@ -1,70 +1,67 @@
 "use client";
 
+import { useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import Image from "next/image";
 import Button from "@/components/ui/Button";
 import SectionLabel from "@/components/ui/SectionLabel";
 import ScrollReveal from "@/components/animations/ScrollReveal";
 import Footer from "@/components/layout/Footer";
 import { business } from "@/lib/constants";
+import { teamImages } from "@/lib/image-manifest";
 
 // ─── Team Members ───
-const teamMembers = [
-  {
-    name: "Luis Perez",
-    role: "Founder & Head Walker",
-    bio: "The heart and soul of Luv K9. Luis started walking dogs in 2019 and built the business from the ground up with his passion for dogs and deep connection to the Hoboken community.",
-    gradient:
-      "linear-gradient(135deg, rgba(42, 22, 77, 0.6) 0%, rgba(155, 89, 255, 0.3) 50%, rgba(212, 175, 55, 0.2) 100%)",
-  },
-  {
-    name: "Nyomie Perez",
-    role: "Co-Founder & Operations",
-    bio: "Nyomie keeps everything running smoothly behind the scenes. From scheduling to client relations, she ensures every dog parent feels like part of the Luv K9 family.",
-    gradient:
-      "linear-gradient(135deg, rgba(155, 89, 255, 0.3) 0%, rgba(42, 22, 77, 0.5) 50%, rgba(212, 175, 55, 0.15) 100%)",
-  },
-  {
-    name: "Marcus J.",
-    role: "Senior Dog Walker",
-    bio: "A Hoboken native with an incredible ability to connect with even the most anxious dogs. Marcus leads our waterfront pack walks and is beloved by every pup he meets.",
-    gradient:
-      "linear-gradient(135deg, rgba(42, 22, 77, 0.5) 0%, rgba(212, 175, 55, 0.2) 50%, rgba(155, 89, 255, 0.25) 100%)",
-  },
-  {
-    name: "Sofia R.",
-    role: "Lead Groomer — Luv Kuts",
-    bio: "With over 8 years of professional grooming experience, Sofia brings breed-specific expertise and a gentle touch that makes even the fussiest dogs feel at ease.",
-    gradient:
-      "linear-gradient(135deg, rgba(155, 89, 255, 0.35) 0%, rgba(212, 175, 55, 0.15) 50%, rgba(42, 22, 77, 0.5) 100%)",
-  },
-  {
-    name: "Danny K.",
-    role: "PlayCare Specialist",
-    bio: "Danny brings boundless energy to our PlayCare program. His background in animal behavior helps him create structured play sessions that keep every dog engaged and happy.",
-    gradient:
-      "linear-gradient(135deg, rgba(212, 175, 55, 0.2) 0%, rgba(42, 22, 77, 0.55) 50%, rgba(155, 89, 255, 0.25) 100%)",
-  },
-  {
-    name: "Ava M.",
-    role: "Groomer & Walker",
-    bio: "A true multi-talent, Ava splits her time between our grooming salon and pack walks. Dogs love her calm energy and she has a special knack for puppy first grooms.",
-    gradient:
-      "linear-gradient(135deg, rgba(42, 22, 77, 0.45) 0%, rgba(155, 89, 255, 0.25) 50%, rgba(212, 175, 55, 0.2) 100%)",
-  },
-];
+const luvK9Members = teamImages.luvk9.map((member) => ({
+  ...member,
+  bio: getBio(member.name),
+}));
+
+const luvKutsMembers = teamImages.luvkuts.map((member) => ({
+  ...member,
+  bio: getBio(member.name),
+}));
+
+function getBio(name: string): string {
+  const bios: Record<string, string> = {
+    "Nyomie Perez":
+      "Co-Founder of Luv K9. Nyomie keeps everything running smoothly behind the scenes. From scheduling to client relations, she ensures every dog parent feels like part of the Luv K9 family.",
+    "Luis Perez":
+      "Co-Founder and the heart and soul of Luv K9. Luis started walking dogs in 2019 and built the business from the ground up with his passion for dogs and deep connection to the Hoboken community.",
+    "Joe Maneria":
+      "A dedicated member of the Luv K9 team, Joe brings energy and care to every dog he works with. His enthusiasm for the pack is contagious.",
+    "Elliott Nager":
+      "Elliott is a natural with dogs of all sizes and temperaments. His calm, steady approach makes him a favorite among the pack.",
+    "Connor McIntyre":
+      "Connor brings reliability and genuine love for dogs to the team. Every pup in his care gets treated like family.",
+    "Javier Roldan-Perez":
+      "Javier is a core part of the Luv K9 family, bringing dedication and warmth to every interaction with the dogs and their parents.",
+    "JR Nieves":
+      "JR rounds out the team with his positive attitude and tireless commitment to giving every dog the best day possible.",
+    "Elizabeth Rodriguez":
+      "Elizabeth brings expert grooming skills and a gentle touch to Luv Kuts. Dogs love her calm energy and she has a special knack for breed-specific styles.",
+    "Dennis Vazquez":
+      "Dennis is a talented groomer with an eye for detail. His patience and skill make even the fussiest dogs feel at ease during their grooming session.",
+    "Evelyne Przezdziecki":
+      "Evelyne brings years of grooming experience and artistic flair to Luv Kuts. Her precision cuts and caring approach keep pups looking their absolute best.",
+  };
+  return bios[name] || "A valued member of the Luv K9 family.";
+}
+
+const allTeamMembers = [...luvK9Members, ...luvKutsMembers];
 
 // ─── Frame-Draw Card ───
 function FrameDrawCard({
   member,
   index,
 }: {
-  member: (typeof teamMembers)[number];
+  member: (typeof allTeamMembers)[number];
   index: number;
 }) {
   const cardRef = useRef(null);
   const isInView = useInView(cardRef, { once: true, margin: "-50px" });
   const delay = index * 0.1;
+  const [imgError, setImgError] = useState(false);
 
   return (
     <motion.div
@@ -107,35 +104,37 @@ function FrameDrawCard({
         />
       </svg>
 
-      {/* Photo placeholder — fades in after border draws */}
+      {/* Photo — fades in after border draws */}
       <motion.div
         className="aspect-[4/3] relative overflow-hidden"
         initial={{ opacity: 0 }}
         animate={isInView ? { opacity: 1 } : { opacity: 0 }}
         transition={{ duration: 0.4, delay: 0.8 + delay }}
       >
-        <div
-          className="w-full h-full flex flex-col items-center justify-center text-text-muted/40 group-hover:scale-105 transition-transform duration-500"
-          style={{
-            background: member.gradient,
-            backgroundColor: "#130A24",
-          }}
-        >
-          <svg
-            viewBox="0 0 64 64"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="w-14 h-14 mb-2"
-          >
-            <circle cx="32" cy="22" r="10" />
-            <path d="M14 52c0-10 8-18 18-18s18 8 18 18" />
-          </svg>
-          <span className="font-mono text-xs uppercase tracking-wider">
-            {member.name.split(" ")[0]}
-          </span>
+        <div className="w-full h-full relative group-hover:scale-105 transition-transform duration-500">
+          {imgError ? (
+            <div
+              className="w-full h-full flex items-center justify-center text-text-muted/40"
+              style={{
+                background:
+                  "linear-gradient(135deg, rgba(42, 22, 77, 0.6) 0%, rgba(155, 89, 255, 0.3) 50%, rgba(212, 175, 55, 0.2) 100%)",
+                backgroundColor: "#130A24",
+              }}
+            >
+              <span className="font-mono text-xs uppercase tracking-wider">
+                {member.name.split(" ")[0]}
+              </span>
+            </div>
+          ) : (
+            <Image
+              src={member.src}
+              alt={member.alt}
+              fill
+              className="object-cover"
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              onError={() => setImgError(true)}
+            />
+          )}
         </div>
       </motion.div>
 
@@ -213,11 +212,11 @@ export default function TeamContent() {
         </div>
       </section>
 
-      {/* ─── Team Grid ─── */}
+      {/* ─── Luv K9 Team Grid ─── */}
       <section className="py-24 md:py-32 px-6 bg-obsidian">
         <div className="max-w-6xl mx-auto">
           <ScrollReveal className="text-center mb-16 md:mb-20">
-            <SectionLabel>Our Team</SectionLabel>
+            <SectionLabel>Luv K9 Team</SectionLabel>
             <h2 className="font-display text-4xl md:text-5xl font-bold text-text-title mt-3">
               The People Who Make It Special
             </h2>
@@ -229,7 +228,33 @@ export default function TeamContent() {
           </ScrollReveal>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {teamMembers.map((member, index) => (
+            {luvK9Members.map((member, index) => (
+              <FrameDrawCard
+                key={member.name}
+                member={member}
+                index={index}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── Luv Kuts Team Grid ─── */}
+      <section className="py-20 md:py-28 px-6 bg-void">
+        <div className="max-w-6xl mx-auto">
+          <ScrollReveal className="text-center mb-16 md:mb-20">
+            <SectionLabel>Luv Kuts Groomers</SectionLabel>
+            <h2 className="font-display text-4xl md:text-5xl font-bold text-text-title mt-3">
+              Our Grooming Experts
+            </h2>
+            <p className="font-body text-text-body text-lg mt-4 max-w-2xl mx-auto">
+              The talented groomers at Luv Kuts bring skill, patience, and genuine
+              care to every grooming session.
+            </p>
+          </ScrollReveal>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+            {luvKutsMembers.map((member, index) => (
               <FrameDrawCard
                 key={member.name}
                 member={member}
