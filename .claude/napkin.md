@@ -37,12 +37,23 @@
 - `useReducedMotion()` from framer-motion for Framer Motion components; `window.matchMedia('(prefers-reduced-motion: reduce)')` for hooks/vanilla JS
 - Magnetic button: wrapper `<span>` avoids ref conflicts with motion.a/Link/motion.button
 - Image manifest (`lib/image-manifest.ts`) maps all photos to typed metadata with alt text
+- AmbientParticles (Canvas 2D) in ClientLayout for site-wide gold sparkle atmosphere
+- SectionDivider: `useInView` + sparkle burst for scroll-triggered transitions between sections
+- Button primary glow: Framer Motion `animate` with 3-keyframe boxShadow infinite loop
+- Gallery Wall of Fame: deterministic seeded random for rotations, push pins, cursor repulsion, lightbox with confetti
+- Footer aurora: 5-stop gradient, `background-size: 400%`, CSS `aurora` keyframe 20s infinite
+- Service pricing: different layouts per service (flat cards, weight-class tables, day/night cards)
 
 ## Patterns That Don't Work
 - Don't add FloatingBones to Hero — it already has a canvas particle system
 - Don't use Three.js/WebGL for particles — Canvas 2D is performant enough and no new deps
 - Don't dispatch parallel implementation subagents that touch the same files
 - Don't use `@keyframes` for elements that need JS-level reduced motion checks — use inline styles or Framer Motion instead
+
+## Removed Components (dead code cleaned up 2026-03-12)
+- SEAPhilosophy.tsx → replaced by SocialProof.tsx
+- RescueDogs.tsx → replaced by DogsOfTheCourt.tsx
+- CommunityImpact.tsx → stats moved into SocialProof.tsx
 
 ## Domain Notes
 - Business: Luv K9 — dog daycare, grooming, walking in Hoboken NJ
@@ -71,4 +82,9 @@
 | Button hover/tap | components/ui/Button.tsx | ✅ disables whileHover/whileTap |
 | Service card flip | components/sections/ServicesOverview.tsx | via Framer Motion |
 | Team frame-draw | app/team/TeamContent.tsx | via Framer Motion |
-| Gallery polaroid | app/gallery/page.tsx | via Framer Motion |
+| Gallery polaroid | app/gallery/GalleryContent.tsx | via Framer Motion |
+| AmbientParticles | components/animations/AmbientParticles.tsx | ✅ returns null |
+| SectionDivider | components/animations/SectionDivider.tsx | ✅ static gold hr |
+| FloatingSparkles | components/sections/Testimonials.tsx | via useReducedMotion |
+| Button primary glow | components/ui/Button.tsx | via useReducedMotion |
+| Team particle burst | app/team/TeamContent.tsx | via Framer Motion |
