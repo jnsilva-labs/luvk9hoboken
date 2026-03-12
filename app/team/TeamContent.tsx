@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 import { useRef } from "react";
 import Image from "next/image";
 import Button from "@/components/ui/Button";
@@ -50,6 +50,20 @@ function getBio(name: string): string {
 
 const allTeamMembers = [...luvK9Members, ...luvKutsMembers];
 
+// ─── Royal Titles ───
+const royalTitles: Record<string, string> = {
+  "Nyomie Perez": "The Queen",
+  "Luis Perez": "The King",
+  "Joe Maneria": "The Knight",
+  "Elliott Nager": "The Duke",
+  "Connor McIntyre": "The Baron",
+  "Javier Roldan-Perez": "The Prince",
+  "JR Nieves": "The Earl",
+  "Elizabeth Rodriguez": "The Duchess",
+  "Dennis Vazquez": "The Artisan",
+  "Evelyne Przezdziecki": "The Maven",
+};
+
 // ─── Frame-Draw Card ───
 function FrameDrawCard({
   member,
@@ -62,6 +76,9 @@ function FrameDrawCard({
   const isInView = useInView(cardRef, { once: true, margin: "-50px" });
   const delay = index * 0.1;
   const [imgError, setImgError] = useState(false);
+  const [drawComplete, setDrawComplete] = useState(false);
+  const prefersReducedMotion = useReducedMotion();
+  const isFounder = member.role.includes("Co-Founder");
 
   return (
     <motion.div
@@ -101,8 +118,37 @@ function FrameDrawCard({
             ease: "easeInOut",
             delay,
           }}
+          onAnimationComplete={() => setDrawComplete(true)}
         />
       </svg>
+
+      {/* Gold particle burst after border draws */}
+      {drawComplete && !prefersReducedMotion && (
+        <>
+          {Array.from({ length: 6 }).map((_, i) => (
+            <motion.span
+              key={i}
+              className="absolute w-1.5 h-1.5 rounded-full bg-gold z-20"
+              style={{
+                top: "50%",
+                left: "50%",
+              }}
+              initial={{ opacity: 1, scale: 1, x: 0, y: 0 }}
+              animate={{
+                opacity: 0,
+                scale: 0,
+                x: Math.cos((i / 6) * Math.PI * 2) * 40,
+                y: Math.sin((i / 6) * Math.PI * 2) * 40,
+              }}
+              transition={{
+                duration: 0.6,
+                ease: [0.22, 1, 0.36, 1] as const,
+                delay: i * 0.05,
+              }}
+            />
+          ))}
+        </>
+      )}
 
       {/* Photo — fades in after border draws */}
       <motion.div
@@ -148,9 +194,23 @@ function FrameDrawCard({
         <h3 className="font-display text-xl font-bold text-text-title mb-1">
           {member.name}
         </h3>
-        <p className="font-mono text-xs text-gold-light uppercase tracking-wider mb-4">
+        {royalTitles[member.name] && (
+          <p className="font-display text-sm text-gold italic">
+            {royalTitles[member.name]}
+          </p>
+        )}
+        <p className="font-mono text-xs text-gold-light uppercase tracking-wider mb-2">
           {member.role}
         </p>
+        {isFounder && (
+          <span className="inline-flex items-center gap-1.5 bg-gold/10 text-gold border border-gold/20 rounded-full text-xs px-3 py-1 mb-4">
+            <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+            </svg>
+            Featured on Drew Barrymore Show
+          </span>
+        )}
+        {!isFounder && <div className="mb-2" />}
         <p className="font-body text-text-body text-sm leading-relaxed flex-1">
           {member.bio}
         </p>
