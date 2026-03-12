@@ -17,17 +17,32 @@
 - SEO: aggressive local targeting — Hoboken + 12 surrounding NJ cities
 - Fonts: Outfit (display), Inter (body), Space_Mono (mono)
 - User wants ornate gold portrait frames, paw trail cursor, floating bones
+- Award-winning animations: "We are going huge here"
 
 ## Patterns That Work
 - CSS columns for masonry gallery layout (columns-2/3/4)
-- RoyalPortraitFrame wrapping gradient placeholders for gallery items
-- FloatingBones as subtle background decoration (low opacity 0.04-0.1, pointer-events-none)
+- RoyalPortraitFrame wrapping real photos (or gradient placeholders) for gallery items
+- FloatingBones (now FloatingEcosystem) as subtle background decoration (low opacity 0.04-0.1, pointer-events-none)
 - PawTrailCursor in root layout for site-wide effect (non-touch devices only)
 - ScrollReveal + Framer Motion for entrance animations
 - JSON-LD structured data in <head> via JsonLd component
+- Canvas 2D particle system: 200 particles desktop, 100 mobile, DPR-aware rendering
+- Physics: mouse repulsion (150px, force ∝ 1/dist²), spring (0.02), friction (0.95)
+- Parametric heart equation for logo assembly: `x = 16sin³(t), y = -(13cos(t) - 5cos(2t) - 2cos(3t) - cos(4t))`
+- Hero phase choreography via state machine: loading → assembling → orbiting → revealing → interactive
+- ClientLayout.tsx as "use client" boundary for page transitions (keeps layout.tsx as server component)
+- CSS mask-composite: exclude / WebkitMaskComposite: xor for shimmer-on-border-only effect
+- `--paw-rotation` CSS custom property for parameterizing keyframe animations
+- Image component with `fill` + `object-cover` + `onError` fallback pattern for real photos
+- `useReducedMotion()` from framer-motion for Framer Motion components; `window.matchMedia('(prefers-reduced-motion: reduce)')` for hooks/vanilla JS
+- Magnetic button: wrapper `<span>` avoids ref conflicts with motion.a/Link/motion.button
+- Image manifest (`lib/image-manifest.ts`) maps all photos to typed metadata with alt text
 
 ## Patterns That Don't Work
 - Don't add FloatingBones to Hero — it already has a canvas particle system
+- Don't use Three.js/WebGL for particles — Canvas 2D is performant enough and no new deps
+- Don't dispatch parallel implementation subagents that touch the same files
+- Don't use `@keyframes` for elements that need JS-level reduced motion checks — use inline styles or Framer Motion instead
 
 ## Domain Notes
 - Business: Luv K9 — dog daycare, grooming, walking in Hoboken NJ
@@ -35,4 +50,25 @@
 - Brand names: Luv K9 (main), Luv Kuts (grooming), PlayCare (daycare)
 - Booking: booking.moego.pet/ol/luvk9
 - Instagram: @luvk9hoboken
-- No real dog images yet — using gradient placeholders with paw/camera icons
+- Real photos now downloaded (37 images, 23MB) in public/images/ from Squarespace CDN
+- Image directories: brand/ founders/ team/luvk9/ team/luvkuts/ dogs/ events/ graphics/ specials/
+- 2 event images > 2MB (asbury-3.png 3.4MB, asbury-7.png 2.6MB) — optimize later with sharp/squoosh
+- Testimonial dog names (Cooper, Luna, Rocky) don't match available dog photos — left as gradient placeholders
+- Team: 7 Luv K9 staff + 3 Luv Kuts groomers = 10 total real team members
+
+## Animation Component Inventory
+| Component | File | Reduced Motion |
+|-----------|------|---------------|
+| InteractiveParticles | components/animations/InteractiveParticles.tsx | ✅ static particles |
+| PageTransition | components/animations/PageTransition.tsx | ✅ renders children directly |
+| PawTrailCursor | components/animations/PawTrailCursor.tsx | ✅ skips event listeners + CSS hides container |
+| FloatingBones | components/animations/FloatingBones.tsx | ✅ returns null |
+| RoyalPortraitFrame | components/ui/RoyalPortraitFrame.tsx | ✅ CSS global rule |
+| Hero choreography | components/sections/Hero.tsx | ✅ skips to interactive |
+| Magnetic buttons | hooks/useMagneticButton.ts | ✅ disables pull + sparks |
+| Counter | hooks/useCountUp.ts | ✅ shows final value |
+| Typewriter | hooks/useTypewriter.ts | ✅ shows full text |
+| Button hover/tap | components/ui/Button.tsx | ✅ disables whileHover/whileTap |
+| Service card flip | components/sections/ServicesOverview.tsx | via Framer Motion |
+| Team frame-draw | app/team/TeamContent.tsx | via Framer Motion |
+| Gallery polaroid | app/gallery/page.tsx | via Framer Motion |
