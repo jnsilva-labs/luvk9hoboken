@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 import Button from "@/components/ui/Button";
 import SectionLabel from "@/components/ui/SectionLabel";
 import ScrollReveal from "@/components/animations/ScrollReveal";
@@ -52,6 +53,112 @@ const teamMembers = [
       "linear-gradient(135deg, rgba(42, 22, 77, 0.45) 0%, rgba(155, 89, 255, 0.25) 50%, rgba(212, 175, 55, 0.2) 100%)",
   },
 ];
+
+// ─── Frame-Draw Card ───
+function FrameDrawCard({
+  member,
+  index,
+}: {
+  member: (typeof teamMembers)[number];
+  index: number;
+}) {
+  const cardRef = useRef(null);
+  const isInView = useInView(cardRef, { once: true, margin: "-50px" });
+  const delay = index * 0.1;
+
+  return (
+    <motion.div
+      ref={cardRef}
+      className="group relative bg-imperial/50 rounded-2xl overflow-hidden shadow-sm h-full flex flex-col"
+      initial={{ opacity: 0 }}
+      animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+      transition={{ duration: 0.3, delay }}
+      whileHover={{
+        y: -6,
+        boxShadow:
+          "0 20px 40px -12px rgba(155, 89, 255, 0.15), 0 8px 20px -8px rgba(0, 0, 0, 0.3)",
+      }}
+    >
+      {/* SVG border draw animation */}
+      <svg
+        className="absolute inset-0 w-full h-full pointer-events-none z-10 rounded-2xl"
+        preserveAspectRatio="none"
+      >
+        <motion.rect
+          x="1"
+          y="1"
+          width="calc(100% - 2px)"
+          height="calc(100% - 2px)"
+          rx="16"
+          fill="none"
+          stroke="#D4AF37"
+          strokeWidth="2"
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={
+            isInView
+              ? { pathLength: 1, opacity: 1 }
+              : { pathLength: 0, opacity: 0 }
+          }
+          transition={{
+            duration: 0.8,
+            ease: "easeInOut",
+            delay,
+          }}
+        />
+      </svg>
+
+      {/* Photo placeholder — fades in after border draws */}
+      <motion.div
+        className="aspect-[4/3] relative overflow-hidden"
+        initial={{ opacity: 0 }}
+        animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+        transition={{ duration: 0.4, delay: 0.8 + delay }}
+      >
+        <div
+          className="w-full h-full flex flex-col items-center justify-center text-text-muted/40 group-hover:scale-105 transition-transform duration-500"
+          style={{
+            background: member.gradient,
+            backgroundColor: "#130A24",
+          }}
+        >
+          <svg
+            viewBox="0 0 64 64"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="w-14 h-14 mb-2"
+          >
+            <circle cx="32" cy="22" r="10" />
+            <path d="M14 52c0-10 8-18 18-18s18 8 18 18" />
+          </svg>
+          <span className="font-mono text-xs uppercase tracking-wider">
+            {member.name.split(" ")[0]}
+          </span>
+        </div>
+      </motion.div>
+
+      {/* Name and role — slides up after photo */}
+      <motion.div
+        className="p-6 md:p-8 flex flex-col flex-1"
+        initial={{ opacity: 0, y: 20 }}
+        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+        transition={{ duration: 0.3, delay: 1.2 + delay }}
+      >
+        <h3 className="font-display text-xl font-bold text-text-title mb-1">
+          {member.name}
+        </h3>
+        <p className="font-mono text-xs text-gold-light uppercase tracking-wider mb-4">
+          {member.role}
+        </p>
+        <p className="font-body text-text-body text-sm leading-relaxed flex-1">
+          {member.bio}
+        </p>
+      </motion.div>
+    </motion.div>
+  );
+}
 
 export default function TeamContent() {
   return (
@@ -123,62 +230,11 @@ export default function TeamContent() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {teamMembers.map((member, index) => (
-              <ScrollReveal
+              <FrameDrawCard
                 key={member.name}
-                delay={index * 0.1}
-                direction="up"
-                distance={40}
-              >
-                <motion.div
-                  className="group bg-imperial/50 border border-gold/10 rounded-2xl overflow-hidden shadow-sm h-full flex flex-col"
-                  whileHover={{
-                    y: -6,
-                    boxShadow:
-                      "0 20px 40px -12px rgba(155, 89, 255, 0.15), 0 8px 20px -8px rgba(0, 0, 0, 0.3)",
-                  }}
-                  transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
-                >
-                  {/* Photo Placeholder */}
-                  <div className="aspect-[4/3] relative overflow-hidden">
-                    <div
-                      className="w-full h-full flex flex-col items-center justify-center text-text-muted/40 group-hover:scale-105 transition-transform duration-500"
-                      style={{
-                        background: member.gradient,
-                        backgroundColor: "#130A24",
-                      }}
-                    >
-                      <svg
-                        viewBox="0 0 64 64"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="w-14 h-14 mb-2"
-                      >
-                        <circle cx="32" cy="22" r="10" />
-                        <path d="M14 52c0-10 8-18 18-18s18 8 18 18" />
-                      </svg>
-                      <span className="font-mono text-xs uppercase tracking-wider">
-                        {member.name.split(" ")[0]}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Info */}
-                  <div className="p-6 md:p-8 flex flex-col flex-1">
-                    <h3 className="font-display text-xl font-bold text-text-title mb-1">
-                      {member.name}
-                    </h3>
-                    <p className="font-mono text-xs text-gold-light uppercase tracking-wider mb-4">
-                      {member.role}
-                    </p>
-                    <p className="font-body text-text-body text-sm leading-relaxed flex-1">
-                      {member.bio}
-                    </p>
-                  </div>
-                </motion.div>
-              </ScrollReveal>
+                member={member}
+                index={index}
+              />
             ))}
           </div>
         </div>
