@@ -106,6 +106,15 @@ h1, h2, h3, h4, h5, h6 {
   background: var(--color-gold);
 }
 
+/* ─── Hide Scrollbar ─── */
+.hide-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 /* ─── Glow Effects ─── */
 .glow-purple {
   box-shadow: 0 0 30px rgba(155, 89, 255, 0.3), inset 0 0 15px rgba(155, 89, 255, 0.1);
