@@ -1,9 +1,13 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef, useCallback, useEffect } from "react";
+import { useRef, useCallback, useEffect, useState } from "react";
 import Button from "@/components/ui/Button";
+import InteractiveParticles from "@/components/animations/InteractiveParticles";
 import { easing, timing } from "@/lib/constants";
+
+// ─── Phase Type ───
+type HeroPhase = "loading" | "assembling" | "orbiting" | "revealing" | "interactive";
 
 // ─── Geometric Dog SVG (Angular/Faceted with Gold Gradient + Spinning Halo Rings) ───
 function GeometricDog({ className }: { className?: string }) {
@@ -183,54 +187,26 @@ function GeometricDog({ className }: { className?: string }) {
   );
 }
 
-// ─── Canvas Particle System ───
-interface Particle {
-  x: number;
-  y: number;
-  vx: number;
-  vy: number;
-  size: number;
-  opacity: number;
-  color: "gold" | "purple";
-  life: number;
-  maxLife: number;
-}
+// ─── Easing helpers (spread readonly tuples for Framer Motion compatibility) ───
+const smoothEase: [number, number, number, number] = [...easing.smooth];
+const royalEase: [number, number, number, number] = [...easing.royal];
 
-function createParticle(width: number, height: number): Particle {
-  const isGold = Math.random() > 0.35;
-  return {
-    x: Math.random() * width,
-    y: height + Math.random() * 100,
-    vx: (Math.random() - 0.5) * 0.3,
-    vy: -(0.2 + Math.random() * 0.6),
-    size: 1 + Math.random() * 2.5,
-    opacity: 0,
-    color: isGold ? "gold" : "purple",
-    life: 0,
-    maxLife: 300 + Math.random() * 400,
-  };
-}
-
-// ─── Headline Word Animation ───
-const headlineWords = ["Luv", "K9"];
-
-const wordContainerVariants = {
-  hidden: {},
+// ─── Text Animation Variants ───
+const labelVariants = {
+  hidden: { opacity: 0, y: 15, letterSpacing: "0.15em" },
   visible: {
+    opacity: 1,
+    y: 0,
+    letterSpacing: "0.3em",
     transition: {
-      staggerChildren: 0.18,
-      delayChildren: 0.4,
+      duration: 0.6,
+      ease: smoothEase,
     },
   },
 };
 
-const wordVariants = {
-  hidden: {
-    opacity: 0,
-    y: 60,
-    rotateX: -45,
-    scale: 0.8,
-  },
+const headlineLineVariants = {
+  hidden: { opacity: 0, y: 60, rotateX: -30, scale: 0.9 },
   visible: {
     opacity: 1,
     y: 0,
@@ -238,19 +214,42 @@ const wordVariants = {
     scale: 1,
     transition: {
       duration: 0.8,
-      ease: easing.royal,
+      ease: royalEase,
     },
   },
 };
 
+const subtitleVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: timing.entrance,
+      ease: smoothEase,
+    },
+  },
+};
+
+const ctaVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: timing.entrance,
+      ease: smoothEase,
+    },
+  },
+};
+
+// ─── Hero Component ───
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const particlesRef = useRef<Particle[]>([]);
-  const animationFrameRef = useRef<number>(0);
-  const mouseRef = useRef({ x: 0, y: 0 });
+  const [phase, setPhase] = useState<HeroPhase>("loading");
+  const [textVisible, setTextVisible] = useState(false);
 
-  // Parallax on background
+  // ─── Parallax ───
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end start"],
@@ -259,124 +258,52 @@ export default function Hero() {
   const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
   const opacityFade = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
-  // ─── Canvas Particle System ───
+  // ─── Entrance Choreography ───
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
+    // Check reduced motion
+    const prefersReduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
 
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
+    if (prefersReduced) {
+      // Skip choreography: go straight to interactive with text visible
+      setPhase("interactive");
+      setTextVisible(true);
+      return;
+    }
 
-    const resize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
-    resize();
-    window.addEventListener("resize", resize);
+    // Phase timeline
+    const timers: ReturnType<typeof setTimeout>[] = [];
 
-    // Track mouse for parallax influence
-    const handleMouseMove = (e: MouseEvent) => {
-      mouseRef.current = { x: e.clientX, y: e.clientY };
-    };
-    window.addEventListener("mousemove", handleMouseMove);
-
-    // Initialize particles
-    const PARTICLE_COUNT = 80;
-    particlesRef.current = Array.from({ length: PARTICLE_COUNT }, () =>
-      createParticle(canvas.width, canvas.height)
+    // loading -> assembling at 500ms
+    timers.push(
+      setTimeout(() => setPhase("assembling"), 500)
     );
-    // Spread initial particles across the screen
-    particlesRef.current.forEach((p) => {
-      p.y = Math.random() * canvas.height;
-      p.life = Math.random() * p.maxLife;
-    });
 
-    const goldColors = ["#FFDE70", "#D4AF37", "#E8C547"];
-    const purpleColors = ["#B37FFF", "#9B59FF", "#7C3AED"];
+    // assembling -> orbiting at 2000ms
+    timers.push(
+      setTimeout(() => setPhase("orbiting"), 2000)
+    );
 
-    const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // orbiting -> revealing at 2500ms (text starts fading in)
+    timers.push(
+      setTimeout(() => {
+        setPhase("revealing");
+        setTextVisible(true);
+      }, 2500)
+    );
 
-      const mx = mouseRef.current.x / canvas.width - 0.5;
-      const my = mouseRef.current.y / canvas.height - 0.5;
-
-      particlesRef.current.forEach((p, i) => {
-        // Update life
-        p.life++;
-
-        // Fade in/out
-        const lifeRatio = p.life / p.maxLife;
-        if (lifeRatio < 0.1) {
-          p.opacity = lifeRatio / 0.1;
-        } else if (lifeRatio > 0.8) {
-          p.opacity = (1 - lifeRatio) / 0.2;
-        } else {
-          p.opacity = 1;
-        }
-        p.opacity *= 0.6;
-
-        // Apply parallax from mouse
-        const parallaxStrength = 0.15;
-        const px = mx * parallaxStrength * (i % 3 + 1);
-        const py = my * parallaxStrength * (i % 3 + 1);
-
-        // Move
-        p.x += p.vx + px * 0.1;
-        p.y += p.vy + py * 0.05;
-
-        // Slight horizontal drift
-        p.vx += (Math.random() - 0.5) * 0.02;
-        p.vx *= 0.99;
-
-        // Respawn if dead or off-screen
-        if (p.life >= p.maxLife || p.y < -20) {
-          const newP = createParticle(canvas.width, canvas.height);
-          Object.assign(p, newP);
-        }
-
-        // Draw
-        const colors = p.color === "gold" ? goldColors : purpleColors;
-        const colorIdx = i % colors.length;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = colors[colorIdx];
-        ctx.globalAlpha = p.opacity;
-        ctx.fill();
-
-        // Glow effect for larger particles
-        if (p.size > 1.8) {
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.size * 3, 0, Math.PI * 2);
-          const gradient = ctx.createRadialGradient(
-            p.x,
-            p.y,
-            0,
-            p.x,
-            p.y,
-            p.size * 3
-          );
-          gradient.addColorStop(0, colors[colorIdx]);
-          gradient.addColorStop(1, "transparent");
-          ctx.fillStyle = gradient;
-          ctx.globalAlpha = p.opacity * 0.2;
-          ctx.fill();
-        }
-
-        ctx.globalAlpha = 1;
-      });
-
-      animationFrameRef.current = requestAnimationFrame(animate);
-    };
-
-    animate();
+    // revealing -> interactive at 3500ms
+    timers.push(
+      setTimeout(() => setPhase("interactive"), 3500)
+    );
 
     return () => {
-      cancelAnimationFrame(animationFrameRef.current);
-      window.removeEventListener("resize", resize);
-      window.removeEventListener("mousemove", handleMouseMove);
+      timers.forEach(clearTimeout);
     };
   }, []);
 
+  // ─── Scroll to next section ───
   const scrollToNext = useCallback(() => {
     const nextSection = sectionRef.current?.nextElementSibling;
     if (nextSection) {
@@ -426,94 +353,105 @@ export default function Hero() {
         />
       </motion.div>
 
-      {/* ─── Canvas Particle System ─── */}
-      <canvas
-        ref={canvasRef}
-        className="absolute inset-0 pointer-events-none z-[1]"
-        style={{ width: "100%", height: "100%" }}
-      />
+      {/* ─── Interactive Particle System ─── */}
+      <InteractiveParticles phase={phase} />
 
       {/* ─── Content ─── */}
       <motion.div
         className="relative z-10 text-center px-6 max-w-4xl mx-auto flex flex-col items-center"
         style={{ y: contentY, opacity: opacityFade }}
       >
-        {/* Geometric Dog Illustration */}
+        {/* ─── Geometric Dog Illustration ─── */}
         <motion.div
           className="w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 mb-6"
           initial={{ opacity: 0, scale: 0.7, y: 30 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
+          animate={
+            textVisible
+              ? { opacity: 1, scale: 1, y: 0 }
+              : { opacity: 0, scale: 0.7, y: 30 }
+          }
           transition={{
-            delay: 0.1,
             duration: 1,
-            ease: easing.royal,
+            ease: royalEase,
           }}
         >
           <GeometricDog className="w-full h-full drop-shadow-[0_0_30px_rgba(212,175,55,0.3)]" />
         </motion.div>
 
-        {/* ─── Headline: "Luv K9" ─── */}
-        <motion.h1
-          className="font-display text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold mb-4 leading-[1] tracking-tight"
-          style={{ perspective: 600 }}
-          variants={wordContainerVariants}
+        {/* ─── Small Label ─── */}
+        <motion.p
+          className="font-body text-xs sm:text-sm md:text-base text-gold-light uppercase tracking-[0.3em] mb-4"
+          variants={labelVariants}
           initial="hidden"
-          animate="visible"
+          animate={textVisible ? "visible" : "hidden"}
         >
-          {headlineWords.map((word) => (
+          Hoboken&apos;s Premier Dog Care
+        </motion.p>
+
+        {/* ─── Headline ─── */}
+        <div style={{ perspective: 600 }}>
+          <motion.h1
+            className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-2 leading-[1.05] tracking-tight"
+            initial="hidden"
+            animate={textVisible ? "visible" : "hidden"}
+            variants={{
+              hidden: {},
+              visible: {
+                transition: {
+                  staggerChildren: 0.15,
+                  delayChildren: 0.1,
+                },
+              },
+            }}
+          >
             <motion.span
-              key={word}
-              className="inline-block mr-[0.15em] last:mr-0 gold-text"
-              variants={wordVariants}
+              className="block gold-text"
+              variants={headlineLineVariants}
               style={{ transformOrigin: "bottom center" }}
             >
-              {word}
+              Where Every Dog
             </motion.span>
-          ))}
-        </motion.h1>
+            <motion.span
+              className="block gold-text"
+              variants={headlineLineVariants}
+              style={{ transformOrigin: "bottom center" }}
+            >
+              Is Royalty
+            </motion.span>
+          </motion.h1>
+        </div>
 
-        {/* ─── Location Subtitle ─── */}
+        {/* ─── Subtitle ─── */}
         <motion.p
-          className="font-body text-sm sm:text-base md:text-lg text-gold-light uppercase tracking-[0.3em] mb-8"
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            delay: 0.9,
-            duration: timing.entrance,
-            ease: easing.smooth,
-          }}
+          className="font-body text-base sm:text-lg md:text-xl text-text-muted max-w-2xl mb-10 mt-4 leading-relaxed"
+          variants={subtitleVariants}
+          initial="hidden"
+          animate={textVisible ? "visible" : "hidden"}
+          transition={{ delay: 0.5 }}
         >
-          Hoboken, New Jersey
+          Premium playcare, grooming, and walks for the goodest boys and girls
         </motion.p>
 
-        {/* ─── Description ─── */}
-        <motion.p
-          className="font-body text-base sm:text-lg md:text-xl text-text-muted max-w-2xl mb-10 leading-relaxed"
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            delay: 1.1,
-            duration: timing.entrance,
-            ease: easing.smooth,
-          }}
-        >
-          Where every dog is royalty and every walk is an adventure. Premium
-          playcare, grooming, and walks for the goodest boys and girls in
-          Hoboken.
-        </motion.p>
-
-        {/* ─── Royal CTA Button ─── */}
+        {/* ─── CTA Buttons ─── */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            delay: 1.35,
-            duration: timing.entrance,
-            ease: easing.smooth,
-          }}
+          className="flex flex-col sm:flex-row gap-4 items-center"
+          variants={ctaVariants}
+          initial="hidden"
+          animate={textVisible ? "visible" : "hidden"}
+          transition={{ delay: 0.7 }}
         >
+          {/* Primary CTA */}
           <Button
             href="/book"
+            variant="primary"
+            size="lg"
+          >
+            Book Now
+          </Button>
+
+          {/* Secondary CTA */}
+          <Button
+            href="#services"
             variant="outline"
             size="lg"
             className="
@@ -535,7 +473,7 @@ export default function Hero() {
                 pointer-events-none
               "
             />
-            <span className="relative z-10">Book Now</span>
+            <span className="relative z-10">Our Services</span>
           </Button>
         </motion.div>
       </motion.div>
@@ -544,20 +482,26 @@ export default function Hero() {
       <motion.div
         className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.8, duration: 0.6 }}
+        animate={{ opacity: textVisible ? 1 : 0 }}
+        transition={{ delay: 1, duration: 0.6 }}
       >
-        <motion.div
-          className="w-6 h-10 rounded-full border-2 border-gold-dark/40 flex items-start justify-center p-1.5"
-          animate={{ y: [0, 6, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+        <button
+          onClick={scrollToNext}
+          aria-label="Scroll to next section"
+          className="cursor-pointer"
         >
           <motion.div
-            className="w-1.5 h-1.5 rounded-full bg-gold-dark/70"
-            animate={{ opacity: [1, 0.3, 1], y: [0, 10, 0] }}
+            className="w-6 h-10 rounded-full border-2 border-gold-dark/40 flex items-start justify-center p-1.5"
+            animate={{ y: [0, 6, 0] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          />
-        </motion.div>
+          >
+            <motion.div
+              className="w-1.5 h-1.5 rounded-full bg-gold-dark/70"
+              animate={{ opacity: [1, 0.3, 1], y: [0, 10, 0] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            />
+          </motion.div>
+        </button>
       </motion.div>
     </section>
   );
