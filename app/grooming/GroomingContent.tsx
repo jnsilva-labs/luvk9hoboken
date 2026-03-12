@@ -77,7 +77,7 @@ const faqItems = [
 
 // ─── Filter Grooming testimonials ───
 const groomingTestimonials = testimonials.filter(
-  (t) => (t.service as string) === "Grooming"
+  (t) => t.service === "Grooming"
 );
 
 function GroomerPhoto({

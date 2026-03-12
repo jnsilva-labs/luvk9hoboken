@@ -108,7 +108,7 @@ export const business = {
   ],
 } as const;
 
-// ─── Services Data (mock until Sanity) ───
+// ─── Services Data ───
 export const services = [
   {
     slug: "playcare",
@@ -151,6 +151,7 @@ export type Testimonial = {
   readonly service: string;
 };
 
+// TODO: Add real grooming testimonials when available
 export const testimonials: readonly Testimonial[] = [
   {
     name: "Sharon W.",
@@ -216,7 +217,7 @@ export const testimonials: readonly Testimonial[] = [
   {
     name: "Michael L. & Sarami S.",
     quote:
-      "Luv K9 is phenomenal. They treat every dog as if it were their own. Our puppy's face lights up when they arrive.",
+      "Our puppy's face lights up the moment Luv K9 arrives. They treat every dog as if it were their own — you can tell they genuinely love what they do.",
     rating: 5,
     service: "PlayCare",
   },
@@ -253,20 +254,20 @@ export const communityStats = [
 ] as const;
 
 // ─── Drew Barrymore Feature ───
-export const DREW_BARRYMORE = {
-  title: 'As Featured on The Drew Barrymore Show',
-  segment: 'Drew-Gooder',
-  story: 'Luis and Nyomie cleaned up 900 bags of waste from Hoboken streets in 20° weather.',
-  url: 'https://www.thedrewbarrymoreshow.com/videos/why-these-do-gooders-cleaned-up-the-streets-of-hoboken-in-20-degree-weather-drew-gooder',
-  airDate: 'September 2, 2022',
+export const drewBarrymore = {
+  title: "As Featured on The Drew Barrymore Show",
+  segment: "Drew-Gooder",
+  story: "Luis and Nyomie cleaned up 900 bags of waste from Hoboken streets in 20° weather.",
+  url: "https://www.thedrewbarrymoreshow.com/videos/why-these-do-gooders-cleaned-up-the-streets-of-hoboken-in-20-degree-weather-drew-gooder",
+  airDate: "September 2, 2022",
 } as const;
 
 // ─── Dogs of the Court ───
-export const DOGS_OF_THE_COURT = [
-  { name: 'Tony', title: 'Duke of the Dog Park', image: '/images/dogs/tony.jpg' },
-  { name: 'Mia', title: 'Duchess of Mischief', image: '/images/dogs/mia.jpg' },
-  { name: 'Thomas', title: 'The Lord Commander', image: '/images/dogs/thomas.jpg' },
-  { name: 'Remy', title: 'Baron of Belly Rubs', image: '/images/dogs/remy.jpg' },
-  { name: 'Tessa', title: 'Lady of the Lounge', image: '/images/dogs/tessa.jpg' },
-  { name: 'Elphie', title: 'The Royal Troublemaker', image: '/images/dogs/elphie.jpg' },
+export const dogsOfTheCourt = [
+  { name: "Tony", title: "Duke of the Dog Park", image: "/images/dogs/tony.jpg" },
+  { name: "Mia", title: "Duchess of Mischief", image: "/images/dogs/mia.jpg" },
+  { name: "Thomas", title: "The Lord Commander", image: "/images/dogs/thomas.jpg" },
+  { name: "Remy", title: "Baron of Belly Rubs", image: "/images/dogs/remy.jpg" },
+  { name: "Tessa", title: "Lady of the Lounge", image: "/images/dogs/tessa.jpg" },
+  { name: "Elphie", title: "The Royal Troublemaker", image: "/images/dogs/elphie.jpg" },
 ] as const;
