@@ -62,6 +62,31 @@ export default function Button({
     transition: { duration: 0.15, ease: [0.25, 0.1, 0.25, 1] as const },
   };
 
+  const primaryAnimation =
+    variant === "primary" && !prefersReducedMotion
+      ? {
+          animate: {
+            boxShadow: [
+              "0 4px 20px rgba(212,175,55,0.15)",
+              "0 4px 30px rgba(212,175,55,0.35)",
+              "0 4px 20px rgba(212,175,55,0.15)",
+            ],
+          },
+        }
+      : {};
+
+  const mergedTransition =
+    variant === "primary" && !prefersReducedMotion
+      ? {
+          ...motionProps.transition,
+          boxShadow: {
+            duration: 2,
+            repeat: Infinity,
+            ease: "easeInOut" as const,
+          },
+        }
+      : motionProps.transition;
+
   const handleClick = (e: React.MouseEvent) => {
     if (isMagnetic) {
       triggerClickSparks(e);
@@ -81,6 +106,8 @@ export default function Button({
           className={baseClasses}
           onClick={isMagnetic ? (e: React.MouseEvent) => triggerClickSparks(e) : undefined}
           {...motionProps}
+          {...primaryAnimation}
+          transition={mergedTransition}
         >
           {children}
         </motion.a>
@@ -102,6 +129,8 @@ export default function Button({
         onClick={handleClick}
         className={baseClasses}
         {...motionProps}
+        {...primaryAnimation}
+        transition={mergedTransition}
       >
         {children}
       </motion.button>

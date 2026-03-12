@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import ScrollReveal from "@/components/animations/ScrollReveal";
 import FloatingBones from "@/components/animations/FloatingBones";
@@ -61,6 +61,45 @@ const slideVariants = {
   }),
 };
 
+function FloatingSparkles() {
+  const prefersReducedMotion = useReducedMotion();
+  if (prefersReducedMotion) return null;
+
+  const sparkles = Array.from({ length: 5 }, (_, i) => ({
+    left: `${15 + i * 18}%`,
+    top: `${20 + (i % 3) * 25}%`,
+    size: 12 + (i % 3) * 4,
+    delay: i * 0.8,
+    duration: 4 + (i % 3),
+  }));
+
+  return (
+    <>
+      {sparkles.map((s, i) => (
+        <motion.span
+          key={i}
+          className="absolute text-gold pointer-events-none select-none"
+          style={{ left: s.left, top: s.top, fontSize: s.size }}
+          animate={{
+            y: [-10, 10, -10],
+            x: [-5, 5, -5],
+            opacity: [0.05, 0.12, 0.05],
+            rotate: [0, 180, 360],
+          }}
+          transition={{
+            duration: s.duration,
+            repeat: Infinity,
+            delay: s.delay,
+            ease: "easeInOut",
+          }}
+        >
+          &#10022;
+        </motion.span>
+      ))}
+    </>
+  );
+}
+
 export default function Testimonials() {
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(1);
@@ -91,6 +130,7 @@ export default function Testimonials() {
   return (
     <section className="relative py-20 md:py-28 px-6 bg-obsidian overflow-hidden">
       <FloatingBones count={4} />
+      <FloatingSparkles />
       <div className="relative z-10 max-w-4xl mx-auto">
         {/* Header */}
         <ScrollReveal className="text-center mb-12 md:mb-16">
