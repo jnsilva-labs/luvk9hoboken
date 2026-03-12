@@ -1,69 +1,65 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import ScrollReveal from "@/components/animations/ScrollReveal";
 import FloatingBones from "@/components/animations/FloatingBones";
 import SectionLabel from "@/components/ui/SectionLabel";
 import RoyalPortraitFrame from "@/components/ui/RoyalPortraitFrame";
 import { business } from "@/lib/constants";
+import { dogImages } from "@/lib/image-manifest";
 
-const galleryItems = [
-  {
-    id: 1,
-    name: "Cooper",
-    from: "from-imperial",
-    to: "to-plum/40",
-    shape: "arch" as const,
-    aspect: "aspect-[3/4]",
-    sunburst: true,
-  },
-  {
-    id: 2,
-    name: "Luna",
-    from: "from-gold/20",
-    to: "to-void",
-    shape: "rect" as const,
-    aspect: "aspect-square",
-    sunburst: false,
-  },
-  {
-    id: 3,
-    name: "Rocky",
-    from: "from-plum/30",
-    to: "to-gold/30",
-    shape: "rect" as const,
-    aspect: "aspect-[4/3]",
-    sunburst: false,
-  },
-  {
-    id: 4,
-    name: "Bella",
-    from: "from-imperial",
-    to: "to-gold/20",
-    shape: "arch" as const,
-    aspect: "aspect-[3/4]",
-    sunburst: true,
-  },
-  {
-    id: 5,
-    name: "Max",
-    from: "from-gold/15",
-    to: "to-imperial",
-    shape: "rect" as const,
-    aspect: "aspect-square",
-    sunburst: false,
-  },
-  {
-    id: 6,
-    name: "Daisy",
-    from: "from-plum/40",
-    to: "to-void",
-    shape: "rect" as const,
-    aspect: "aspect-[4/3]",
-    sunburst: false,
-  },
-];
+// Use the first 6 dogs from the manifest for the homepage gallery
+const galleryItems = dogImages.slice(0, 6).map((dog, i) => ({
+  id: i + 1,
+  name: dog.name === "Client Dog" ? "Happy Pup" : dog.name,
+  src: dog.src,
+  alt: dog.alt,
+  shape: (i % 3 === 0 ? "arch" : "rect") as "arch" | "rect",
+  aspect: ["aspect-[3/4]", "aspect-square", "aspect-[4/3]"][i % 3],
+  sunburst: i % 4 === 0,
+}));
+
+function DogPhoto({ item }: { item: (typeof galleryItems)[number] }) {
+  const [imgError, setImgError] = useState(false);
+
+  if (imgError) {
+    return (
+      <div className="w-full h-full bg-gradient-to-br from-imperial via-plum/30 to-gold/20 flex items-center justify-center">
+        <svg
+          className="w-10 h-10 text-gold/20"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={1.5}
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M6.827 6.175A2.31 2.31 0 0 1 5.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 0 0-1.134-.175 2.31 2.31 0 0 1-1.64-1.055l-.822-1.316a2.192 2.192 0 0 0-1.736-1.039 48.774 48.774 0 0 0-5.232 0 2.192 2.192 0 0 0-1.736 1.039l-.821 1.316Z"
+          />
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M16.5 12.75a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0ZM18.75 10.5h.008v.008h-.008V10.5Z"
+          />
+        </svg>
+      </div>
+    );
+  }
+
+  return (
+    <Image
+      src={item.src}
+      alt={item.alt}
+      fill
+      className="object-cover"
+      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+      onError={() => setImgError(true)}
+    />
+  );
+}
 
 export default function PhotoGallery() {
   return (
@@ -88,28 +84,7 @@ export default function PhotoGallery() {
                   sunburst={item.sunburst}
                   aspect={item.aspect}
                 >
-                  <div
-                    className={`w-full h-full bg-gradient-to-br ${item.from} ${item.to} flex items-center justify-center`}
-                  >
-                    <svg
-                      className="w-10 h-10 text-gold/20"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth={1.5}
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M6.827 6.175A2.31 2.31 0 0 1 5.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 0 0-1.134-.175 2.31 2.31 0 0 1-1.64-1.055l-.822-1.316a2.192 2.192 0 0 0-1.736-1.039 48.774 48.774 0 0 0-5.232 0 2.192 2.192 0 0 0-1.736 1.039l-.821 1.316Z"
-                      />
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M16.5 12.75a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0ZM18.75 10.5h.008v.008h-.008V10.5Z"
-                      />
-                    </svg>
-                  </div>
+                  <DogPhoto item={item} />
                 </RoyalPortraitFrame>
 
                 {/* Name below frame */}
