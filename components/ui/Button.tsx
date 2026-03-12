@@ -2,7 +2,8 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ReactNode } from "react";
+import { ReactNode, useRef } from "react";
+import { useMagneticButton, triggerClickSparks } from "@/hooks/useMagneticButton";
 
 interface ButtonProps {
   children: ReactNode;
@@ -12,6 +13,7 @@ interface ButtonProps {
   size?: "sm" | "md" | "lg";
   className?: string;
   external?: boolean;
+  magnetic?: boolean;
 }
 
 const variants = {
@@ -39,7 +41,17 @@ export default function Button({
   size = "md",
   className = "",
   external = false,
+  magnetic,
 }: ButtonProps) {
+  // Default: magnetic is true for primary/secondary, false for outline/ghost
+  const isMagnetic = magnetic ?? (variant === "primary" || variant === "secondary");
+
+  const wrapperRef = useRef<HTMLSpanElement>(null);
+  const { magneticStyle } = useMagneticButton(wrapperRef, {
+    strength: isMagnetic ? 8 : 0,
+    radius: isMagnetic ? 80 : 0,
+  });
+
   const baseClasses = `inline-flex items-center justify-center gap-2 font-display font-semibold rounded-full transition-all duration-200 cursor-pointer ${variants[variant]} ${sizes[size]} ${className}`;
 
   const motionProps = {
@@ -48,35 +60,66 @@ export default function Button({
     transition: { duration: 0.15, ease: [0.25, 0.1, 0.25, 1] as const },
   };
 
+  const handleClick = (e: React.MouseEvent) => {
+    if (isMagnetic) {
+      triggerClickSparks(e);
+    }
+    onClick?.();
+  };
+
+  let inner: ReactNode;
+
   if (href) {
     if (external) {
-      return (
+      inner = (
         <motion.a
           href={href}
           target="_blank"
           rel="noopener noreferrer"
           className={baseClasses}
+          onClick={isMagnetic ? (e: React.MouseEvent) => triggerClickSparks(e) : undefined}
           {...motionProps}
         >
           {children}
         </motion.a>
       );
+    } else {
+      inner = (
+        <Link
+          href={href}
+          className={baseClasses}
+          onClick={isMagnetic ? (e: React.MouseEvent) => triggerClickSparks(e) : undefined}
+        >
+          {children}
+        </Link>
+      );
     }
-
-    return (
-      <Link href={href} className={baseClasses}>
+  } else {
+    inner = (
+      <motion.button
+        onClick={handleClick}
+        className={baseClasses}
+        {...motionProps}
+      >
         {children}
-      </Link>
+      </motion.button>
     );
   }
 
+  if (!isMagnetic) {
+    return <>{inner}</>;
+  }
+
   return (
-    <motion.button
-      onClick={onClick}
-      className={baseClasses}
-      {...motionProps}
+    <span
+      ref={wrapperRef}
+      style={{
+        display: "inline-flex",
+        borderRadius: "9999px",
+        ...magneticStyle,
+      }}
     >
-      {children}
-    </motion.button>
+      {inner}
+    </span>
   );
 }
