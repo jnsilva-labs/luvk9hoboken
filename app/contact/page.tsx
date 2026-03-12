@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import JsonLd, { breadcrumbSchema } from "@/components/seo/JsonLd";
 import ScrollReveal from "@/components/animations/ScrollReveal";
 import SectionLabel from "@/components/ui/SectionLabel";
 import Footer from "@/components/layout/Footer";
@@ -6,9 +7,15 @@ import ContactForm from "./ContactForm";
 import { business } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "Contact",
+  title: "Contact Luv K9 — Locations, Hours & Phone | Hoboken, NJ",
   description:
-    "Get in touch with Luv K9 in Hoboken, NJ. Find our locations, hours, phone number, and send us a message about PlayCare, grooming, or dog walking.",
+    "Reach Luv K9 in Hoboken, NJ. Two locations: 421 Washington St and 614 Jefferson St. Call 551-339-2415, email, or send a message about PlayCare, grooming, or dog walking.",
+  alternates: { canonical: "https://luvhoboken.com/contact" },
+  openGraph: {
+    title: "Contact Luv K9 Hoboken — Locations & Hours",
+    description: "Find our two Hoboken locations, hours, phone number, and send us a message about dog care services.",
+    url: "https://luvhoboken.com/contact",
+  },
 };
 
 const hours = [
@@ -20,6 +27,7 @@ const hours = [
 export default function ContactPage() {
   return (
     <>
+      <JsonLd data={breadcrumbSchema([{ name: "Home", url: "https://luvhoboken.com" }, { name: "Contact", url: "https://luvhoboken.com/contact" }])} />
       {/* Hero */}
       <section className="relative py-24 md:py-32 px-6 bg-gradient-to-br from-imperial via-void to-obsidian overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-t from-obsidian/30 via-transparent to-transparent" />

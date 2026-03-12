@@ -151,6 +151,88 @@ h1, h2, h3, h4, h5, h6 {
   border-color: var(--color-gold-light);
 }
 
+/* ─── Paw Trail Cursor ─── */
+@keyframes pawAppear {
+  0% {
+    opacity: 0;
+    transform: rotate(var(--paw-rot, 0deg)) scale(0.3);
+  }
+  15% {
+    opacity: 0.45;
+    transform: rotate(var(--paw-rot, 0deg)) scale(0.7);
+  }
+  100% {
+    opacity: 0;
+    transform: rotate(var(--paw-rot, 0deg)) scale(0.4) translateY(-10px);
+  }
+}
+
+.paw-trail-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9998;
+  overflow: hidden;
+}
+
+/* ─── Floating Bones ─── */
+@keyframes boneFloat {
+  0%, 100% {
+    transform: rotate(var(--bone-rot, 0deg)) translateY(0) translateX(0);
+  }
+  25% {
+    transform: rotate(calc(var(--bone-rot, 0deg) + 8deg)) translateY(-12px) translateX(6px);
+  }
+  50% {
+    transform: rotate(calc(var(--bone-rot, 0deg) + 3deg)) translateY(-6px) translateX(-4px);
+  }
+  75% {
+    transform: rotate(calc(var(--bone-rot, 0deg) - 5deg)) translateY(-16px) translateX(8px);
+  }
+}
+
+/* ─── Royal Portrait Frame ─── */
+@keyframes frameGlow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.1), inset 0 0 8px rgba(212, 175, 55, 0.05);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(212, 175, 55, 0.2), inset 0 0 15px rgba(212, 175, 55, 0.1);
+  }
+}
+
+@keyframes rotateSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ─── Wagging Tail ─── */
+@keyframes wagTail {
+  0%, 100% { transform: rotate(-15deg); }
+  50% { transform: rotate(15deg); }
+}
+
+.wag-tail {
+  animation: wagTail 0.4s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+
+/* ─── Bounce Paw ─── */
+@keyframes bouncePaw {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-6px) scale(1.1); }
+}
+
+.bounce-paw {
+  animation: bouncePaw 1.5s ease-in-out infinite;
+}
+
+/* ─── Sparkle ─── */
+@keyframes sparkle {
+  0%, 100% { opacity: 0.3; transform: scale(0.8) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1.2) rotate(180deg); }
+}
+
 /* ─── Reduced Motion ─── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -158,6 +240,9 @@ h1, h2, h3, h4, h5, h6 {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+  .paw-trail-container {
+    display: none;
   }
 }
 

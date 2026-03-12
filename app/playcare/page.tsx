@@ -1,18 +1,27 @@
 import type { Metadata } from "next";
+import JsonLd, { serviceSchema, breadcrumbSchema } from "@/components/seo/JsonLd";
 import PlayCareContent from "./PlayCareContent";
 
 export const metadata: Metadata = {
-  title: "PlayCare — Dog Daycare",
+  title: "Dog Daycare (PlayCare) in Hoboken, NJ — Supervised Play & Pack Walks",
   description:
-    "Structured, exercise-filled daycare for dogs in Hoboken, NJ. Guided pack walks, supervised play, photo updates, and complimentary pickup & drop-off. Book your pup's best day ever.",
+    "Luv K9 PlayCare: Hoboken's top-rated dog daycare. Guided pack walks, supervised play, photo updates, and free pickup & drop-off. Serving Hoboken, Jersey City & Weehawken. Book your pup's best day.",
+  alternates: { canonical: "https://luvhoboken.com/playcare" },
   openGraph: {
-    title: "PlayCare — Dog Daycare | Luv K9 Hoboken",
+    title: "Dog Daycare in Hoboken — Luv K9 PlayCare",
     description:
-      "Where every day is the best day. Structured daycare with the S.E.A. philosophy: Structure, Exercise, and Affection.",
+      "Structured dog daycare with guided walks, play sessions, and daily photo updates. Free pickup & drop-off in Hoboken. Book online.",
     url: "https://luvhoboken.com/playcare",
+    images: [{ url: "https://luvhoboken.com/images/og-playcare.jpg", width: 1200, height: 630, alt: "Luv K9 PlayCare — Dog Daycare in Hoboken, NJ" }],
   },
 };
 
 export default function PlayCarePage() {
-  return <PlayCareContent />;
+  return (
+    <>
+      <JsonLd data={serviceSchema({ name: "PlayCare — Dog Daycare in Hoboken", description: "Supervised dog daycare with guided pack walks, structured play sessions, daily photo updates, and complimentary pickup & drop-off. Serving Hoboken, Jersey City, and Hudson County NJ.", url: "https://luvhoboken.com/playcare", priceRange: "$$" })} />
+      <JsonLd data={breadcrumbSchema([{ name: "Home", url: "https://luvhoboken.com" }, { name: "PlayCare", url: "https://luvhoboken.com/playcare" }])} />
+      <PlayCareContent />
+    </>
+  );
 }

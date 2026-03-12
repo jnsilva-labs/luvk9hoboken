@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import ScrollReveal from "@/components/animations/ScrollReveal";
+import FloatingBones from "@/components/animations/FloatingBones";
 import SectionLabel from "@/components/ui/SectionLabel";
 import { testimonials, easing } from "@/lib/constants";
 
@@ -69,8 +70,9 @@ export default function Testimonials() {
   const testimonial = testimonials[current];
 
   return (
-    <section className="py-20 md:py-28 px-6 bg-obsidian">
-      <div className="max-w-4xl mx-auto">
+    <section className="relative py-20 md:py-28 px-6 bg-obsidian overflow-hidden">
+      <FloatingBones count={4} />
+      <div className="relative z-10 max-w-4xl mx-auto">
         {/* Header */}
         <ScrollReveal className="text-center mb-12 md:mb-16">
           <SectionLabel>Kind Words</SectionLabel>

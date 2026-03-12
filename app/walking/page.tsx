@@ -1,18 +1,27 @@
 import type { Metadata } from "next";
+import JsonLd, { serviceSchema, breadcrumbSchema } from "@/components/seo/JsonLd";
 import WalkingContent from "./WalkingContent";
 
 export const metadata: Metadata = {
-  title: "Dog Walking — Guided Pack Adventures",
+  title: "Dog Walking in Hoboken, NJ — Guided Pack Walks | Luv K9",
   description:
-    "Structured group dog walks through Hoboken's parks and waterfront. Exercise, socialization, and fresh air for your pup — rain or shine. Book a walk today.",
+    "Professional group dog walks through Hoboken's parks and waterfront. Structured exercise, socialization, and GPS-tracked routes. Rain or shine, 7 days a week. Serving Hoboken, Jersey City & Weehawken.",
+  alternates: { canonical: "https://luvhoboken.com/walking" },
   openGraph: {
-    title: "Dog Walking | Luv K9 Hoboken",
+    title: "Dog Walking in Hoboken — Luv K9 Pack Walks",
     description:
-      "Guided pack adventures through Hoboken's waterfront and parks. Structured walks with trained handlers.",
+      "Guided group dog walks through Hoboken's parks and waterfront. Exercise, socialization, and fresh air for your pup. Book a walk today.",
     url: "https://luvhoboken.com/walking",
+    images: [{ url: "https://luvhoboken.com/images/og-walking.jpg", width: 1200, height: 630, alt: "Luv K9 Dog Walking — Hoboken, NJ" }],
   },
 };
 
 export default function WalkingPage() {
-  return <WalkingContent />;
+  return (
+    <>
+      <JsonLd data={serviceSchema({ name: "Dog Walking in Hoboken, NJ", description: "Professional guided group dog walks through Hoboken's parks and waterfront. Structured exercise, socialization, and GPS-tracked routes. Rain or shine.", url: "https://luvhoboken.com/walking", priceRange: "$" })} />
+      <JsonLd data={breadcrumbSchema([{ name: "Home", url: "https://luvhoboken.com" }, { name: "Walking", url: "https://luvhoboken.com/walking" }])} />
+      <WalkingContent />
+    </>
+  );
 }

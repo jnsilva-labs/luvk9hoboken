@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import JsonLd, { breadcrumbSchema } from "@/components/seo/JsonLd";
 import ScrollReveal from "@/components/animations/ScrollReveal";
 import SectionLabel from "@/components/ui/SectionLabel";
 import Button from "@/components/ui/Button";
@@ -6,9 +7,15 @@ import Footer from "@/components/layout/Footer";
 import { business } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "Specials",
+  title: "Deals & Specials — Dog Care Promotions in Hoboken | Luv K9",
   description:
-    "Current deals and promotions at Luv K9 in Hoboken, NJ. Save on PlayCare, grooming, and more.",
+    "Save on dog daycare, grooming, and walking in Hoboken, NJ. Current promotions and discounts at Luv K9. New client offers and referral rewards available.",
+  alternates: { canonical: "https://luvhoboken.com/specials" },
+  openGraph: {
+    title: "Luv K9 Specials — Dog Care Deals in Hoboken",
+    description: "Current promotions on PlayCare, grooming, and more. New client offers and referral rewards.",
+    url: "https://luvhoboken.com/specials",
+  },
 };
 
 const specials = [
@@ -46,6 +53,7 @@ const specials = [
 export default function SpecialsPage() {
   return (
     <>
+      <JsonLd data={breadcrumbSchema([{ name: "Home", url: "https://luvhoboken.com" }, { name: "Specials", url: "https://luvhoboken.com/specials" }])} />
       {/* Hero */}
       <section className="relative py-24 md:py-32 px-6 bg-gradient-to-br from-imperial via-void to-obsidian overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-t from-obsidian/30 via-transparent to-transparent" />

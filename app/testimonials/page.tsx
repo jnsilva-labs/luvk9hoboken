@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import JsonLd, { breadcrumbSchema } from "@/components/seo/JsonLd";
 import ScrollReveal from "@/components/animations/ScrollReveal";
 import SectionLabel from "@/components/ui/SectionLabel";
 import Button from "@/components/ui/Button";
@@ -6,9 +7,15 @@ import Footer from "@/components/layout/Footer";
 import { testimonials } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "Testimonials",
+  title: "Reviews & Testimonials — What Hoboken Dog Parents Say | Luv K9",
   description:
-    "Read what Hoboken dog parents say about Luv K9. Real reviews for PlayCare, grooming, and dog walking services.",
+    "Read 5-star reviews from Hoboken dog owners about Luv K9 PlayCare, grooming, and dog walking. See why families trust us with their pups since 2019.",
+  alternates: { canonical: "https://luvhoboken.com/testimonials" },
+  openGraph: {
+    title: "Luv K9 Reviews — Hoboken Dog Parent Testimonials",
+    description: "Real reviews from real Hoboken families. See why dog parents trust Luv K9 for PlayCare, grooming, and walks.",
+    url: "https://luvhoboken.com/testimonials",
+  },
 };
 
 function StarRating({ rating }: { rating: number }) {
@@ -33,6 +40,7 @@ function StarRating({ rating }: { rating: number }) {
 export default function TestimonialsPage() {
   return (
     <>
+      <JsonLd data={breadcrumbSchema([{ name: "Home", url: "https://luvhoboken.com" }, { name: "Testimonials", url: "https://luvhoboken.com/testimonials" }])} />
       {/* Hero */}
       <section className="relative py-24 md:py-32 px-6 bg-gradient-to-br from-imperial via-void to-obsidian overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-t from-obsidian/30 via-transparent to-transparent" />

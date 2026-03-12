@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import JsonLd, { breadcrumbSchema } from "@/components/seo/JsonLd";
 import ScrollReveal from "@/components/animations/ScrollReveal";
 import SectionLabel from "@/components/ui/SectionLabel";
 import Button from "@/components/ui/Button";
@@ -6,9 +7,15 @@ import Footer from "@/components/layout/Footer";
 import { business } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "Book Your Visit",
+  title: "Book Dog Care in Hoboken — PlayCare, Grooming & Walking | Luv K9",
   description:
-    "Book PlayCare, grooming, or express grooming for your dog at Luv K9 in Hoboken, NJ. Online booking, phone, or text — whatever works for you.",
+    "Book PlayCare daycare, grooming, or dog walking at Luv K9 in Hoboken, NJ. Online booking, phone, or text — choose what works for you. Same-day express grooming available.",
+  alternates: { canonical: "https://luvhoboken.com/book" },
+  openGraph: {
+    title: "Book Your Visit — Luv K9 Hoboken",
+    description: "Book PlayCare, grooming, or walking for your dog. Online booking, phone, or text.",
+    url: "https://luvhoboken.com/book",
+  },
 };
 
 const bookingOptions = [
@@ -68,6 +75,7 @@ const steps = [
 export default function BookPage() {
   return (
     <>
+      <JsonLd data={breadcrumbSchema([{ name: "Home", url: "https://luvhoboken.com" }, { name: "Book", url: "https://luvhoboken.com/book" }])} />
       {/* Hero */}
       <section className="relative py-24 md:py-32 px-6 bg-gradient-to-br from-imperial via-void to-obsidian overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-t from-obsidian/30 via-transparent to-transparent" />

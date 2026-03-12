@@ -1,18 +1,24 @@
 import type { Metadata } from "next";
+import JsonLd, { breadcrumbSchema } from "@/components/seo/JsonLd";
 import AboutContent from "./AboutContent";
 
 export const metadata: Metadata = {
-  title: "About — Our Story",
+  title: "About Luv K9 — Our Story | Dog Care in Hoboken Since 2019",
   description:
-    "Meet the family behind Luv K9. Founded by Luis & Nyomie Perez in 2019, we're a Hoboken-based dog care business built on love, loyalty, and community.",
+    "Meet Luis & Nyomie Perez, founders of Luv K9. Learn how a passion for dogs grew into Hoboken's most trusted dog care business — PlayCare, grooming, and walking for the community since 2019.",
+  alternates: { canonical: "https://luvhoboken.com/about" },
   openGraph: {
-    title: "About Luv K9 | Our Story",
-    description:
-      "Founded in 2019 by Luis & Nyomie Perez. A family business built on luv, loyalty, and lots of dog hair.",
+    title: "About Luv K9 — Hoboken's Family-Owned Dog Care",
+    description: "Founded by Luis & Nyomie Perez in 2019. PlayCare, grooming, and dog walking built on love, loyalty, and community.",
     url: "https://luvhoboken.com/about",
   },
 };
 
 export default function AboutPage() {
-  return <AboutContent />;
+  return (
+    <>
+      <JsonLd data={breadcrumbSchema([{ name: "Home", url: "https://luvhoboken.com" }, { name: "About", url: "https://luvhoboken.com/about" }])} />
+      <AboutContent />
+    </>
+  );
 }

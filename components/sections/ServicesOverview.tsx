@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import SectionLabel from "@/components/ui/SectionLabel";
 import ScrollReveal from "@/components/animations/ScrollReveal";
+import FloatingBones from "@/components/animations/FloatingBones";
 import Button from "@/components/ui/Button";
 import { services } from "@/lib/constants";
 
@@ -29,6 +30,7 @@ export default function ServicesOverview() {
     <section className="relative py-24 md:py-32 bg-obsidian overflow-hidden">
       {/* Subtle background gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-obsidian via-void/30 to-obsidian pointer-events-none" />
+      <FloatingBones count={5} />
 
       <div className="relative max-w-7xl mx-auto px-6">
         {/* Section Header */}
