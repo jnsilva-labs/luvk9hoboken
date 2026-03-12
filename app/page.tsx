@@ -1,25 +1,27 @@
 import Hero from "@/components/sections/Hero";
-import SEAPhilosophy from "@/components/sections/SEAPhilosophy";
+import SocialProof from "@/components/sections/SocialProof";
 import FoundersStory from "@/components/sections/FoundersStory";
-import RescueDogs from "@/components/sections/RescueDogs";
+import DogsOfTheCourt from "@/components/sections/DogsOfTheCourt";
 import ServicesOverview from "@/components/sections/ServicesOverview";
 import PhotoGallery from "@/components/sections/PhotoGallery";
 import Testimonials from "@/components/sections/Testimonials";
-import CommunityImpact from "@/components/sections/CommunityImpact";
 import SeasonalCTA from "@/components/sections/SeasonalCTA";
 import Footer from "@/components/layout/Footer";
+import SectionDivider from "@/components/animations/SectionDivider";
 
 export default function Home() {
   return (
     <>
       <Hero />
-      <SEAPhilosophy />
+      <SectionDivider />
+      <SocialProof />
       <FoundersStory />
-      <RescueDogs />
+      <SectionDivider />
+      <DogsOfTheCourt />
       <ServicesOverview />
+      <SectionDivider />
       <PhotoGallery />
       <Testimonials />
-      <CommunityImpact />
       <SeasonalCTA />
       <Footer />
     </>
