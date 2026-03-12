@@ -1,26 +1,197 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
+/* ─── Dark Luxury Theme (Tailwind v4) ─── */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Dark Backgrounds */
+  --color-obsidian: #07040C;
+  --color-void: #130A24;
+  --color-imperial: #2A164D;
+  --color-panel: rgba(19, 10, 36, 0.7);
+
+  /* Gold Palette */
+  --color-gold-light: #FFDE70;
+  --color-gold: #D4AF37;
+  --color-gold-dark: #8B6914;
+
+  /* Purple Palette (brighter) */
+  --color-plum: #9B59FF;
+  --color-plum-dark: #7C3AED;
+  --color-plum-light: #B37FFF;
+
+  /* Text Colors */
+  --color-text-title: #FFFFFF;
+  --color-text-body: #CBBCE6;
+  --color-text-muted: #8574A6;
+
+  /* Legacy aliases for compatibility */
+  --color-charcoal: #07040C;
+  --color-cream: #CBBCE6;
+  --color-terracotta: #D4AF37;
+  --color-terracotta-dark: #8B6914;
+
+  /* Fonts */
+  --font-display: "Outfit", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-mono: "Space Mono", monospace;
+
+  /* Easing */
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-smooth: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-quick: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --ease-royal: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ─── Base Styles ─── */
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-obsidian);
+  color: var(--color-text-body);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Typography ─── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+/* ─── Gold Gradient Text ─── */
+.gold-text {
+  background: linear-gradient(180deg, var(--color-gold-light) 0%, var(--color-gold) 40%, var(--color-gold-dark) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.8));
+  display: inline-block;
+}
+
+/* ─── Section Divider ─── */
+.section-divider {
+  width: 60px;
+  height: 2px;
+  background: var(--color-gold);
+  margin: 1rem auto 0;
+  box-shadow: 0 0 10px var(--color-gold);
+}
+
+/* ─── Selection ─── */
+::selection {
+  background-color: var(--color-gold);
+  color: var(--color-obsidian);
+}
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-obsidian);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-gold-dark);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gold);
+}
+
+/* ─── Glow Effects ─── */
+.glow-purple {
+  box-shadow: 0 0 30px rgba(155, 89, 255, 0.3), inset 0 0 15px rgba(155, 89, 255, 0.1);
+}
+
+.glow-gold {
+  box-shadow: 0 0 30px rgba(212, 175, 55, 0.3), inset 0 0 15px rgba(212, 175, 55, 0.1);
+}
+
+/* ─── Corner Bracket Cards ─── */
+.bracket-card {
+  position: relative;
+}
+.bracket-card::before,
+.bracket-card::after {
+  content: '';
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--color-gold);
+  transition: all 0.3s;
+}
+.bracket-card::before {
+  top: 10px;
+  left: 10px;
+  border-right: none;
+  border-bottom: none;
+}
+.bracket-card::after {
+  bottom: 10px;
+  right: 10px;
+  border-left: none;
+  border-top: none;
+}
+.bracket-card:hover::before {
+  top: 5px;
+  left: 5px;
+  border-color: var(--color-gold-light);
+}
+.bracket-card:hover::after {
+  bottom: 5px;
+  right: 5px;
+  border-color: var(--color-gold-light);
+}
+
+/* ─── Reduced Motion ─── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ─── Section label style ─── */
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: var(--color-gold-light);
+}
+
+/* ─── Focus styles ─── */
+:focus-visible {
+  outline: 2px dashed var(--color-plum);
+  outline-offset: 4px;
+}
+
+/* ─── Skip to content ─── */
+.skip-to-content {
+  position: absolute;
+  top: -100%;
+  left: 16px;
+  z-index: 9999;
+  padding: 8px 16px;
+  background: var(--color-plum);
+  color: white;
+  font-family: var(--font-body);
+  font-size: 14px;
+  border-radius: 0 0 8px 8px;
+  transition: top 0.2s;
+}
+
+.skip-to-content:focus {
+  top: 0;
 }
