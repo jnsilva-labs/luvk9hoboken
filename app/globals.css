@@ -303,6 +303,12 @@ h1, h2, h3, h4, h5, h6 {
   50% { opacity: 0; }
 }
 
+/* ─── Gallery Float ─── */
+@keyframes bobFloat {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+
 /* ─── Reduced Motion ─── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
