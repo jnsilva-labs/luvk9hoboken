@@ -1,99 +1,72 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import ScrollReveal from "@/components/animations/ScrollReveal";
 import FloatingBones from "@/components/animations/FloatingBones";
 import SectionLabel from "@/components/ui/SectionLabel";
 import RoyalPortraitFrame from "@/components/ui/RoyalPortraitFrame";
 import Footer from "@/components/layout/Footer";
 import { business } from "@/lib/constants";
+import { dogImages } from "@/lib/image-manifest";
 
-const galleryItems = [
-  {
-    name: "Cooper",
-    gradient: "from-plum/40 via-imperial to-gold/20",
-    aspect: "aspect-[3/4]",
-    shape: "arch" as const,
-    sunburst: true,
-  },
-  {
-    name: "Luna",
-    gradient: "from-imperial via-plum/30 to-gold-dark/20",
-    aspect: "aspect-square",
-    shape: "rect" as const,
-    sunburst: false,
-  },
-  {
-    name: "Rocky",
-    gradient: "from-gold/30 via-imperial to-plum/20",
-    aspect: "aspect-[4/5]",
-    shape: "rect" as const,
-    sunburst: false,
-  },
-  {
-    name: "Bella",
-    gradient: "from-plum/30 via-gold-dark/20 to-imperial",
-    aspect: "aspect-[3/4]",
-    shape: "arch" as const,
-    sunburst: true,
-  },
-  {
-    name: "Max",
-    gradient: "from-imperial via-gold/20 to-plum/40",
-    aspect: "aspect-square",
-    shape: "rect" as const,
-    sunburst: false,
-  },
-  {
-    name: "Daisy",
-    gradient: "from-gold-dark/30 via-plum/40 to-imperial",
-    aspect: "aspect-[4/5]",
-    shape: "rect" as const,
-    sunburst: false,
-  },
-  {
-    name: "Charlie",
-    gradient: "from-plum/40 via-imperial to-gold-dark/20",
-    aspect: "aspect-[3/4]",
-    shape: "arch" as const,
-    sunburst: false,
-  },
-  {
-    name: "Sadie",
-    gradient: "from-imperial via-gold/20 to-plum/30",
-    aspect: "aspect-square",
-    shape: "rect" as const,
-    sunburst: false,
-  },
-  {
-    name: "Duke",
-    gradient: "from-gold/30 via-plum/30 to-imperial",
-    aspect: "aspect-[4/5]",
-    shape: "rect" as const,
-    sunburst: true,
-  },
-  {
-    name: "Rosie",
-    gradient: "from-imperial via-plum/40 to-gold/20",
-    aspect: "aspect-[3/4]",
-    shape: "arch" as const,
-    sunburst: false,
-  },
-  {
-    name: "Bear",
-    gradient: "from-plum/30 via-imperial to-gold-dark/20",
-    aspect: "aspect-square",
-    shape: "rect" as const,
-    sunburst: false,
-  },
-  {
-    name: "Penny",
-    gradient: "from-gold-dark/20 via-imperial to-plum/40",
-    aspect: "aspect-[4/5]",
-    shape: "rect" as const,
-    sunburst: false,
-  },
-];
+const galleryItems = dogImages.map((dog, i) => ({
+  name: dog.name === "Client Dog" ? `Good Boy ${i - 5}` : dog.name,
+  src: dog.src,
+  alt: dog.alt,
+  aspect: ["aspect-[3/4]", "aspect-square", "aspect-[4/5]"][i % 3],
+  shape: (i % 3 === 0 ? "arch" : "rect") as "arch" | "rect",
+  sunburst: i % 4 === 0,
+}));
+
+function GalleryImage({
+  item,
+}: {
+  item: (typeof galleryItems)[number];
+}) {
+  const [imgError, setImgError] = useState(false);
+
+  return (
+    <>
+      {imgError ? (
+        <div className="w-full h-full bg-gradient-to-br from-plum/40 via-imperial to-gold/20">
+          <div className="absolute inset-0 flex items-center justify-center opacity-20">
+            <svg
+              viewBox="0 0 64 64"
+              fill="currentColor"
+              className="w-16 h-16 text-text-muted/30"
+            >
+              <ellipse cx="32" cy="44" rx="12" ry="10" />
+              <ellipse cx="20" cy="28" rx="6" ry="7" />
+              <ellipse cx="32" cy="22" rx="6" ry="7" />
+              <ellipse cx="44" cy="28" rx="6" ry="7" />
+            </svg>
+          </div>
+        </div>
+      ) : (
+        <Image
+          src={item.src}
+          alt={item.alt}
+          fill
+          className="object-cover"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          onError={() => setImgError(true)}
+        />
+      )}
+
+      {/* Hover overlay with name */}
+      <div className="absolute inset-0 bg-obsidian/0 group-hover:bg-obsidian/60 transition-all duration-300 flex items-end z-10">
+        <div className="p-6 w-full translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+          <p className="font-display text-xl font-semibold text-white">
+            {item.name}
+          </p>
+          <p className="font-body text-sm text-white/70">Luv K9 Family</p>
+        </div>
+      </div>
+    </>
+  );
+}
 
 export default function GalleryPage() {
   return (
@@ -122,7 +95,7 @@ export default function GalleryPage() {
         <div className="relative z-10 max-w-7xl mx-auto">
           <div className="columns-1 sm:columns-2 lg:columns-3 gap-8 md:gap-10 space-y-10 md:space-y-12">
             {galleryItems.map((item, i) => (
-              <div key={item.name} className="break-inside-avoid group py-4 px-2">
+              <div key={`${item.name}-${i}`} className="break-inside-avoid group py-4 px-2">
                 <motion.div
                   initial={{
                     filter: "brightness(3) saturate(0)",
@@ -146,53 +119,7 @@ export default function GalleryPage() {
                     sunburst={item.sunburst}
                     aspect={item.aspect}
                   >
-                    {/* Gradient placeholder — replace with real images */}
-                    <div
-                      className={`w-full h-full bg-gradient-to-br ${item.gradient}`}
-                    >
-                      {/* Subtle texture */}
-                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,rgba(255,255,255,0.15),transparent_60%)]" />
-
-                      {/* Paw icon placeholder */}
-                      <div className="absolute inset-0 flex items-center justify-center opacity-20 group-hover:opacity-10 transition-opacity duration-300">
-                        <svg
-                          viewBox="0 0 64 64"
-                          fill="currentColor"
-                          className="w-16 h-16 text-text-muted/30"
-                        >
-                          <ellipse cx="32" cy="44" rx="12" ry="10" />
-                          <ellipse cx="20" cy="28" rx="6" ry="7" />
-                          <ellipse cx="32" cy="22" rx="6" ry="7" />
-                          <ellipse cx="44" cy="28" rx="6" ry="7" />
-                          <ellipse
-                            cx="16"
-                            cy="38"
-                            rx="5"
-                            ry="6"
-                            transform="rotate(-15 16 38)"
-                          />
-                          <ellipse
-                            cx="48"
-                            cy="38"
-                            rx="5"
-                            ry="6"
-                            transform="rotate(15 48 38)"
-                          />
-                        </svg>
-                      </div>
-
-                      {/* Hover overlay with name */}
-                      <div className="absolute inset-0 bg-obsidian/0 group-hover:bg-obsidian/60 transition-all duration-300 flex items-end z-10">
-                        <div className="p-6 w-full translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-                          <p className="font-display text-xl font-semibold text-white">
-                            {item.name}
-                          </p>
-                          <p className="font-body text-sm text-white/70">
-                            Luv K9 Family
-                          </p>
-                        </div>
-                      </div>
-                    </div>
+                    <GalleryImage item={item} />
                   </RoyalPortraitFrame>
                 </motion.div>
 
