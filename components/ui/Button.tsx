@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import { ReactNode, useRef } from "react";
 import { useMagneticButton, triggerClickSparks } from "@/hooks/useMagneticButton";
@@ -43,6 +43,8 @@ export default function Button({
   external = false,
   magnetic,
 }: ButtonProps) {
+  const prefersReducedMotion = useReducedMotion();
+
   // Default: magnetic is true for primary/secondary, false for outline/ghost
   const isMagnetic = magnetic ?? (variant === "primary" || variant === "secondary");
 
@@ -55,8 +57,8 @@ export default function Button({
   const baseClasses = `inline-flex items-center justify-center gap-2 font-display font-semibold rounded-full transition-all duration-200 cursor-pointer ${variants[variant]} ${sizes[size]} ${className}`;
 
   const motionProps = {
-    whileHover: { scale: 1.02, y: -2 },
-    whileTap: { scale: 0.98 },
+    whileHover: prefersReducedMotion ? undefined : { scale: 1.02, y: -2 },
+    whileTap: prefersReducedMotion ? undefined : { scale: 0.98 },
     transition: { duration: 0.15, ease: [0.25, 0.1, 0.25, 1] as const },
   };
 

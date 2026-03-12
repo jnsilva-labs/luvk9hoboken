@@ -114,7 +114,16 @@ export default function FloatingBones({
   count?: number;
   className?: string;
 }) {
+  const [reducedMotion, setReducedMotion] = useState(false);
   const [elements, setElements] = useState<FloatingElement[]>([]);
+
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setReducedMotion(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setReducedMotion(e.matches);
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, []);
 
   useEffect(() => {
     const generated: FloatingElement[] = Array.from(
@@ -134,6 +143,7 @@ export default function FloatingBones({
     setElements(generated);
   }, [count]);
 
+  if (reducedMotion) return null;
   if (elements.length === 0) return null;
 
   return (

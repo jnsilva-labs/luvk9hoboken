@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useCallback } from "react";
+import { useEffect, useRef, useCallback, useState } from "react";
 
 /**
  * Paw trail that follows the mouse cursor.
@@ -9,6 +9,16 @@ import { useEffect, useRef, useCallback } from "react";
  * Bounce landing animation, adaptive spacing, and shimmer dot trail.
  */
 export default function PawTrailCursor() {
+  const [reducedMotion, setReducedMotion] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setReducedMotion(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setReducedMotion(e.matches);
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, []);
+
   const containerRef = useRef<HTMLDivElement>(null);
   const lastPos = useRef({ x: 0, y: 0 });
   const lastAngle = useRef(0);
@@ -114,6 +124,8 @@ export default function PawTrailCursor() {
   );
 
   useEffect(() => {
+    if (reducedMotion) return;
+
     const handleMouseMove = (e: MouseEvent) => {
       pending.current = { x: e.clientX, y: e.clientY };
 
@@ -152,7 +164,7 @@ export default function PawTrailCursor() {
       window.removeEventListener("mousemove", handleMouseMove);
       if (rafId.current) cancelAnimationFrame(rafId.current);
     };
-  }, [spawnPaw]);
+  }, [spawnPaw, reducedMotion]);
 
   return <div ref={containerRef} className="paw-trail-container" />;
 }
