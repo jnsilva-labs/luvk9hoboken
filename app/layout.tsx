@@ -4,6 +4,7 @@ import "./globals.css";
 import LenisProvider from "@/components/animations/LenisProvider";
 import PawTrailCursor from "@/components/animations/PawTrailCursor";
 import Header from "@/components/layout/Header";
+import ClientLayout from "@/components/layout/ClientLayout";
 import JsonLd, { localBusinessSchema } from "@/components/seo/JsonLd";
 
 const BASE_URL = "https://luvhoboken.com";
@@ -142,7 +143,9 @@ export default function RootLayout({
         <PawTrailCursor />
         <LenisProvider>
           <Header />
-          <main id="main-content">{children}</main>
+          <ClientLayout>
+            <main id="main-content">{children}</main>
+          </ClientLayout>
         </LenisProvider>
       </body>
     </html>
