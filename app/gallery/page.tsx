@@ -122,8 +122,25 @@ export default function GalleryPage() {
         <div className="relative z-10 max-w-7xl mx-auto">
           <div className="columns-1 sm:columns-2 lg:columns-3 gap-8 md:gap-10 space-y-10 md:space-y-12">
             {galleryItems.map((item, i) => (
-              <ScrollReveal key={item.name} delay={(i % 3) * 0.08}>
-                <div className="break-inside-avoid group py-4 px-2">
+              <div key={item.name} className="break-inside-avoid group py-4 px-2">
+                <motion.div
+                  initial={{
+                    filter: "brightness(3) saturate(0)",
+                    scale: 1.05,
+                    opacity: 0.3,
+                  }}
+                  whileInView={{
+                    filter: "brightness(1) saturate(1)",
+                    scale: 1,
+                    opacity: 1,
+                  }}
+                  viewport={{ once: true, margin: "-30px" }}
+                  transition={{
+                    duration: 1.2,
+                    ease: "easeOut",
+                    delay: (i % 3) * 0.15,
+                  }}
+                >
                   <RoyalPortraitFrame
                     shape={item.shape}
                     sunburst={item.sunburst}
@@ -177,24 +194,24 @@ export default function GalleryPage() {
                       </div>
                     </div>
                   </RoyalPortraitFrame>
+                </motion.div>
 
-                  {/* Name plate below frame */}
-                  <motion.div
-                    className="mt-4 text-center"
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.2, duration: 0.4 }}
-                  >
-                    <p className="font-display text-lg font-semibold text-gold/80">
-                      {item.name}
-                    </p>
-                    <p className="font-body text-xs text-text-muted tracking-widest uppercase">
-                      Luv K9 Royalty
-                    </p>
-                  </motion.div>
-                </div>
-              </ScrollReveal>
+                {/* Name plate below frame */}
+                <motion.div
+                  className="mt-4 text-center"
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.2 + (i % 3) * 0.15, duration: 0.4 }}
+                >
+                  <p className="font-display text-lg font-semibold text-gold/80">
+                    {item.name}
+                  </p>
+                  <p className="font-body text-xs text-text-muted tracking-widest uppercase">
+                    Luv K9 Royalty
+                  </p>
+                </motion.div>
+              </div>
             ))}
           </div>
         </div>
