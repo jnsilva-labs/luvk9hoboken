@@ -464,7 +464,7 @@ export default function Hero() {
           animate={textVisible ? "visible" : "hidden"}
           transition={{ delay: 0.5 }}
         >
-          Premium playcare, grooming, and walks for the goodest boys and girls
+          Hoboken&apos;s #1 rated dog care — PlayCare, grooming &amp; pack walks trusted by 1,000+ dog parents
         </motion.p>
 
         {/* ─── CTA Buttons ─── */}
@@ -481,7 +481,7 @@ export default function Hero() {
             variant="primary"
             size="lg"
           >
-            Book Now
+            Book Your Dog&apos;s Royal Day
           </Button>
 
           {/* Secondary CTA */}
@@ -508,7 +508,7 @@ export default function Hero() {
                 pointer-events-none
               "
             />
-            <span className="relative z-10">Our Services</span>
+            <span className="relative z-10">See What We Do</span>
           </Button>
         </motion.div>
       </motion.div>

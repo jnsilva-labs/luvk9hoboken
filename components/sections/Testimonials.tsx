@@ -136,7 +136,7 @@ export default function Testimonials() {
         <ScrollReveal className="text-center mb-12 md:mb-16">
           <SectionLabel>Kind Words</SectionLabel>
           <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-text-title mt-3">
-            What Dog Parents Say
+            Hear It from the Pack
           </h2>
         </ScrollReveal>
 

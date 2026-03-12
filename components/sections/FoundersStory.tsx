@@ -114,8 +114,18 @@ export default function FoundersStory() {
               </p>
             </ScrollReveal>
 
+            <ScrollReveal delay={0.55}>
+              <p className="font-body text-text-body text-lg leading-relaxed mb-8">
+                In 2022, Luis and Nyomie were featured on{" "}
+                <span className="text-gold font-medium">The Drew Barrymore Show</span>
+                {" "}as &ldquo;Drew-Gooders&rdquo; for cleaning up 900 bags of waste
+                from Hoboken streets in 20&deg; weather &mdash; because they love
+                this community as much as they love dogs.
+              </p>
+            </ScrollReveal>
+
             {/* Stats row */}
-            <ScrollReveal delay={0.6}>
+            <ScrollReveal delay={0.7}>
               <div className="flex flex-wrap gap-8 pt-6 border-t border-gold/10">
                 <div>
                   <span className="font-display text-3xl font-bold text-gold block">

@@ -55,8 +55,7 @@ export default function ServicesOverview() {
           {services.map((service, index) => {
             const style = serviceCardStyles[index];
             const isExternal = service.bookingUrl.startsWith("http");
-            const ctaLabel =
-              service.slug === "walking" ? "Learn More" : `Book ${service.name}`;
+            const ctaLabel = service.slug === "playcare" ? "Book PlayCare" : service.slug === "grooming" ? "Book Grooming" : "Start Walking";
 
             return (
               <motion.div
