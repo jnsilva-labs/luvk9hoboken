@@ -36,7 +36,23 @@ const footerLinks = [
 
 export default function Footer() {
   return (
-    <footer className="bg-void border-t border-gold/20 text-cream" role="contentinfo">
+    <footer className="relative overflow-hidden bg-void border-t border-gold/20 text-cream" role="contentinfo">
+      {/* Aurora background */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-40"
+        style={{
+          background: `linear-gradient(
+            135deg,
+            rgba(42,22,77,0.3) 0%,
+            rgba(124,58,237,0.1) 25%,
+            rgba(212,175,55,0.05) 50%,
+            rgba(42,22,77,0.3) 75%,
+            rgba(155,89,255,0.1) 100%
+          )`,
+          backgroundSize: "400% 400%",
+          animation: "aurora 20s ease infinite",
+        }}
+      />
       <div className="max-w-7xl mx-auto px-6 pt-20 pb-8">
         <ScrollReveal>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
