@@ -215,8 +215,8 @@ export default function InteractiveParticles({
       canvas.style.width = `${w}px`;
       canvas.style.height = `${h}px`;
 
-      // Recompute crown points for current size
-      const crownScale = Math.min(w, h) * 0.012;
+      // Recompute crown points for current size (0.02 → crown wraps around the logo)
+      const crownScale = Math.min(w, h) * 0.02;
       crownPointsRef.current = computeCrownPoints(
         100,
         (w * dpr) / 2,
