@@ -364,7 +364,7 @@ export default function Hero() {
       >
         {/* ─── Main Logo (Hero Centerpiece) ─── */}
         <motion.div
-          className="relative w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 mb-0"
+          className="relative w-48 h-48 sm:w-60 sm:h-60 md:w-72 md:h-72 -mb-2"
           initial={{ opacity: 0, scale: 0.7 }}
           animate={
             textVisible

@@ -220,7 +220,7 @@ export default function InteractiveParticles({
       crownPointsRef.current = computeCrownPoints(
         100,
         (w * dpr) / 2,
-        h * dpr * 0.3,
+        h * dpr * 0.35,
         crownScale * dpr
       );
     };
