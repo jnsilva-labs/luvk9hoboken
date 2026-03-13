@@ -60,7 +60,7 @@ export default function Footer() {
             <div>
               <Link href="/" className="inline-flex items-center gap-3">
                 <Image
-                  src="/images/logo.png"
+                  src="/images/brand/logo-mobile.png"
                   alt="Luv K9"
                   width={48}
                   height={48}

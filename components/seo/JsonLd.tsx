@@ -35,7 +35,7 @@ export function localBusinessSchema() {
       { "@type": "Person", name: "Nyomie Perez" },
     ],
     image: "https://luvhoboken.com/images/og-image.jpg",
-    logo: "https://luvhoboken.com/images/logo.png",
+    logo: "https://luvhoboken.com/images/brand/logo-mobile.png",
     priceRange: "$$",
     currenciesAccepted: "USD",
     paymentAccepted: "Cash, Credit Card, Debit Card",

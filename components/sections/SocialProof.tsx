@@ -103,9 +103,34 @@ export default function SocialProof() {
           </h2>
         </motion.div>
 
+        {/* ─── Stats Row ─── */}
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6 mb-14 md:mb-20"
+          variants={shouldReduceMotion ? undefined : itemVariants}
+        >
+          {communityStats.map((stat) => (
+            <StatCard key={stat.label} stat={stat} />
+          ))}
+        </motion.div>
+
+        {/* ─── Trust Badges ─── */}
+        <motion.div
+          className="flex flex-wrap justify-center gap-3 mb-16 md:mb-20"
+          variants={shouldReduceMotion ? undefined : itemVariants}
+        >
+          {trustBadges.map((badge) => (
+            <span
+              key={badge}
+              className="bg-void/60 border border-gold/10 rounded-full px-4 py-2 text-gold/80 text-xs font-body tracking-wide uppercase"
+            >
+              {badge}
+            </span>
+          ))}
+        </motion.div>
+
         {/* ─── Drew Barrymore Feature Card ─── */}
         <motion.div
-          className="relative mb-16 md:mb-20"
+          className="relative"
           variants={shouldReduceMotion ? undefined : itemVariants}
         >
           <div className="relative bg-imperial/40 backdrop-blur rounded-2xl p-6 md:p-8 border border-gold/20 overflow-hidden">
@@ -155,31 +180,6 @@ export default function SocialProof() {
               </div>
             </div>
           </div>
-        </motion.div>
-
-        {/* ─── Stats Row ─── */}
-        <motion.div
-          className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6 mb-14 md:mb-20"
-          variants={shouldReduceMotion ? undefined : itemVariants}
-        >
-          {communityStats.map((stat) => (
-            <StatCard key={stat.label} stat={stat} />
-          ))}
-        </motion.div>
-
-        {/* ─── Trust Badges ─── */}
-        <motion.div
-          className="flex flex-wrap justify-center gap-3"
-          variants={shouldReduceMotion ? undefined : itemVariants}
-        >
-          {trustBadges.map((badge) => (
-            <span
-              key={badge}
-              className="bg-void/60 border border-gold/10 rounded-full px-4 py-2 text-gold/80 text-xs font-body tracking-wide uppercase"
-            >
-              {badge}
-            </span>
-          ))}
         </motion.div>
       </motion.div>
     </section>
