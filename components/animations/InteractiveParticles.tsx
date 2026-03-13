@@ -38,30 +38,53 @@ function pickColor(): string {
   return WHITE_COLORS[Math.floor(Math.random() * WHITE_COLORS.length)];
 }
 
-// ─── Heart Shape Points ───
-// Parametric heart: x = 16sin^3(t), y = -(13cos(t) - 5cos(2t) - 2cos(3t) - cos(4t))
-function computeHeartPoints(
+// ─── Crown Shape Points ───
+// 5-peak crown outline: 11 vertices connected by segments, points distributed along edges
+function computeCrownPoints(
   count: number,
   centerX: number,
   centerY: number,
   scale: number
 ): { x: number; y: number }[] {
-  const points: { x: number; y: number }[] = [];
-  for (let i = 0; i < count; i++) {
-    const t = (i / count) * Math.PI * 2;
-    const sinT = Math.sin(t);
-    const rawX = 16 * sinT * sinT * sinT;
-    const rawY = -(
-      13 * Math.cos(t) -
-      5 * Math.cos(2 * t) -
-      2 * Math.cos(3 * t) -
-      Math.cos(4 * t)
-    );
-    points.push({
-      x: centerX + rawX * scale,
-      y: centerY + rawY * scale,
-    });
+  // Crown vertices (raw coords in [-14, 14] range to match original heart scale)
+  const vertices: [number, number][] = [
+    [-14, 8],     // v0:  bottom-left
+    [-14, -2],    // v1:  left wall top
+    [-10, -4.2],  // v2:  left outer peak
+    [-7, 2],      // v3:  left inner valley
+    [-4, -8],     // v4:  left inner peak
+    [0, -14],     // v5:  center peak (tallest)
+    [4, -8],      // v6:  right inner peak
+    [7, 2],       // v7:  right inner valley
+    [10, -4.2],   // v8:  right outer peak
+    [14, -2],     // v9:  right wall top
+    [14, 8],      // v10: bottom-right
+  ];
+
+  // Points per segment: walls=6, peaks=8-10, base=24 → total 100
+  const pointsPerSegment = [6, 6, 8, 8, 10, 10, 8, 8, 6, 6, 24];
+
+  // Build closed segments (v0→v1, v1→v2, ..., v10→v0)
+  const segments: { from: [number, number]; to: [number, number]; count: number }[] = [];
+  for (let i = 0; i < vertices.length; i++) {
+    const next = (i + 1) % vertices.length;
+    segments.push({ from: vertices[i], to: vertices[next], count: pointsPerSegment[i] });
   }
+
+  // Distribute points along segments via linear interpolation
+  const points: { x: number; y: number }[] = [];
+  for (const seg of segments) {
+    for (let i = 0; i < seg.count; i++) {
+      const t = seg.count === 1 ? 0.5 : i / seg.count;
+      const rawX = seg.from[0] + (seg.to[0] - seg.from[0]) * t;
+      const rawY = seg.from[1] + (seg.to[1] - seg.from[1]) * t;
+      points.push({
+        x: centerX + rawX * scale,
+        y: centerY + rawY * scale,
+      });
+    }
+  }
+
   return points;
 }
 
@@ -123,7 +146,7 @@ export default function InteractiveParticles({
   const animFrameRef = useRef<number>(0);
   const mouseRef = useRef({ x: -9999, y: -9999 });
   const scrollYRef = useRef(0);
-  const heartPointsRef = useRef<{ x: number; y: number }[]>([]);
+  const crownPointsRef = useRef<{ x: number; y: number }[]>([]);
   const phaseRef = useRef(phase);
   const constellationTimerRef = useRef(0);
   const constellationActiveRef = useRef(false);
@@ -192,13 +215,13 @@ export default function InteractiveParticles({
       canvas.style.width = `${w}px`;
       canvas.style.height = `${h}px`;
 
-      // Recompute heart points for current size
-      const heartScale = Math.min(w, h) * 0.012;
-      heartPointsRef.current = computeHeartPoints(
+      // Recompute crown points for current size
+      const crownScale = Math.min(w, h) * 0.012;
+      crownPointsRef.current = computeCrownPoints(
         100,
         (w * dpr) / 2,
         h * dpr * 0.3,
-        heartScale * dpr
+        crownScale * dpr
       );
     };
     resize();
@@ -235,12 +258,12 @@ export default function InteractiveParticles({
       return p;
     });
 
-    // Assign heart targets to first ~100 particles
-    const heartPoints = heartPointsRef.current;
+    // Assign crown targets to first ~100 particles
+    const crownPoints = crownPointsRef.current;
     particlesRef.current.forEach((p, i) => {
-      if (i < heartPoints.length) {
-        p.targetX = heartPoints[i].x;
-        p.targetY = heartPoints[i].y;
+      if (i < crownPoints.length) {
+        p.targetX = crownPoints[i].x;
+        p.targetY = crownPoints[i].y;
       }
     });
 
@@ -346,11 +369,11 @@ export default function InteractiveParticles({
           p.x += p.vx;
           p.y += p.vy;
         } else if (currentPhase === "assembling") {
-          // Spring toward heart target
-          if (i < heartPointsRef.current.length) {
-            const hp = heartPointsRef.current[i];
-            p.targetX = hp.x;
-            p.targetY = hp.y;
+          // Spring toward crown target
+          if (i < crownPointsRef.current.length) {
+            const cp = crownPointsRef.current[i];
+            p.targetX = cp.x;
+            p.targetY = cp.y;
             p.vx += (p.targetX - p.x) * 0.02;
             p.vy += (p.targetY - p.y) * 0.02;
             p.phase = "assembling";
@@ -361,13 +384,13 @@ export default function InteractiveParticles({
           p.y += p.vy;
           p.opacity = Math.min(p.opacity + 0.02, p.maxOpacity);
         } else if (currentPhase === "orbiting") {
-          // Orbit around heart targets with a small radius
-          if (i < heartPointsRef.current.length) {
-            const hp = heartPointsRef.current[i];
+          // Orbit around crown targets with a small radius
+          if (i < crownPointsRef.current.length) {
+            const cp = crownPointsRef.current[i];
             const orbitAngle = (p.life * 0.03) + (i * 0.5);
             const orbitR = 5 * dpr;
-            const orbX = hp.x + Math.cos(orbitAngle) * orbitR;
-            const orbY = hp.y + Math.sin(orbitAngle) * orbitR;
+            const orbX = cp.x + Math.cos(orbitAngle) * orbitR;
+            const orbY = cp.y + Math.sin(orbitAngle) * orbitR;
             p.vx += (orbX - p.x) * 0.08;
             p.vy += (orbY - p.y) * 0.08;
           }
@@ -378,8 +401,8 @@ export default function InteractiveParticles({
           // Pulse opacity for glow effect
           p.opacity = p.maxOpacity * (0.8 + 0.2 * Math.sin(p.life * 0.1));
         } else if (currentPhase === "revealing") {
-          // Slowly release from heart, gentle drift
-          if (i < heartPointsRef.current.length) {
+          // Slowly release from crown, gentle drift
+          if (i < crownPointsRef.current.length) {
             p.vx += (Math.random() - 0.5) * 0.1;
             p.vy += (Math.random() - 0.5) * 0.1;
           }
