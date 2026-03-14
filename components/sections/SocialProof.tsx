@@ -31,7 +31,9 @@ const itemVariants = {
 
 // ─── Stat Card ───
 function StatCard({ stat }: { stat: (typeof communityStats)[number] }) {
-  const { ref, displayValue } = useCountUp(stat.value, { suffix: stat.suffix });
+  const suffix = "suffix" in stat ? (stat.suffix as string) : undefined;
+  const prefix = "prefix" in stat ? (stat.prefix as string) : undefined;
+  const { ref, displayValue } = useCountUp(stat.value, { suffix, prefix });
   return (
     <div className="text-center">
       <span

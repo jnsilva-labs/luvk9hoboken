@@ -404,7 +404,8 @@ export default function AboutContent() {
                   <p className="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-gold mb-3">
                     <AnimatedCounter
                       value={stat.value}
-                      suffix={stat.suffix}
+                      suffix={"suffix" in stat ? stat.suffix : undefined}
+                      prefix={"prefix" in stat ? stat.prefix : undefined}
                       duration={2200}
                     />
                   </p>

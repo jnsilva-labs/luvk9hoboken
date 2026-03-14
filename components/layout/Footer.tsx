@@ -27,6 +27,7 @@ const footerLinks = [
   {
     title: "More",
     links: [
+      { label: "FAQ", href: "/faq" },
       { label: "Specials", href: "/specials" },
       { label: "Contact", href: "/contact" },
       { label: "Family We Lost", href: "/family-we-lost" },

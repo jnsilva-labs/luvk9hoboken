@@ -493,6 +493,12 @@ export default function GroomingContent() {
                 Text for Express
               </Button>
             </div>
+            <p className="mt-6 font-body text-sm text-text-muted">
+              Have questions?{" "}
+              <a href="/faq" className="text-gold hover:text-gold-light underline underline-offset-4 transition-colors">
+                Check our FAQ
+              </a>
+            </p>
           </ScrollReveal>
         </div>
       </section>

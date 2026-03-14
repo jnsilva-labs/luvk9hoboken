@@ -1,16 +1,18 @@
 "use client";
 
-import { useState } from "react";
+import { type ReactNode, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { easing } from "@/lib/constants";
 
-interface FAQItem {
+export interface FAQItem {
   question: string;
-  answer: string;
+  answer: string | ReactNode;
 }
 
 interface FAQAccordionProps {
   items: FAQItem[];
+  /** Start with all items expanded. Default: false */
+  defaultOpen?: boolean;
 }
 
 function ChevronIcon({ isOpen }: { isOpen: boolean }) {
@@ -33,17 +35,30 @@ function ChevronIcon({ isOpen }: { isOpen: boolean }) {
   );
 }
 
-export default function FAQAccordion({ items }: FAQAccordionProps) {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
+export default function FAQAccordion({
+  items,
+  defaultOpen = false,
+}: FAQAccordionProps) {
+  const [openIndices, setOpenIndices] = useState<Set<number>>(
+    () => new Set(defaultOpen ? items.map((_, i) => i) : [])
+  );
 
   const toggle = (index: number) => {
-    setOpenIndex(openIndex === index ? null : index);
+    setOpenIndices((prev) => {
+      const next = new Set(prev);
+      if (next.has(index)) {
+        next.delete(index);
+      } else {
+        next.add(index);
+      }
+      return next;
+    });
   };
 
   return (
     <div className="space-y-3">
       {items.map((item, index) => {
-        const isOpen = openIndex === index;
+        const isOpen = openIndices.has(index);
         return (
           <div
             key={index}
@@ -71,10 +86,12 @@ export default function FAQAccordion({ items }: FAQAccordionProps) {
                     opacity: { duration: 0.25, ease: easing.smooth },
                   }}
                 >
-                  <div className="px-6 pb-5 md:px-8 md:pb-6 pt-0">
-                    <p className="font-body text-text-body leading-relaxed">
-                      {item.answer}
-                    </p>
+                  <div className="px-6 pb-5 md:px-8 md:pb-6 pt-0 font-body text-text-body leading-relaxed faq-answer">
+                    {typeof item.answer === "string" ? (
+                      <p>{item.answer}</p>
+                    ) : (
+                      item.answer
+                    )}
                   </div>
                 </motion.div>
               )}

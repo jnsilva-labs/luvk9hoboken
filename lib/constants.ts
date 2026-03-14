@@ -96,13 +96,13 @@ export const business = {
   expressGroomingPhone: "(551) 225-9104",
   locations: [
     {
-      name: "Luv Kuts",
-      address: "421 Washington Street, Hoboken, NJ",
-      type: "grooming" as const,
+      name: "Luv K9",
+      address: "614 Jefferson St., Hoboken, NJ 07030",
+      type: "playcare" as const,
     },
     {
-      name: "Location 2",
-      address: "614 Jefferson Street, Hoboken, NJ",
+      name: "Luv Kuts",
+      address: "421 Washington St., Hoboken, NJ 07030",
       type: "grooming" as const,
     },
   ],
@@ -248,8 +248,8 @@ export const testimonials: readonly Testimonial[] = [
 
 // ─── Community Stats ───
 export const communityStats = [
-  { label: "Dogs Served", value: 1042, suffix: "+" },
-  { label: "Baths Given", value: 5800, suffix: "+" },
+  { label: "Dogs Served", value: 500, prefix: "Over " },
+  { label: "Baths Given", value: 4000, suffix: "+" },
   { label: "Satisfaction Rate", value: 99, suffix: "%" },
 ] as const;
 
