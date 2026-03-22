@@ -116,20 +116,17 @@ export default function GroomingContent() {
     <>
       {/* ─── Hero ─── */}
       <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
-        {/* Gradient Background */}
+        {/* Hero Photo Background */}
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-imperial via-void to-obsidian" />
-          <div
-            className="absolute inset-0"
-            style={{
-              background: `
-                radial-gradient(ellipse 80% 60% at 30% 40%, rgba(155, 89, 255, 0.4) 0%, transparent 70%),
-                radial-gradient(ellipse 60% 80% at 70% 20%, rgba(212, 175, 55, 0.25) 0%, transparent 60%),
-                radial-gradient(ellipse 70% 50% at 50% 80%, rgba(155, 89, 255, 0.3) 0%, transparent 70%)
-              `,
-            }}
+          <Image
+            src="/images/grooming/grooming-hero-showercaps.jpg"
+            alt="Dogs getting groomed at Luv Kuts"
+            fill
+            className="object-cover"
+            priority
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-obsidian/40 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-obsidian/55" />
+          <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/40 to-transparent" />
         </div>
 
         {/* Content */}

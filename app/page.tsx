@@ -3,7 +3,7 @@ import SocialProof from "@/components/sections/SocialProof";
 import FoundersStory from "@/components/sections/FoundersStory";
 import DogsOfTheCourt from "@/components/sections/DogsOfTheCourt";
 import ServicesOverview from "@/components/sections/ServicesOverview";
-import PhotoGallery from "@/components/sections/PhotoGallery";
+import InstagramCTA from "@/components/sections/InstagramCTA";
 import Testimonials from "@/components/sections/Testimonials";
 import SeasonalCTA from "@/components/sections/SeasonalCTA";
 import Footer from "@/components/layout/Footer";
@@ -20,7 +20,7 @@ export default function Home() {
       <DogsOfTheCourt />
       <ServicesOverview />
       <SectionDivider />
-      <PhotoGallery />
+      <InstagramCTA />
       <Testimonials />
       <SeasonalCTA />
       <Footer />

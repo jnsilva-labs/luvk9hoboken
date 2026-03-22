@@ -70,7 +70,7 @@ function TvIcon() {
 // ─── Trust Badges ───
 const trustBadges = [
   "Family-Owned & Operated",
-  "Recognized by Mayor Ravi Bhalla",
+  "Received a Proclamation from the Town of Hoboken",
   "Hoboken's Most Trusted",
 ] as const;
 

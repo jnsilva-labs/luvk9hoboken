@@ -115,8 +115,8 @@ const rescueDogs = [
 
 function AboutFoundersPhoto() {
   const [imgError, setImgError] = useState(false);
-  // Use the second founder image (with dogs) for the About page
-  const founder = founderImages[1];
+  // Use the storefront photo (Luis & Nyomie with their dogs on steps)
+  const founder = founderImages[0];
 
   if (imgError) {
     return (
@@ -424,45 +424,11 @@ export default function AboutContent() {
             <p className="text-center mt-12 md:mt-16 font-body text-text-body text-sm md:text-base">
               <span className="inline-block px-4 py-2 rounded-full bg-gold/10 border border-gold/20">
                 <span className="text-gold font-semibold">&#10003;</span>
-                &nbsp;&nbsp;Recognized by Mayor Ravi Bhalla for community
+                &nbsp;&nbsp;Received a proclamation from the Town of Hoboken for community
                 contributions
               </span>
             </p>
           </ScrollReveal>
-        </div>
-      </section>
-
-      {/* ─── Our Rescue Dogs ─── */}
-      <section className="py-20 md:py-24 px-6 bg-void">
-        <div className="max-w-4xl mx-auto">
-          <ScrollReveal className="text-center mb-12">
-            <SectionLabel>The OG Pack</SectionLabel>
-            <h2 className="font-display text-4xl md:text-5xl font-bold text-text-title mt-3">
-              Our Three Rescues
-            </h2>
-            <p className="font-body text-text-body text-lg mt-4 max-w-xl mx-auto">
-              The dogs that started it all. Our three rescue dogs are the heart
-              and soul of Luv K9 and the inspiration behind everything we do.
-            </p>
-          </ScrollReveal>
-
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-            {rescueDogs.map((dog, index) => (
-              <ScrollReveal key={dog.name} delay={index * 0.12}>
-                <div className="text-center">
-                  <div className="aspect-square rounded-2xl overflow-hidden shadow-sm mb-4 relative">
-                    <RescueDogPhoto index={index} name={dog.name} />
-                  </div>
-                  <h3 className="font-display text-xl font-bold text-text-title">
-                    {dog.name}
-                  </h3>
-                  <p className="font-body text-text-muted text-sm">
-                    {dog.breed}
-                  </p>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
         </div>
       </section>
 
@@ -480,12 +446,11 @@ export default function AboutContent() {
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Button
-                href={business.bookingUrl}
-                external
+                href="/contact"
                 variant="primary"
                 size="lg"
               >
-                Book Now
+                Get in Touch
               </Button>
               <Button
                 href="/team"

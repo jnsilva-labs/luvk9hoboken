@@ -152,7 +152,7 @@ function FrameDrawCard({
 
       {/* Photo — fades in after border draws */}
       <motion.div
-        className="aspect-[4/3] relative overflow-hidden"
+        className="aspect-[3/4] relative overflow-hidden"
         initial={{ opacity: 0 }}
         animate={isInView ? { opacity: 1 } : { opacity: 0 }}
         transition={{ duration: 0.4, delay: 0.8 + delay }}
@@ -176,7 +176,7 @@ function FrameDrawCard({
               src={member.src}
               alt={member.alt}
               fill
-              className="object-cover"
+              className="object-cover object-top"
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
               onError={() => setImgError(true)}
             />
@@ -364,12 +364,11 @@ export default function TeamContent() {
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Button
-                href={business.bookingUrl}
-                external
+                href="/contact"
                 variant="primary"
                 size="lg"
               >
-                Book Now
+                Get in Touch
               </Button>
               <Button
                 href="/about"

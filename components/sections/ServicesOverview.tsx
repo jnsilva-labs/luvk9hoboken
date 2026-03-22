@@ -158,10 +158,14 @@ function WalkingCard() {
           {walkingPricing.note}
         </p>
 
-        <div className="mt-auto">
-          <Button href="/walking" variant="outline" size="md" className="w-full">
-            Start Walking
+        <div className="mt-auto space-y-2">
+          <Button href="/contact" variant="outline" size="md" className="w-full">
+            Get Started with Walking
           </Button>
+          <p className="text-xs text-text-muted text-center">
+            Fill out our contact form or text us at{" "}
+            <a href={`tel:${business.phone.replace(/-/g, "")}`} className="text-gold hover:underline">{business.phone}</a>
+          </p>
         </div>
       </div>
     </div>
@@ -243,16 +247,19 @@ function PlayCareCard() {
           </table>
         </div>
 
-        <div className="mt-auto">
+        <div className="mt-auto space-y-2">
           <Button
-            href={business.bookingUrl}
+            href="/contact"
             variant="primary"
             size="md"
-            external
             className="w-full"
           >
-            Book PlayCare
+            Get Started with PlayCare
           </Button>
+          <p className="text-xs text-text-muted text-center">
+            Fill out our contact form or text us at{" "}
+            <a href={`tel:${business.phone.replace(/-/g, "")}`} className="text-gold hover:underline">{business.phone}</a>
+          </p>
         </div>
       </div>
     </div>
@@ -281,6 +288,9 @@ function GroomingCard() {
             Full Service Groom
           </p>
           <table className="w-full">
+            <thead className="sr-only">
+              <tr><th>Size</th><th>Weight</th><th>Price</th></tr>
+            </thead>
             <tbody>
               {groomingPricing.fullGroom.map((row, i) => (
                 <TableRow
@@ -308,6 +318,9 @@ function GroomingCard() {
             Bath & Brush
           </p>
           <table className="w-full">
+            <thead className="sr-only">
+              <tr><th>Size</th><th>Weight</th><th>Price</th></tr>
+            </thead>
             <tbody>
               {groomingPricing.bathBrush.map((row, i) => (
                 <TableRow
@@ -422,16 +435,19 @@ function BoardingCard() {
           ))}
         </ul>
 
-        <div className="mt-auto">
+        <div className="mt-auto space-y-2">
           <Button
-            href={business.bookingUrl}
+            href="/contact"
             variant="primary"
             size="md"
-            external
             className="w-full"
           >
             Book Boarding
           </Button>
+          <p className="text-xs text-text-muted text-center">
+            Fill out our contact form or text us at{" "}
+            <a href={`tel:${business.phone.replace(/-/g, "")}`} className="text-gold hover:underline">{business.phone}</a>
+          </p>
         </div>
       </div>
     </div>

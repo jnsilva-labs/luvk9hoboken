@@ -11,7 +11,7 @@ import { testimonials, easing } from "@/lib/constants";
 
 function StarRating({ rating }: { rating: number }) {
   return (
-    <div className="flex gap-1" aria-label={`${rating} out of 5 stars`}>
+    <div className="flex gap-1" role="img" aria-label={`${rating} out of 5 stars`}>
       {Array.from({ length: 5 }).map((_, i) => (
         <svg
           key={i}
@@ -199,18 +199,20 @@ export default function Testimonials() {
         </ScrollReveal>
 
         {/* Navigation Dots */}
-        <div className="flex justify-center gap-3 mt-8">
+        <div className="flex justify-center gap-1 mt-8">
           {testimonials.map((_, index) => (
             <button
               key={index}
               onClick={() => goTo(index)}
-              className={`w-2.5 h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
+              className="min-w-[44px] min-h-[44px] flex items-center justify-center cursor-pointer"
+              aria-label={`Go to testimonial ${index + 1}`}
+            >
+              <span className={`block h-2.5 rounded-full transition-all duration-300 ${
                 index === current
                   ? "bg-gold w-8"
-                  : "bg-text-muted/30 hover:bg-text-muted/50"
-              }`}
-              aria-label={`Go to testimonial ${index + 1}`}
-            />
+                  : "bg-text-muted/30 hover:bg-text-muted/50 w-2.5"
+              }`} />
+            </button>
           ))}
         </div>
 

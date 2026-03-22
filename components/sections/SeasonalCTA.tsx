@@ -34,13 +34,12 @@ export default function SeasonalCTA() {
         <ScrollReveal delay={0.2}>
           <div className="mt-10">
             <Button
-              href={business.bookingUrl}
+              href="/contact"
               variant="primary"
               size="lg"
-              external
               className="!bg-gold !text-obsidian hover:!bg-gold-light !shadow-lg !shadow-gold/20"
             >
-              Book Now
+              Get in Touch
             </Button>
           </div>
         </ScrollReveal>

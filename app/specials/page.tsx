@@ -35,8 +35,8 @@ const specials = [
     discount: "First Day Free",
     terms:
       "New clients only. Must enroll in weekly plan. Subject to availability.",
-    cta: "Book PlayCare",
-    href: business.bookingUrl,
+    cta: "Get Started with PlayCare",
+    href: "/contact",
   },
   {
     title: "Referral Reward",

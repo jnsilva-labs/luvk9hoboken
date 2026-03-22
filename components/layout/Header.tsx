@@ -50,7 +50,7 @@ export default function Header() {
           <Link href="/" className="flex items-center gap-2 shrink-0">
             <Image
               src="/images/brand/logo-mobile.png"
-              alt="Luv K9"
+              alt=""
               width={scrolled ? 40 : 52}
               height={scrolled ? 40 : 52}
               className="transition-all duration-300"
@@ -167,8 +167,8 @@ export default function Header() {
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 1, duration: 0.4, ease: [0.34, 1.56, 0.64, 1] }}
       >
-        <Button href="/book" className="!rounded-full !w-14 !h-14 !p-0 shadow-xl">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <Button href="/book" className="!rounded-full !w-14 !h-14 !p-0 shadow-xl" aria-label="Book Now">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20" />
           </svg>
         </Button>

@@ -92,7 +92,7 @@ export const business = {
   email: "Luvk9hoboken@gmail.com",
   instagram: "@luvk9hoboken",
   instagramUrl: "https://instagram.com/luvk9hoboken",
-  bookingUrl: "https://booking.moego.pet/ol/luvk9",
+  bookingUrl: "/contact",
   expressGroomingPhone: "(551) 225-9104",
   locations: [
     {
@@ -118,7 +118,7 @@ export const services = [
     description:
       "Structured pack activities, supervised play, and personalized attention — your dog's best day, every day.",
     priceFrom: "$63",
-    bookingUrl: "https://booking.moego.pet/ol/luvk9",
+    bookingUrl: "/contact",
   },
   {
     slug: "grooming",
@@ -128,7 +128,7 @@ export const services = [
     description:
       "Full-service pampering from nose to tail. Every visit includes bath, haircut, ear cleaning, teeth maintenance, and nail trim.",
     priceFrom: "$110",
-    bookingUrl: "https://booking.moego.pet/ol/LuvKuts/landing",
+    bookingUrl: "https://booking.moego.pet/ol/landing?name=LuvKuts",
   },
   {
     slug: "walking",

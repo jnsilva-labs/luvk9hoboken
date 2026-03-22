@@ -172,20 +172,17 @@ export default function PlayCareContent() {
     <>
       {/* ─── Hero ─── */}
       <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
-        {/* Gradient Background */}
+        {/* Hero Photo Background */}
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-imperial via-void to-obsidian" />
-          <div
-            className="absolute inset-0"
-            style={{
-              background: `
-                radial-gradient(ellipse 80% 60% at 20% 30%, rgba(155, 89, 255, 0.4) 0%, transparent 70%),
-                radial-gradient(ellipse 60% 80% at 80% 20%, rgba(212, 175, 55, 0.25) 0%, transparent 60%),
-                radial-gradient(ellipse 70% 50% at 50% 80%, rgba(155, 89, 255, 0.3) 0%, transparent 70%)
-              `,
-            }}
+          <Image
+            src="/images/playcare/playcare-hero-group-turf.jpg"
+            alt="Dogs playing at Luv K9 PlayCare"
+            fill
+            className="object-cover"
+            priority
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-obsidian/30 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-obsidian/60" />
+          <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/40 to-transparent" />
         </div>
 
         {/* Content */}
@@ -224,13 +221,16 @@ export default function PlayCareContent() {
             transition={{ duration: 0.5, delay: 0.4 }}
           >
             <Button
-              href={business.bookingUrl}
-              external
+              href="/contact"
               variant="primary"
               size="lg"
             >
-              Book PlayCare
+              Get Started with PlayCare
             </Button>
+            <p className="text-sm text-text-muted mt-3">
+              Fill out our contact form or text us at{" "}
+              <a href={`tel:${business.phone.replace(/-/g, "")}`} className="text-gold hover:underline">{business.phone}</a>
+            </p>
           </motion.div>
         </div>
       </section>
@@ -384,13 +384,12 @@ export default function PlayCareContent() {
                 </div>
                 <div className="mt-6">
                   <Button
-                    href={business.bookingUrl}
-                    external
+                    href="/contact"
                     variant="primary"
                     size="sm"
                     className="w-full"
                   >
-                    Book PlayCare
+                    Get Started with PlayCare
                   </Button>
                 </div>
               </motion.div>
@@ -450,8 +449,7 @@ export default function PlayCareContent() {
                 </div>
                 <div className="mt-6">
                   <Button
-                    href={business.bookingUrl}
-                    external
+                    href="/contact"
                     variant="outline"
                     size="sm"
                     className="w-full"
@@ -618,12 +616,11 @@ export default function PlayCareContent() {
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Button
-                href={business.bookingUrl}
-                external
+                href="/contact"
                 variant="primary"
                 size="lg"
               >
-                Book PlayCare Now
+                Get Started with PlayCare
               </Button>
               <Button
                 href={`tel:${business.phone.replace(/-/g, "")}`}

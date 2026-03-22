@@ -1,34 +1,20 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 import { easing } from "@/lib/constants";
 
 const memorials = [
-  {
-    name: "Buddy",
-    years: "2015 - 2023",
-    tribute: "The gentlest soul who ever walked these streets",
-    gradient: "from-plum/20 via-void to-plum/10",
-  },
-  {
-    name: "Coco",
-    years: "2012 - 2024",
-    tribute: "She made every walk an adventure",
-    gradient: "from-void via-plum/15 to-void",
-  },
-  {
-    name: "Max",
-    years: "2016 - 2023",
-    tribute: "A loyal friend until the very end",
-    gradient: "from-imperial via-plum/15 to-void",
-  },
-  {
-    name: "Daisy",
-    years: "2018 - 2024",
-    tribute: "Her joy was contagious",
-    gradient: "from-void via-plum/20 to-imperial",
-  },
+  { name: "Asbury", src: "/images/memorial/asbury.jpg" },
+  { name: "Harkin", src: "/images/memorial/harkin.jpg" },
+  { name: "Hazel", src: "/images/memorial/hazel.jpg" },
+  { name: "Monty", src: "/images/memorial/monty.jpg" },
+  { name: "Finn", src: "/images/memorial/finn.jpg" },
+  { name: "Ally", src: "/images/memorial/ally.jpg" },
+  { name: "Coco", src: "/images/memorial/coco.jpg" },
+  { name: "Thomas", src: "/images/memorial/thomas.jpg" },
+  { name: "Mia", src: "/images/memorial/mia.jpg" },
 ];
 
 const gentleFadeIn = {
@@ -93,7 +79,7 @@ export default function FamilyWeLostContent() {
 
         {/* Memorial Cards */}
         <section className="py-16 md:py-24 px-6">
-          <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12">
+          <div className="max-w-5xl mx-auto grid grid-cols-2 sm:grid-cols-3 gap-6 sm:gap-10 md:gap-14">
             {memorials.map((memorial, i) => (
               <motion.div
                 key={memorial.name}
@@ -103,50 +89,21 @@ export default function FamilyWeLostContent() {
                 initial="hidden"
                 animate="visible"
               >
-                {/* Photo placeholder */}
-                <div
-                  className={`w-40 h-40 md:w-48 md:h-48 rounded-full mx-auto mb-6 bg-gradient-to-br ${memorial.gradient} border border-plum/20`}
-                >
-                  <div className="w-full h-full rounded-full flex items-center justify-center">
-                    <svg
-                      viewBox="0 0 64 64"
-                      fill="currentColor"
-                      className="w-12 h-12 text-plum/25"
-                    >
-                      <ellipse cx="32" cy="44" rx="12" ry="10" />
-                      <ellipse cx="20" cy="28" rx="6" ry="7" />
-                      <ellipse cx="32" cy="22" rx="6" ry="7" />
-                      <ellipse cx="44" cy="28" rx="6" ry="7" />
-                      <ellipse
-                        cx="16"
-                        cy="38"
-                        rx="5"
-                        ry="6"
-                        transform="rotate(-15 16 38)"
-                      />
-                      <ellipse
-                        cx="48"
-                        cy="38"
-                        rx="5"
-                        ry="6"
-                        transform="rotate(15 48 38)"
-                      />
-                    </svg>
-                  </div>
+                {/* Photo */}
+                <div className="w-28 h-28 sm:w-36 sm:h-36 md:w-44 md:h-44 rounded-full mx-auto mb-5 overflow-hidden border-2 border-plum/20 shadow-lg shadow-plum/10">
+                  <Image
+                    src={memorial.src}
+                    alt={`${memorial.name} — forever in our hearts`}
+                    width={176}
+                    height={176}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
 
-                {/* Name & dates */}
-                <h2 className="font-display text-2xl font-semibold text-text-title mb-1">
+                {/* Name */}
+                <h2 className="font-display text-2xl font-semibold text-text-title">
                   {memorial.name}
                 </h2>
-                <p className="font-mono text-sm text-plum-light tracking-wide mb-4">
-                  {memorial.years}
-                </p>
-
-                {/* Tribute */}
-                <p className="font-body text-text-body italic leading-relaxed max-w-xs mx-auto">
-                  &ldquo;{memorial.tribute}&rdquo;
-                </p>
               </motion.div>
             ))}
           </div>

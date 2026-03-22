@@ -157,6 +157,8 @@ export default function ContactForm() {
                 value={formData.name}
                 onChange={handleChange}
                 placeholder="Your name"
+                maxLength={200}
+                autoComplete="name"
                 className={fieldErrors.name ? inputError : inputNormal}
               />
               {fieldErrors.name && (
@@ -181,6 +183,8 @@ export default function ContactForm() {
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="you@email.com"
+                  maxLength={320}
+                  autoComplete="email"
                   className={fieldErrors.email ? inputError : inputNormal}
                 />
                 {fieldErrors.email && (
@@ -203,6 +207,8 @@ export default function ContactForm() {
                   value={formData.phone}
                   onChange={handleChange}
                   placeholder="(555) 555-5555"
+                  maxLength={20}
+                  autoComplete="tel"
                   className={inputNormal}
                 />
               </div>
@@ -245,6 +251,7 @@ export default function ContactForm() {
                 value={formData.message}
                 onChange={handleChange}
                 rows={4}
+                maxLength={5000}
                 placeholder="Tell us about your pup and how we can help..."
                 className={`${fieldErrors.message ? inputError : inputNormal} resize-none`}
               />

@@ -68,25 +68,25 @@ export const teamImages = {
     {
       name: "Elliott Nager",
       role: "Team Member",
-      src: "/images/team/luvk9/elliott-nager.jpg",
+      src: "/images/team/luvk9/javier-roldan-perez.jpg",
       alt: "Elliott Nager, Luv K9 team member",
     },
     {
       name: "Connor McIntyre",
       role: "Team Member",
-      src: "/images/team/luvk9/connor-mcintyre.jpg",
+      src: "/images/team/luvk9/jr-nieves.jpg",
       alt: "Connor McIntyre, Luv K9 team member",
     },
     {
       name: "Javier Roldan-Perez",
       role: "Team Member",
-      src: "/images/team/luvk9/javier-roldan-perez.jpg",
+      src: "/images/team/luvk9/connor-mcintyre.jpg",
       alt: "Javier Roldan-Perez, Luv K9 team member",
     },
     {
       name: "JR Nieves",
       role: "Team Member",
-      src: "/images/team/luvk9/jr-nieves.jpg",
+      src: "/images/team/luvk9/elliott-nager.jpg",
       alt: "JR Nieves, Luv K9 team member",
     },
   ],
@@ -155,6 +155,52 @@ export const dogImages = [
     src: "/images/dogs/dog-unnamed-2.jpg",
     alt: "Dog playing at Luv K9 daycare",
   },
+] as const;
+
+// ─── Gallery Images ───
+
+export type GalleryCategory = "pack" | "snow" | "groom" | "celebrate" | "portrait";
+
+export const galleryImages: readonly { src: string; alt: string; category: GalleryCategory; featured?: boolean }[] = [
+  // Pack walks — group shots
+  { src: "/images/gallery/gallery-seven-dogs-entrance.jpg", alt: "Seven dogs posing at the Luv K9 entrance", category: "pack", featured: true },
+  { src: "/images/gallery/gallery-dogs-mural.jpg", alt: "Dogs posing in front of a mural in Hoboken", category: "pack", featured: true },
+  { src: "/images/gallery/gallery-five-dogs-steps.jpg", alt: "Five dogs sitting on steps together", category: "pack" },
+  { src: "/images/gallery/gallery-six-dogs-building.jpg", alt: "Six dogs lined up outside a building", category: "pack" },
+  { src: "/images/gallery/gallery-dogs-park-leashes.jpg", alt: "Dogs on leashes at the park", category: "pack" },
+  { src: "/images/gallery/gallery-poodles-park-bench.jpg", alt: "Poodles relaxing on a park bench", category: "pack" },
+  { src: "/images/gallery/gallery-doodles-walking.jpg", alt: "Doodles out on a walk together", category: "pack" },
+  { src: "/images/gallery/gallery-doodles-cuddling.jpg", alt: "Two doodles cuddling together", category: "pack" },
+  { src: "/images/gallery/gallery-small-dogs-park-wall.jpg", alt: "Small dogs lined up on a park wall", category: "pack" },
+  { src: "/images/gallery/gallery-dogs-playing-shark.jpg", alt: "Dogs playing with a shark toy", category: "pack" },
+  { src: "/images/gallery/gallery-dogs-playing-turf.jpg", alt: "Dogs playing on the turf", category: "pack" },
+  // Snow days
+  { src: "/images/gallery/gallery-pittie-smiling-snow.jpg", alt: "Pittie smiling in the snow", category: "snow" },
+  { src: "/images/gallery/gallery-three-dogs-snow.jpg", alt: "Three dogs enjoying the snow", category: "snow", featured: true },
+  { src: "/images/gallery/gallery-beagle-howling-snow.jpg", alt: "Beagle howling in the snow", category: "snow" },
+  { src: "/images/gallery/gallery-beagle-snow-fence.jpg", alt: "Beagle by a fence in the snow", category: "snow" },
+  { src: "/images/gallery/gallery-goldendoodle-puppy-snow.jpg", alt: "Goldendoodle puppy in the snow", category: "snow" },
+  // Celebrations
+  { src: "/images/gallery/gallery-valentines-walk.jpg", alt: "Valentine's Day themed dog walk", category: "celebrate", featured: true },
+  { src: "/images/gallery/gallery-dogs-kissing-birthday.jpg", alt: "Dogs sharing a kiss on a birthday celebration", category: "celebrate" },
+  { src: "/images/gallery/gallery-birthday-hat-bench.jpg", alt: "Dog wearing a birthday hat on a bench", category: "celebrate" },
+  { src: "/images/gallery/gallery-smooch-the-pooch.jpg", alt: "Smooch the Pooch event", category: "celebrate" },
+  // Grooming glow-ups
+  { src: "/images/gallery/gallery-schnauzer-grooming.jpg", alt: "Schnauzer getting groomed at Luv Kuts", category: "groom" },
+  { src: "/images/gallery/gallery-showercap-closeup.jpg", alt: "Dog wearing a shower cap during grooming", category: "groom" },
+  { src: "/images/gallery/gallery-dog-wig-groomer.jpg", alt: "Dog wearing a wig at the groomer", category: "groom" },
+  // Portraits
+  { src: "/images/gallery/gallery-golden-blue-hat.jpg", alt: "Golden retriever wearing a blue hat", category: "portrait" },
+  { src: "/images/gallery/gallery-golden-hearts-bed.jpg", alt: "Golden retriever on a hearts-patterned bed", category: "portrait" },
+  { src: "/images/gallery/gallery-goldendoodle-sunbathing.jpg", alt: "Goldendoodle sunbathing", category: "portrait" },
+  { src: "/images/gallery/gallery-vizsla-teal-coat.jpg", alt: "Vizsla wearing a teal coat", category: "portrait" },
+  { src: "/images/gallery/gallery-greyhound-waterfront.jpg", alt: "Greyhound at the Hoboken waterfront", category: "portrait" },
+  { src: "/images/gallery/gallery-hound-chilling-turf.jpg", alt: "Hound chilling on the turf", category: "portrait" },
+  { src: "/images/gallery/gallery-black-dog-smiling.jpg", alt: "Black dog smiling at the camera", category: "portrait" },
+  { src: "/images/gallery/gallery-doodle-bandana-bed.jpg", alt: "Doodle wearing a bandana on a bed", category: "portrait" },
+  { src: "/images/gallery/gallery-doodle-stone-ledge.jpg", alt: "Doodle sitting on a stone ledge", category: "portrait" },
+  { src: "/images/gallery/gallery-chocolate-lab-closeup.jpg", alt: "Chocolate lab closeup portrait", category: "portrait" },
+  { src: "/images/gallery/gallery-sharpeis-nuzzling.jpg", alt: "Two Shar-Peis nuzzling each other", category: "portrait" },
 ] as const;
 
 // ─── Event Images ───
