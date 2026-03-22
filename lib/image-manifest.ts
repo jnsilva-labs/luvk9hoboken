@@ -50,13 +50,13 @@ export const teamImages = {
     {
       name: "Nyomie Perez",
       role: "Co-Founder",
-      src: "/images/team/luvk9/nyomie-perez.jpg",
+      src: "/images/team/luvk9/nyomie-perez.png",
       alt: "Nyomie Perez, Co-Founder of Luv K9",
     },
     {
       name: "Luis Perez",
       role: "Co-Founder",
-      src: "/images/team/luvk9/luis-perez.png",
+      src: "/images/team/luvk9/luis-perez.jpg",
       alt: "Luis Perez, Co-Founder of Luv K9",
     },
     {
