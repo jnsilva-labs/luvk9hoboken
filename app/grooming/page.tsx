@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import JsonLd, { serviceSchema, breadcrumbSchema } from "@/components/seo/JsonLd";
+import JsonLd, { serviceWithOfferSchema, breadcrumbSchema } from "@/components/seo/JsonLd";
 import GroomingContent from "./GroomingContent";
 
 export const metadata: Metadata = {
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 export default function GroomingPage() {
   return (
     <>
-      <JsonLd data={serviceSchema({ name: "Dog Grooming — Luv Kuts Hoboken", description: "Full-service dog grooming at two Hoboken, NJ locations. Bath & brush, breed-specific haircuts, nail trims, teeth cleaning, de-shedding, and express grooming by text.", url: "https://luvhoboken.com/grooming", priceRange: "$$" })} />
+      <JsonLd data={serviceWithOfferSchema({ name: "Dog Grooming — Luv Kuts Hoboken", description: "Full-service dog grooming at two Hoboken, NJ locations. Bath & brush, breed-specific haircuts, nail trims, teeth cleaning, de-shedding, and express grooming by text.", url: "https://luvhoboken.com/grooming", priceFrom: "$110", image: "https://luvhoboken.com/images/og-grooming.jpg" })} />
       <JsonLd data={breadcrumbSchema([{ name: "Home", url: "https://luvhoboken.com" }, { name: "Grooming", url: "https://luvhoboken.com/grooming" }])} />
       <GroomingContent />
     </>

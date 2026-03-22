@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import JsonLd, { serviceSchema, breadcrumbSchema } from "@/components/seo/JsonLd";
+import JsonLd, { serviceWithOfferSchema, breadcrumbSchema } from "@/components/seo/JsonLd";
 import WalkingContent from "./WalkingContent";
 
 export const metadata: Metadata = {
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 export default function WalkingPage() {
   return (
     <>
-      <JsonLd data={serviceSchema({ name: "Dog Walking in Hoboken, NJ", description: "Professional guided group dog walks through Hoboken's parks and waterfront. Structured exercise, socialization, and GPS-tracked routes. Rain or shine.", url: "https://luvhoboken.com/walking", priceRange: "$" })} />
+      <JsonLd data={serviceWithOfferSchema({ name: "Dog Walking in Hoboken, NJ", description: "Professional guided group dog walks through Hoboken's parks and waterfront. Structured exercise, socialization, and GPS-tracked routes. Rain or shine.", url: "https://luvhoboken.com/walking", priceFrom: "$30", image: "https://luvhoboken.com/images/og-walking.jpg" })} />
       <JsonLd data={breadcrumbSchema([{ name: "Home", url: "https://luvhoboken.com" }, { name: "Walking", url: "https://luvhoboken.com/walking" }])} />
       <WalkingContent />
     </>

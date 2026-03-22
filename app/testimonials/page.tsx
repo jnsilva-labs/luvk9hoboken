@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import JsonLd, { breadcrumbSchema } from "@/components/seo/JsonLd";
+import JsonLd, { breadcrumbSchema, reviewSchema } from "@/components/seo/JsonLd";
 import ScrollReveal from "@/components/animations/ScrollReveal";
 import SectionLabel from "@/components/ui/SectionLabel";
 import Button from "@/components/ui/Button";
@@ -41,6 +41,9 @@ export default function TestimonialsPage() {
   return (
     <>
       <JsonLd data={breadcrumbSchema([{ name: "Home", url: "https://luvhoboken.com" }, { name: "Testimonials", url: "https://luvhoboken.com/testimonials" }])} />
+      {reviewSchema(testimonials.map(t => ({ name: t.name, quote: t.quote, rating: t.rating, service: t.service }))).map((schema, i) => (
+        <JsonLd key={i} data={schema} />
+      ))}
       {/* Hero */}
       <section className="relative py-24 md:py-32 px-6 bg-gradient-to-br from-imperial via-void to-obsidian overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-t from-obsidian/30 via-transparent to-transparent" />

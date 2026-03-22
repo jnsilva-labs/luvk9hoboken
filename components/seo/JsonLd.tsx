@@ -225,6 +225,74 @@ export function breadcrumbSchema(
   };
 }
 
+// ─── Review Schema ───
+export function reviewSchema(
+  reviews: {
+    name: string;
+    quote: string;
+    rating: number;
+    service: string;
+  }[]
+) {
+  return reviews.map((r) => ({
+    "@context": "https://schema.org",
+    "@type": "Review",
+    reviewRating: {
+      "@type": "Rating",
+      ratingValue: r.rating.toString(),
+      bestRating: "5",
+    },
+    author: {
+      "@type": "Person",
+      name: r.name,
+    },
+    reviewBody: r.quote,
+    itemReviewed: {
+      "@type": "LocalBusiness",
+      "@id": "https://luvhoboken.com/#business",
+      name: "Luv K9",
+    },
+  }));
+}
+
+// ─── Service with Offer Schema ───
+export function serviceWithOfferSchema(service: {
+  name: string;
+  description: string;
+  url: string;
+  priceFrom: string;
+  image?: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: service.name,
+    description: service.description,
+    url: service.url,
+    provider: {
+      "@type": "LocalBusiness",
+      "@id": "https://luvhoboken.com/#business",
+      name: "Luv K9",
+    },
+    areaServed: {
+      "@type": "City",
+      name: "Hoboken",
+      containedInPlace: { "@type": "State", name: "New Jersey" },
+    },
+    ...(service.image && { image: service.image }),
+    offers: {
+      "@type": "Offer",
+      priceSpecification: {
+        "@type": "PriceSpecification",
+        price: service.priceFrom.replace("$", ""),
+        priceCurrency: "USD",
+        minPrice: service.priceFrom.replace("$", ""),
+      },
+      availability: "https://schema.org/InStock",
+    },
+  };
+}
+
 // ─── FAQ Schema ───
 export function faqSchema(
   questions: { question: string; answer: string }[]

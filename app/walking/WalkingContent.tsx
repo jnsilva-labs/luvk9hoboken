@@ -539,6 +539,35 @@ export default function WalkingContent() {
         </div>
       </section>
 
+      {/* ─── Related Services ─── */}
+      <section className="py-16 md:py-20 px-6 bg-obsidian">
+        <div className="max-w-4xl mx-auto">
+          <ScrollReveal>
+            <h2 className="font-display text-2xl md:text-3xl font-bold text-text-title mb-8 text-center">
+              Explore Our Other Services
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <a href="/playcare" className="group bg-imperial/50 border border-gold/10 rounded-2xl p-8 hover:border-gold/30 transition-all">
+                <h3 className="font-display text-xl font-semibold text-text-title group-hover:text-gold transition-colors mb-2">
+                  PlayCare Daycare
+                </h3>
+                <p className="font-body text-text-body text-sm">
+                  Supervised play, guided pack walks, photo updates &amp; free pickup/drop-off in Hoboken.
+                </p>
+              </a>
+              <a href="/grooming" className="group bg-imperial/50 border border-gold/10 rounded-2xl p-8 hover:border-gold/30 transition-all">
+                <h3 className="font-display text-xl font-semibold text-text-title group-hover:text-gold transition-colors mb-2">
+                  Grooming &amp; Spa
+                </h3>
+                <p className="font-body text-text-body text-sm">
+                  Full-service grooming at two Hoboken locations. Bath, haircut, nails, teeth &amp; more.
+                </p>
+              </a>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
       <Footer />
     </>
   );

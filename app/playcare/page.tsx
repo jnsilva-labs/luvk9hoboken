@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import JsonLd, { serviceSchema, breadcrumbSchema } from "@/components/seo/JsonLd";
+import JsonLd, { serviceWithOfferSchema, breadcrumbSchema } from "@/components/seo/JsonLd";
 import PlayCareContent from "./PlayCareContent";
 
 export const metadata: Metadata = {
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 export default function PlayCarePage() {
   return (
     <>
-      <JsonLd data={serviceSchema({ name: "PlayCare — Dog Daycare in Hoboken", description: "Supervised dog daycare with guided pack walks, structured play sessions, daily photo updates, and complimentary pickup & drop-off. Serving Hoboken, Jersey City, and Hudson County NJ.", url: "https://luvhoboken.com/playcare", priceRange: "$$" })} />
+      <JsonLd data={serviceWithOfferSchema({ name: "PlayCare — Dog Daycare in Hoboken", description: "Supervised dog daycare with guided pack walks, structured play sessions, daily photo updates, and complimentary pickup & drop-off. Serving Hoboken, Jersey City, and Hudson County NJ.", url: "https://luvhoboken.com/playcare", priceFrom: "$63", image: "https://luvhoboken.com/images/og-playcare.jpg" })} />
       <JsonLd data={breadcrumbSchema([{ name: "Home", url: "https://luvhoboken.com" }, { name: "PlayCare", url: "https://luvhoboken.com/playcare" }])} />
       <PlayCareContent />
     </>
