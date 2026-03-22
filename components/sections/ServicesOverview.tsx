@@ -5,7 +5,7 @@ import SectionLabel from "@/components/ui/SectionLabel";
 import ScrollReveal from "@/components/animations/ScrollReveal";
 import FloatingBones from "@/components/animations/FloatingBones";
 import Button from "@/components/ui/Button";
-import { business } from "@/lib/constants";
+import { business, services } from "@/lib/constants";
 
 // ─── Pricing Data ───
 
@@ -335,7 +335,7 @@ function GroomingCard() {
 
         <div className="mt-auto">
           <Button
-            href={business.bookingUrl}
+            href={services.find(s => s.slug === "grooming")!.bookingUrl}
             variant="primary"
             size="md"
             external

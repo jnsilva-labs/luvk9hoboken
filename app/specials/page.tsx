@@ -4,7 +4,7 @@ import ScrollReveal from "@/components/animations/ScrollReveal";
 import SectionLabel from "@/components/ui/SectionLabel";
 import Button from "@/components/ui/Button";
 import Footer from "@/components/layout/Footer";
-import { business } from "@/lib/constants";
+import { business, services } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "Deals & Specials — Dog Care Promotions in Hoboken | Luv K9",
@@ -26,7 +26,7 @@ const specials = [
     discount: "15% Off",
     terms: "Valid through April 30. Cannot be combined with other offers.",
     cta: "Book Grooming",
-    href: business.bookingUrl,
+    href: services.find(s => s.slug === "grooming")!.bookingUrl,
   },
   {
     title: "PlayCare First Timer",

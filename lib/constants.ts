@@ -128,7 +128,7 @@ export const services = [
     description:
       "Full-service pampering from nose to tail. Every visit includes bath, haircut, ear cleaning, teeth maintenance, and nail trim.",
     priceFrom: "$110",
-    bookingUrl: "https://booking.moego.pet/ol/luvk9",
+    bookingUrl: "https://booking.moego.pet/ol/LuvKuts/landing",
   },
   {
     slug: "walking",
