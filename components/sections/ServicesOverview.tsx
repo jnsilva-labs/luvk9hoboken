@@ -535,6 +535,10 @@ export default function ServicesOverview() {
               <span className="font-body text-xs text-text-muted">
                 Prices valid through 2027
               </span>
+              <span className="text-gold/20 hidden sm:inline">·</span>
+              <span className="font-body text-xs text-text-muted">
+                Cancellations under 24 hours will incur extra fees
+              </span>
             </div>
           </div>
         </ScrollReveal>

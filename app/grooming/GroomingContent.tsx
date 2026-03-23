@@ -375,6 +375,9 @@ export default function GroomingContent() {
                   </div>
                 ))}
               </div>
+              <p className="mt-4 font-body text-xs text-text-muted italic">
+                Cancellations under 24 hours will incur extra fees.
+              </p>
             </div>
           </ScrollReveal>
 
