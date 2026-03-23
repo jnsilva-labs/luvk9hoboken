@@ -6,6 +6,7 @@ import PawTrailCursor from "@/components/animations/PawTrailCursor";
 import Header from "@/components/layout/Header";
 import ClientLayout from "@/components/layout/ClientLayout";
 import JsonLd, { localBusinessSchema } from "@/components/seo/JsonLd";
+import { Analytics } from "@vercel/analytics/next";
 
 const BASE_URL = "https://luvhoboken.com";
 
@@ -138,6 +139,7 @@ export default function RootLayout({
             <main id="main-content">{children}</main>
           </ClientLayout>
         </LenisProvider>
+        <Analytics />
       </body>
     </html>
   );
