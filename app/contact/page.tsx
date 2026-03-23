@@ -9,7 +9,7 @@ import { business } from "@/lib/constants";
 export const metadata: Metadata = {
   title: "Contact Luv K9 — Locations, Hours & Phone | Hoboken, NJ",
   description:
-    "Reach Luv K9 in Hoboken, NJ. Two locations: 421 Washington St and 614 Jefferson St. Call 551-339-2415, email, or send a message about PlayCare, grooming, or dog walking.",
+    "Reach Luv K9 in Hoboken, NJ. Two locations: 421 Washington St and 614 Jefferson St. Call 551-225-9104, email, or send a message about PlayCare, grooming, or dog walking.",
   alternates: { canonical: "https://luvhoboken.com/contact" },
   openGraph: {
     title: "Contact Luv K9 Hoboken — Locations & Hours",
@@ -20,8 +20,8 @@ export const metadata: Metadata = {
 
 const hours = [
   { day: "Monday - Friday", time: "7:00 AM - 7:00 PM" },
-  { day: "Saturday", time: "8:00 AM - 5:00 PM" },
-  { day: "Sunday", time: "9:00 AM - 3:00 PM" },
+  { day: "Saturday", time: "10:00 AM - 4:00 PM" },
+  { day: "Sunday", time: "10:00 AM - 4:00 PM" },
 ];
 
 export default function ContactPage() {
@@ -71,7 +71,7 @@ export default function ContactPage() {
                   <div className="space-y-5">
                     {/* Phone */}
                     <a
-                      href={`tel:${business.phone.replace(/-/g, "")}`}
+                      href={`tel:${business.playcarePhone.replace(/-/g, "")}`}
                       className="flex items-center gap-4 group"
                     >
                       <div className="w-12 h-12 rounded-xl bg-gold/10 flex items-center justify-center flex-shrink-0 group-hover:bg-gold/20 transition-colors">
@@ -81,7 +81,7 @@ export default function ContactPage() {
                       </div>
                       <div>
                         <p className="font-display font-semibold text-text-title group-hover:text-gold transition-colors">
-                          {business.phone}
+                          {business.playcarePhone}
                         </p>
                         <p className="font-body text-sm text-text-body">Call or text us</p>
                       </div>
@@ -168,10 +168,10 @@ export default function ContactPage() {
                         {loc.address}
                       </p>
                       <a
-                        href={`tel:${business.phone.replace(/-/g, "")}`}
+                        href={`tel:${business.playcarePhone.replace(/-/g, "")}`}
                         className="font-body text-gold hover:text-gold/80 transition-colors font-medium"
                       >
-                        {business.phone}
+                        {business.playcarePhone}
                       </a>
                     </div>
                   </div>

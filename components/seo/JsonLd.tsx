@@ -99,14 +99,14 @@ export function localBusinessSchema() {
       {
         "@type": "OpeningHoursSpecification",
         dayOfWeek: "Saturday",
-        opens: "08:00",
-        closes: "17:00",
+        opens: "10:00",
+        closes: "16:00",
       },
       {
         "@type": "OpeningHoursSpecification",
         dayOfWeek: "Sunday",
-        opens: "09:00",
-        closes: "15:00",
+        opens: "10:00",
+        closes: "16:00",
       },
     ],
     sameAs: ["https://instagram.com/luvk9hoboken"],

@@ -282,7 +282,7 @@ export default function TeamContent() {
             </h2>
             <p className="font-body text-text-body text-lg mt-4 max-w-2xl mx-auto">
               Every member of the Luv K9 team shares one thing in common: an
-              unwavering love for dogs and a commitment to giving them the best
+              unwavering luv for dogs and a commitment to giving them the best
               care possible.
             </p>
           </ScrollReveal>
