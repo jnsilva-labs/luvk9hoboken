@@ -56,6 +56,7 @@ const boardingPricing = {
     { label: "Sat–Sun", checkIn: "12 PM", checkOut: "12 PM" },
   ],
   notes: [
+    "Exclusive to PlayCare and Walking clients",
     "Limited to 10 dogs — book in advance",
     "Boarding discounts exclusive to daycare clients",
     "Unbagged food charged $5/serving",
@@ -164,7 +165,7 @@ function WalkingCard() {
           </Button>
           <p className="text-xs text-text-muted text-center">
             Fill out our contact form or text us at{" "}
-            <a href={`tel:${business.phone.replace(/-/g, "")}`} className="text-gold hover:underline">{business.phone}</a>
+            <a href={`tel:${business.playcarePhone.replace(/-/g, "")}`} className="text-gold hover:underline">{business.playcarePhone}</a>
           </p>
         </div>
       </div>
@@ -258,7 +259,7 @@ function PlayCareCard() {
           </Button>
           <p className="text-xs text-text-muted text-center">
             Fill out our contact form or text us at{" "}
-            <a href={`tel:${business.phone.replace(/-/g, "")}`} className="text-gold hover:underline">{business.phone}</a>
+            <a href={`tel:${business.playcarePhone.replace(/-/g, "")}`} className="text-gold hover:underline">{business.playcarePhone}</a>
           </p>
         </div>
       </div>
@@ -446,7 +447,7 @@ function BoardingCard() {
           </Button>
           <p className="text-xs text-text-muted text-center">
             Fill out our contact form or text us at{" "}
-            <a href={`tel:${business.phone.replace(/-/g, "")}`} className="text-gold hover:underline">{business.phone}</a>
+            <a href={`tel:${business.playcarePhone.replace(/-/g, "")}`} className="text-gold hover:underline">{business.playcarePhone}</a>
           </p>
         </div>
       </div>
@@ -523,6 +524,10 @@ export default function ServicesOverview() {
             </div>
 
             <div className="mt-6 pt-4 border-t border-gold/5 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-center">
+              <span className="font-display text-xs font-semibold text-gold">
+                Luv K9 &amp; Luv Kuts
+              </span>
+              <span className="text-gold/20 hidden sm:inline">·</span>
               <span className="font-body text-xs text-text-muted">
                 Servicing Hoboken residents only
               </span>

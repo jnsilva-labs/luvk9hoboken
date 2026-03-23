@@ -25,8 +25,8 @@ export default function DogsOfTheCourt() {
       <div className="relative z-10 max-w-7xl mx-auto">
         {/* Header */}
         <ScrollReveal className="text-center mb-12 md:mb-16">
-          <SectionLabel>See the Joy</SectionLabel>
-          <h2 className="font-display text-3xl md:text-5xl font-bold gold-text mt-3">
+          <SectionLabel className="block mb-5">See the Joy</SectionLabel>
+          <h2 className="font-display text-3xl md:text-5xl font-bold gold-text">
             Life at Luv K9
           </h2>
           <p className="text-text-muted text-base md:text-lg mt-4 max-w-xl mx-auto">

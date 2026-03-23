@@ -34,9 +34,10 @@ const bathBrushPricing = [
 // ─── Additional Info ───
 const groomingNotes = [
   "De-matting: $2/min (severe matting $4/min)",
-  "Pickup & drop-off for Hoboken residents Tues–Fri",
+  "Pickup & drop-off included for full-service grooming (Hoboken, Tues–Fri)",
   "Required: valid rabies certificate + up-to-date vaccinations",
-  "Two locations: 421 Washington St (Luv Kuts) & 614 Jefferson St",
+  "Full-service grooming exclusively at 421 Washington St (Luv Kuts)",
+  "Express baths & nail trims at 614 Jefferson St (Luv K9) — no pickup/drop-off",
 ];
 
 // ─── FAQ Data ───
@@ -59,7 +60,7 @@ const faqItems = [
   {
     question: "Which location should I go to?",
     answer:
-      "Both our Luv Kuts location at 421 Washington Street and our 614 Jefferson Street location offer full grooming services. Choose whichever is most convenient for you, or book online and we'll confirm your spot.",
+      "Full-service grooming (haircuts, styling, bath & brush) is exclusively at our Luv Kuts location at 421 Washington St — pickup & drop-off included for Hoboken residents. Our 614 Jefferson St location (Luv K9) offers express baths and nail trims only, with no pickup/drop-off. Book online or text us and we'll confirm your spot.",
   },
 ];
 
@@ -137,7 +138,7 @@ export default function GroomingContent() {
             transition={{ duration: 0.5 }}
           >
             <span className="inline-block px-4 py-1.5 rounded-full bg-white/10 text-white/90 font-mono text-xs uppercase tracking-wider mb-6 backdrop-blur-sm border border-gold/20">
-              Two Hoboken Locations
+              Full-Service Grooming at Luv Kuts
             </span>
           </motion.div>
 
@@ -182,67 +183,93 @@ export default function GroomingContent() {
           <ScrollReveal className="text-center mb-12 md:mb-16">
             <SectionLabel>Our Locations</SectionLabel>
             <h2 className="font-display text-4xl md:text-5xl font-bold text-text-title mt-3">
-              Two Shops, One Standard
+              Two Shops, Two Vibes
             </h2>
             <p className="font-body text-text-body text-lg mt-4 max-w-2xl mx-auto">
-              Full-service grooming at two convenient Hoboken locations. Same
-              love, same quality, wherever you visit.
+              Full-service grooming with pickup &amp; drop-off at 421 Washington St (Luv Kuts).
+              Express baths &amp; nail trims at 614 Jefferson St (Luv K9).
             </p>
           </ScrollReveal>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-            {business.locations.map((location, index) => (
-              <ScrollReveal key={location.address} delay={index * 0.15}>
-                <motion.div
-                  className="group bg-imperial/50 rounded-2xl p-8 md:p-10 border border-gold/10 h-full"
-                  whileHover={{
-                    y: -4,
-                    boxShadow:
-                      "0 20px 40px -12px rgba(155, 89, 255, 0.15), 0 8px 20px -8px rgba(0, 0, 0, 0.3)",
-                  }}
-                  transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
-                >
-                  {/* Icon */}
-                  <div className="w-14 h-14 rounded-xl bg-plum/10 flex items-center justify-center mb-6 group-hover:bg-plum/15 transition-colors duration-300">
-                    <svg
-                      viewBox="0 0 48 48"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="w-8 h-8 text-plum"
-                    >
-                      <path d="M24 4v8" />
-                      <path d="M8 20h32v22H8z" />
-                      <path d="M8 20l16-8 16 8" />
-                      <path d="M20 42v-10h8v10" />
-                    </svg>
-                  </div>
-
-                  {/* Info */}
-                  <h3 className="font-display text-2xl font-bold text-text-title mb-2">
-                    {location.name}
-                  </h3>
-                  <p className="font-body text-text-body text-lg mb-6">
-                    {location.address}
-                  </p>
-
-                  {/* CTA */}
-                  <a
-                    href={`https://maps.google.com/?q=${encodeURIComponent(location.address)}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 font-display font-semibold text-gold hover:text-gold-light transition-colors text-sm group/link"
+            {business.locations.map((location, index) => {
+              const isLuvKuts = location.name === "Luv Kuts";
+              return (
+                <ScrollReveal key={location.address} delay={index * 0.15}>
+                  <motion.div
+                    className="group bg-imperial/50 rounded-2xl p-8 md:p-10 border border-gold/10 h-full"
+                    whileHover={{
+                      y: -4,
+                      boxShadow:
+                        "0 20px 40px -12px rgba(155, 89, 255, 0.15), 0 8px 20px -8px rgba(0, 0, 0, 0.3)",
+                    }}
+                    transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
                   >
-                    Get Directions
-                    <span className="inline-block transition-transform group-hover/link:translate-x-1">
-                      &rarr;
-                    </span>
-                  </a>
-                </motion.div>
-              </ScrollReveal>
-            ))}
+                    {/* Icon */}
+                    <div className="w-14 h-14 rounded-xl bg-plum/10 flex items-center justify-center mb-6 group-hover:bg-plum/15 transition-colors duration-300">
+                      <svg
+                        viewBox="0 0 48 48"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="w-8 h-8 text-plum"
+                      >
+                        <path d="M24 4v8" />
+                        <path d="M8 20h32v22H8z" />
+                        <path d="M8 20l16-8 16 8" />
+                        <path d="M20 42v-10h8v10" />
+                      </svg>
+                    </div>
+
+                    {/* Info */}
+                    <h3 className="font-display text-2xl font-bold text-text-title mb-2">
+                      {location.name}
+                    </h3>
+                    <p className="font-body text-text-body text-lg mb-1">
+                      {location.address}
+                    </p>
+
+                    {/* Service badge */}
+                    {isLuvKuts ? (
+                      <div className="mb-6">
+                        <span className="inline-block px-3 py-1 rounded-full bg-gold/15 text-gold font-mono text-xs uppercase tracking-wider">
+                          Full-Service Grooming
+                        </span>
+                        <p className="font-body text-text-body/70 text-sm mt-2">
+                          Haircuts, bath &amp; brush, styling, and more.
+                          <br />
+                          <span className="text-gold font-medium">Pickup &amp; drop-off included</span> for Hoboken residents (Tues&ndash;Fri).
+                        </p>
+                      </div>
+                    ) : (
+                      <div className="mb-6">
+                        <span className="inline-block px-3 py-1 rounded-full bg-plum/15 text-plum font-mono text-xs uppercase tracking-wider">
+                          Express Services Only
+                        </span>
+                        <p className="font-body text-text-body/70 text-sm mt-2">
+                          Express baths &amp; nail trims. No pickup/drop-off at this location.
+                        </p>
+                      </div>
+                    )}
+
+                    {/* CTA */}
+                    <a
+                      href={`https://maps.google.com/?q=${encodeURIComponent(location.address)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 font-display font-semibold text-gold hover:text-gold-light transition-colors text-sm group/link"
+                    >
+                      Get Directions
+                      <span className="inline-block transition-transform group-hover/link:translate-x-1">
+                        &rarr;
+                      </span>
+                    </a>
+                  </motion.div>
+                </ScrollReveal>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -382,13 +409,13 @@ export default function GroomingContent() {
               trims, touch-ups, and same-day appointments.
             </p>
             <Button
-              href={`sms:${business.expressGroomingPhone.replace(/[^0-9]/g, "")}`}
+              href={`sms:${business.playcarePhone.replace(/[^0-9]/g, "")}`}
               external
               variant="primary"
               size="lg"
               className="!bg-gold !text-obsidian hover:!bg-gold-light"
             >
-              Text {business.expressGroomingPhone}
+              Text {business.playcarePhone}
             </Button>
           </ScrollReveal>
         </div>
@@ -483,7 +510,7 @@ export default function GroomingContent() {
                 Book Online
               </Button>
               <Button
-                href={`sms:${business.expressGroomingPhone.replace(/[^0-9]/g, "")}`}
+                href={`sms:${business.playcarePhone.replace(/[^0-9]/g, "")}`}
                 external
                 variant="outline"
                 size="lg"

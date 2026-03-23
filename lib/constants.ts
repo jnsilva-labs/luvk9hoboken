@@ -88,22 +88,28 @@ export const navLinks = [
 // ─── Business Info ───
 export const business = {
   name: "Luv K9",
+  /** Main business phone — used for general inquiries */
   phone: "551-339-2415",
+  /** PlayCare, Walking, Boarding — 614 Jefferson St */
+  playcarePhone: "551-225-9104",
   email: "Luvk9hoboken@gmail.com",
   instagram: "@luvk9hoboken",
   instagramUrl: "https://instagram.com/luvk9hoboken",
   bookingUrl: "/contact",
-  expressGroomingPhone: "(551) 225-9104",
   locations: [
     {
       name: "Luv K9",
       address: "614 Jefferson St., Hoboken, NJ 07030",
+      phone: "551-225-9104",
       type: "playcare" as const,
+      services: "PlayCare, Dog Walking, Express Baths, Boarding",
     },
     {
       name: "Luv Kuts",
       address: "421 Washington St., Hoboken, NJ 07030",
+      phone: "551-339-2415",
       type: "grooming" as const,
+      services: "Full Service Grooming",
     },
   ],
 } as const;

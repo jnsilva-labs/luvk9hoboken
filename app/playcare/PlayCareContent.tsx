@@ -15,9 +15,9 @@ import { dogImages, graphicImages } from "@/lib/image-manifest";
 const steps = [
   {
     step: "01",
-    title: "Drop-Off",
+    title: "Pickup",
     description:
-      "Bring your pup in the morning. We offer complimentary pickup and drop-off within Hoboken for added convenience.",
+      "We come to you! Our team picks up your pup in the morning right from your door within Hoboken.",
     icon: (
       <svg
         viewBox="0 0 48 48"
@@ -81,9 +81,9 @@ const steps = [
   },
   {
     step: "04",
-    title: "Pickup",
+    title: "Drop-Off",
     description:
-      "Pick up a tired, happy pup at the end of the day. Or we can drop them off, bundled with love and probably some slobber.",
+      "We bring your tired, happy pup back home at the end of the day, bundled with love and probably some slobber.",
     icon: (
       <svg
         viewBox="0 0 48 48"
@@ -229,7 +229,7 @@ export default function PlayCareContent() {
             </Button>
             <p className="text-sm text-text-muted mt-3">
               Fill out our contact form or text us at{" "}
-              <a href={`tel:${business.phone.replace(/-/g, "")}`} className="text-gold hover:underline">{business.phone}</a>
+              <a href={`tel:${business.playcarePhone.replace(/-/g, "")}`} className="text-gold hover:underline">{business.playcarePhone}</a>
             </p>
           </motion.div>
         </div>
@@ -339,7 +339,7 @@ export default function PlayCareContent() {
                 transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] as const }}
               >
                 <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-gold text-obsidian font-mono text-xs uppercase tracking-wider">
-                  Signature Service
+                  Most Popular
                 </span>
                 <h3 className="font-display text-xl font-bold text-text-title mb-2 mt-4">
                   PlayCare
@@ -517,12 +517,6 @@ export default function PlayCareContent() {
                 From morning pack walks along the Hoboken waterfront to afternoon
                 play sessions, you&apos;ll never miss a moment.
               </p>
-              <div className="flex items-center gap-3 p-4 bg-plum/10 rounded-xl border border-plum/20">
-                <span className="text-plum text-xl">&#10003;</span>
-                <span className="font-body text-text-title text-sm">
-                  Complimentary pickup &amp; drop-off within Hoboken
-                </span>
-              </div>
             </ScrollReveal>
           </div>
         </div>
@@ -623,15 +617,33 @@ export default function PlayCareContent() {
                 Get Started with PlayCare
               </Button>
               <Button
-                href={`tel:${business.phone.replace(/-/g, "")}`}
+                href={`tel:${business.playcarePhone.replace(/-/g, "")}`}
                 variant="outline"
                 size="lg"
                 className="border-gold/30 text-text-body hover:bg-gold/10 hover:text-gold hover:border-gold/50"
               >
-                Call {business.phone}
+                Call {business.playcarePhone}
               </Button>
             </div>
-            <p className="mt-6 font-body text-sm text-text-muted">
+            <motion.p
+              className="mt-6 font-display text-lg text-gold font-semibold"
+              animate={{
+                scale: [1, 1.05, 1],
+                textShadow: [
+                  "0 0 0px rgba(212,175,55,0)",
+                  "0 0 12px rgba(212,175,55,0.6)",
+                  "0 0 0px rgba(212,175,55,0)",
+                ],
+              }}
+              transition={{
+                duration: 2.5,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            >
+              🐾 Ask about our Doggy Parade &amp; Puppy Program! 🐾
+            </motion.p>
+            <p className="mt-3 font-body text-sm text-text-muted">
               Have questions?{" "}
               <a href="/faq" className="text-gold hover:text-gold-light underline underline-offset-4 transition-colors">
                 Check our FAQ

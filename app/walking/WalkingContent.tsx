@@ -115,7 +115,6 @@ const pricingTiers = [
     name: "Weekday 60min",
     price: "$44",
     description: "60-minute guided pack walk, Mon–Fri",
-    popular: true,
   },
   {
     name: "Weekend 30min",
@@ -241,7 +240,7 @@ export default function WalkingContent() {
             </Button>
             <p className="text-sm text-text-muted mt-3">
               Fill out our contact form or text us at{" "}
-              <a href={`tel:${business.phone.replace(/-/g, "")}`} className="text-gold hover:underline">{business.phone}</a>
+              <a href={`tel:${business.playcarePhone.replace(/-/g, "")}`} className="text-gold hover:underline">{business.playcarePhone}</a>
             </p>
           </motion.div>
         </div>
@@ -378,11 +377,7 @@ export default function WalkingContent() {
             {pricingTiers.map((tier, index) => (
               <ScrollReveal key={tier.name} delay={index * 0.12}>
                 <motion.div
-                  className={`relative bg-imperial/50 rounded-2xl p-8 border shadow-sm h-full flex flex-col text-center ${
-                    tier.popular
-                      ? "border-gold ring-2 ring-gold/20"
-                      : "border-gold/10"
-                  }`}
+                  className="relative bg-imperial/50 rounded-2xl p-8 border border-gold/10 shadow-sm h-full flex flex-col text-center"
                   whileHover={{
                     y: -4,
                     boxShadow:
@@ -390,12 +385,6 @@ export default function WalkingContent() {
                   }}
                   transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] as const }}
                 >
-                  {tier.popular && (
-                    <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-gold text-obsidian font-mono text-xs uppercase tracking-wider">
-                      Most Popular
-                    </span>
-                  )}
-
                   <h3 className="font-display text-lg font-bold text-text-title mb-2 mt-2">
                     {tier.name}
                   </h3>
@@ -407,7 +396,7 @@ export default function WalkingContent() {
                   </p>
                   <Button
                     href="/contact"
-                    variant={tier.popular ? "primary" : "outline"}
+                    variant="outline"
                     size="sm"
                     className="w-full"
                   >
@@ -519,12 +508,12 @@ export default function WalkingContent() {
                 Get Started with Walking
               </Button>
               <Button
-                href={`tel:${business.phone.replace(/-/g, "")}`}
+                href={`tel:${business.playcarePhone.replace(/-/g, "")}`}
                 variant="outline"
                 size="lg"
                 className="border-gold/30 text-text-body hover:bg-gold/10 hover:text-gold hover:border-gold/50"
               >
-                Call {business.phone}
+                Call {business.playcarePhone}
               </Button>
             </div>
             <p className="mt-6 font-body text-sm text-text-muted">

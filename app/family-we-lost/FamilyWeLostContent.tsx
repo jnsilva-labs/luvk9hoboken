@@ -15,6 +15,8 @@ const memorials = [
   { name: "Coco", src: "/images/memorial/coco.jpg" },
   { name: "Thomas", src: "/images/memorial/thomas.jpg" },
   { name: "Mia", src: "/images/memorial/mia.jpg" },
+  { name: "Bishop", src: "/images/memorial/bishop.jpg" },
+  { name: "Zeus", src: "/images/memorial/zeus.jpg" },
 ];
 
 const gentleFadeIn = {

@@ -43,8 +43,8 @@ const bookingOptions = [
     title: "Express Grooming",
     description:
       "Quick touch-ups for your pup — nail trims, ear cleaning, teeth brushing, and more. No appointment needed, just text us to schedule.",
-    cta: `Text ${business.expressGroomingPhone}`,
-    href: `tel:${business.expressGroomingPhone.replace(/[^0-9]/g, "")}`,
+    cta: `Text ${business.playcarePhone}`,
+    href: `tel:${business.playcarePhone.replace(/[^0-9]/g, "")}`,
     external: true,
     iconPath:
       "M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z",
