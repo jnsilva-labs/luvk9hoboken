@@ -83,21 +83,12 @@ export const metadata: Metadata = {
     title: "Luv K9 — Hoboken's #1 Dog Daycare, Grooming & Walking",
     description:
       "Where dogs are family. PlayCare daycare, full-service grooming at two Hoboken locations, and guided pack walks. Serving Hoboken, Jersey City & all of Hudson County since 2019.",
-    images: [
-      {
-        url: `${BASE_URL}/images/og-image.jpg`,
-        width: 1200,
-        height: 630,
-        alt: "Luv K9 — Dog Daycare, Grooming & Walking in Hoboken, NJ",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Luv K9 — Dog Daycare, Grooming & Walking | Hoboken, NJ",
     description:
       "PlayCare daycare, grooming at 2 locations, and guided pack walks. Hoboken's trusted dog care since 2019.",
-    images: [`${BASE_URL}/images/og-image.jpg`],
   },
   robots: {
     index: true,
