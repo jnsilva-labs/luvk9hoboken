@@ -190,6 +190,7 @@ export default function WalkingContent() {
             alt="Luv K9 pack walk along Hoboken waterfront"
             fill
             className="object-cover"
+            sizes="100vw"
             priority
           />
           <div className="absolute inset-0 bg-obsidian/55" />

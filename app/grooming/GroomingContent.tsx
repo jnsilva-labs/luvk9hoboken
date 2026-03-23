@@ -124,6 +124,7 @@ export default function GroomingContent() {
             alt="Dogs getting groomed at Luv Kuts"
             fill
             className="object-cover"
+            sizes="100vw"
             priority
           />
           <div className="absolute inset-0 bg-obsidian/55" />

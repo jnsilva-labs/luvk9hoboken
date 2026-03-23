@@ -1,10 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import { Outfit, Inter, Space_Mono } from "next/font/google";
 import "./globals.css";
-import LenisProvider from "@/components/animations/LenisProvider";
-import PawTrailCursor from "@/components/animations/PawTrailCursor";
 import Header from "@/components/layout/Header";
 import ClientLayout from "@/components/layout/ClientLayout";
+import LazyAnimations from "@/components/layout/LazyAnimations";
 import JsonLd, { localBusinessSchema } from "@/components/seo/JsonLd";
 
 const BASE_URL = "https://luvhoboken.com";
@@ -131,13 +130,11 @@ export default function RootLayout({
         <a href="#main-content" className="skip-to-content">
           Skip to content
         </a>
-        <PawTrailCursor />
-        <LenisProvider>
-          <Header />
-          <ClientLayout>
-            <main id="main-content">{children}</main>
-          </ClientLayout>
-        </LenisProvider>
+        <LazyAnimations />
+        <Header />
+        <ClientLayout>
+          <main id="main-content">{children}</main>
+        </ClientLayout>
       </body>
     </html>
   );

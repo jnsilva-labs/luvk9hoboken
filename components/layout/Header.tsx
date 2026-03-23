@@ -53,6 +53,7 @@ export default function Header() {
               alt=""
               width={scrolled ? 40 : 52}
               height={scrolled ? 40 : 52}
+              sizes="52px"
               className="transition-all duration-300"
               priority
             />

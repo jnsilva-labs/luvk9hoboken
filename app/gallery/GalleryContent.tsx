@@ -262,7 +262,6 @@ function Lightbox({
                     fill
                     className="object-cover"
                     sizes="(max-width: 640px) 100vw, 512px"
-                    priority
                     onError={() => setImgError(true)}
                   />
                 )}

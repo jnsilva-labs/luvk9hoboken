@@ -2,10 +2,15 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useCallback, useEffect, useState } from "react";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import Button from "@/components/ui/Button";
-import InteractiveParticles from "@/components/animations/InteractiveParticles";
 import { easing, timing } from "@/lib/constants";
+
+const InteractiveParticles = dynamic(
+  () => import("@/components/animations/InteractiveParticles"),
+  { ssr: false }
+);
 
 // ─── Phase Type ───
 type HeroPhase = "loading" | "assembling" | "orbiting" | "revealing" | "interactive";
@@ -381,6 +386,7 @@ export default function Hero() {
             width={384}
             height={384}
             className="w-full h-full object-contain"
+            sizes="(max-width: 640px) 192px, (max-width: 768px) 240px, 288px"
             style={{
               mixBlendMode: "lighten",
               filter: "drop-shadow(0 0 40px rgba(212, 175, 55, 0.6))",
