@@ -38,7 +38,7 @@ export function localBusinessSchema() {
     logo: "https://luvhoboken.com/images/brand/logo-mobile.png",
     priceRange: "$$",
     currenciesAccepted: "USD",
-    paymentAccepted: "Cash, Credit Card, Debit Card",
+    paymentAccepted: "Cash, Credit Card, Debit Card, Apple Pay, PayPal",
     areaServed: [
       {
         "@type": "City",
