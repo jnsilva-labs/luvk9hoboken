@@ -40,9 +40,9 @@ const MAX_MESSAGE_LENGTH = 5000;
 const VALID_SERVICES = ["playcare", "grooming", "walking", "other", ""] as const;
 
 const serviceLabels: Record<string, string> = {
-  playcare: "PlayCare (The Grand Court)",
-  grooming: "Grooming (The Royal Bath)",
-  walking: "Dog Walking (The Imperial Patrol)",
+  playcare: "PlayCare",
+  grooming: "Grooming",
+  walking: "Dog Walking",
   other: "Other",
 };
 

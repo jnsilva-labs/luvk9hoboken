@@ -88,10 +88,10 @@ export const navLinks = [
 // ─── Business Info ───
 export const business = {
   name: "Luv K9",
-  /** Main business phone — used for general inquiries */
-  phone: "551-339-2415",
-  /** PlayCare, Walking, Boarding — 614 Jefferson St */
-  playcarePhone: "551-225-9104",
+  /** Main phone — PlayCare, Walking, Boarding, general inquiries (614 Jefferson St) */
+  phone: "551-225-9104",
+  /** Grooming phone — Luv Kuts (421 Washington St) */
+  groomingPhone: "551-339-2415",
   email: "Luvk9hoboken@gmail.com",
   instagram: "@luvk9hoboken",
   instagramUrl: "https://instagram.com/luvk9hoboken",

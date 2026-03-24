@@ -413,13 +413,13 @@ export default function GroomingContent() {
               trims, touch-ups, and same-day appointments.
             </p>
             <Button
-              href={`sms:${business.playcarePhone.replace(/[^0-9]/g, "")}`}
+              href={`sms:${business.groomingPhone.replace(/[^0-9]/g, "")}`}
               external
               variant="primary"
               size="lg"
               className="!bg-gold !text-obsidian hover:!bg-gold-light"
             >
-              Text {business.playcarePhone}
+              Text {business.groomingPhone}
             </Button>
           </ScrollReveal>
         </div>
@@ -514,7 +514,7 @@ export default function GroomingContent() {
                 Book Online
               </Button>
               <Button
-                href={`sms:${business.playcarePhone.replace(/[^0-9]/g, "")}`}
+                href={`sms:${business.groomingPhone.replace(/[^0-9]/g, "")}`}
                 external
                 variant="outline"
                 size="lg"

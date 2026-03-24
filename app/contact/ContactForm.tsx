@@ -231,7 +231,7 @@ export default function ContactForm() {
                 <option value="">Select a service</option>
                 {services.map((s) => (
                   <option key={s.slug} value={s.slug}>
-                    {s.name}
+                    {s.subtitle}
                   </option>
                 ))}
                 <option value="other">Other</option>

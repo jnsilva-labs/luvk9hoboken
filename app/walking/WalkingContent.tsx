@@ -241,7 +241,7 @@ export default function WalkingContent() {
             </Button>
             <p className="text-sm text-text-muted mt-3">
               Fill out our contact form or text us at{" "}
-              <a href={`tel:${business.playcarePhone.replace(/-/g, "")}`} className="text-gold hover:underline">{business.playcarePhone}</a>
+              <a href={`tel:${business.phone.replace(/-/g, "")}`} className="text-gold hover:underline">{business.phone}</a>
             </p>
           </motion.div>
         </div>
@@ -509,12 +509,12 @@ export default function WalkingContent() {
                 Get Started with Walking
               </Button>
               <Button
-                href={`tel:${business.playcarePhone.replace(/-/g, "")}`}
+                href={`tel:${business.phone.replace(/-/g, "")}`}
                 variant="outline"
                 size="lg"
                 className="border-gold/30 text-text-body hover:bg-gold/10 hover:text-gold hover:border-gold/50"
               >
-                Call {business.playcarePhone}
+                Call {business.phone}
               </Button>
             </div>
             <p className="mt-6 font-body text-sm text-text-muted">

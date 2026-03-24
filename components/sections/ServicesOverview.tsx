@@ -165,7 +165,7 @@ function WalkingCard() {
           </Button>
           <p className="text-xs text-text-muted text-center">
             Fill out our contact form or text us at{" "}
-            <a href={`tel:${business.playcarePhone.replace(/-/g, "")}`} className="text-gold hover:underline">{business.playcarePhone}</a>
+            <a href={`tel:${business.phone.replace(/-/g, "")}`} className="text-gold hover:underline">{business.phone}</a>
           </p>
         </div>
       </div>
@@ -259,7 +259,7 @@ function PlayCareCard() {
           </Button>
           <p className="text-xs text-text-muted text-center">
             Fill out our contact form or text us at{" "}
-            <a href={`tel:${business.playcarePhone.replace(/-/g, "")}`} className="text-gold hover:underline">{business.playcarePhone}</a>
+            <a href={`tel:${business.phone.replace(/-/g, "")}`} className="text-gold hover:underline">{business.phone}</a>
           </p>
         </div>
       </div>
@@ -447,7 +447,7 @@ function BoardingCard() {
           </Button>
           <p className="text-xs text-text-muted text-center">
             Fill out our contact form or text us at{" "}
-            <a href={`tel:${business.playcarePhone.replace(/-/g, "")}`} className="text-gold hover:underline">{business.playcarePhone}</a>
+            <a href={`tel:${business.phone.replace(/-/g, "")}`} className="text-gold hover:underline">{business.phone}</a>
           </p>
         </div>
       </div>

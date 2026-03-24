@@ -71,7 +71,7 @@ export default function ContactPage() {
                   <div className="space-y-5">
                     {/* Phone */}
                     <a
-                      href={`tel:${business.playcarePhone.replace(/-/g, "")}`}
+                      href={`tel:${business.phone.replace(/-/g, "")}`}
                       className="flex items-center gap-4 group"
                     >
                       <div className="w-12 h-12 rounded-xl bg-gold/10 flex items-center justify-center flex-shrink-0 group-hover:bg-gold/20 transition-colors">
@@ -81,7 +81,7 @@ export default function ContactPage() {
                       </div>
                       <div>
                         <p className="font-display font-semibold text-text-title group-hover:text-gold transition-colors">
-                          {business.playcarePhone}
+                          {business.phone}
                         </p>
                         <p className="font-body text-sm text-text-body">Call or text us</p>
                       </div>
@@ -168,10 +168,10 @@ export default function ContactPage() {
                         {loc.address}
                       </p>
                       <a
-                        href={`tel:${business.playcarePhone.replace(/-/g, "")}`}
+                        href={`tel:${business.phone.replace(/-/g, "")}`}
                         className="font-body text-gold hover:text-gold/80 transition-colors font-medium"
                       >
-                        {business.playcarePhone}
+                        {business.phone}
                       </a>
                     </div>
                   </div>
