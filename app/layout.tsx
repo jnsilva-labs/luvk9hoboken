@@ -5,6 +5,7 @@ import Header from "@/components/layout/Header";
 import ClientLayout from "@/components/layout/ClientLayout";
 import LazyAnimations from "@/components/layout/LazyAnimations";
 import JsonLd, { localBusinessSchema } from "@/components/seo/JsonLd";
+import { Analytics } from "@vercel/analytics/next";
 
 const BASE_URL = "https://luvhoboken.com";
 
@@ -135,6 +136,7 @@ export default function RootLayout({
         <ClientLayout>
           <main id="main-content">{children}</main>
         </ClientLayout>
+        <Analytics />
       </body>
     </html>
   );
